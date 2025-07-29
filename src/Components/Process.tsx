@@ -3,7 +3,7 @@ import { useState } from "react";
 import Medias from "../assets/Medias.png";
 
 const SignatureProcess = () => {
-  const [openAccordion, setOpenAccordion] = useState(null);
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
 
   const processSteps = [
     {
@@ -36,7 +36,8 @@ const SignatureProcess = () => {
     },
   ];
 
-  const toggleAccordion = (index) => {
+  // Explicitly type index as number
+  const toggleAccordion = (index: number) => {
     setOpenAccordion(openAccordion === index ? null : index);
   };
 
@@ -45,7 +46,7 @@ const SignatureProcess = () => {
       {/* Vertical lines pattern */}
       <div className="absolute inset-0">
         <div className="h-full w-full opacity-20">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 20 }).map((_, i: number) => (
             <div
               key={i}
               className="absolute top-0 bottom-0 w-px bg-white"
@@ -55,7 +56,7 @@ const SignatureProcess = () => {
         </div>
       </div>
 
-      <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto px-6 py-16">
+      <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto py-16">
         {/* Header Section */}
         <div className="mb-16">
           <div className="flex items-center mb-4">
@@ -71,7 +72,7 @@ const SignatureProcess = () => {
 
         {/* Process Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          {processSteps.map((step, index) => (
+          {processSteps.map((step, index: number) => (
             <div
               key={index}
               className="bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] rounded-2xl p-8 border border-white"
@@ -93,7 +94,7 @@ const SignatureProcess = () => {
 
         {/* Accordion Section */}
         <div className="max-w4xl mx-auto">
-          {accordionItems.map((item, index) => (
+          {accordionItems.map((item, index: number) => (
             <div
               key={index}
               className="border-b border-white/20 firstborder-b first:border-b-4"

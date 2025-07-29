@@ -3,8 +3,11 @@ import Media from "../assets/Media.png";
 import Frame from "../assets/Frame.png";
 
 const Expertise = () => {
-  const [activeAccordion, setActiveAccordion] = useState("Design");
-  const toggleAccordion = (item) => {
+  const [activeAccordion, setActiveAccordion] = useState<string | null>(
+    "Design"
+  );
+
+  const toggleAccordion = (item: string) => {
     setActiveAccordion(activeAccordion === item ? null : item);
   };
 
@@ -206,7 +209,7 @@ const Expertise = () => {
 
         {/* Accordion Section */}
         <div className="mx-auto">
-          {accordionItems.map((item, index) => (
+          {accordionItems.map((item) => (
             <div
               key={item.title}
               className="border-b border-purple-400 last:border-b"
