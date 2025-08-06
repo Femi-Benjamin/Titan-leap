@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Media from "../assets/Media.png";
-import Content from "../assets/Content.png";
+import content from "../assets/content.png";
 import Frame from "../assets/Frame.png";
 
 const Expertise = () => {
@@ -164,7 +164,7 @@ const Expertise = () => {
               {/* Default State */}
               <div className="group-hover:opacity-0 transition-opacity duration-700">
                 <div className="flex justify-center mb-6">
-                  <img className="" src={Content} alt="Frame" />
+                  <img className="" src={content} alt="Frame" />
                 </div>
                 <h3 className="text-white text-xl font-bold mb24">
                   Content Creation
