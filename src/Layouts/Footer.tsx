@@ -215,7 +215,7 @@ const Footer = () => {
         {/* Bottom section */}
         <div className="flex justify-between items-center">
           {/* Contact info */}
-          <div className="text-gray-200 flex pl-40 items-center">
+          <div className="text-gray-200 flex md:pl-40 items-center">
             <span>+1 (415) 655-1002</span>
             <span className="mx-3">|</span>
             <span>830 Stewart Drive, #212, Sunnyvale, CA, USA, 94085</span>
