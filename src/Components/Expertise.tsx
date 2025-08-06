@@ -1,38 +1,139 @@
 import { useState } from "react";
 import Media from "../assets/Media.png";
+import Content from "../assets/Content.png";
 import Frame from "../assets/Frame.png";
 
 const Expertise = () => {
   const [activeAccordion, setActiveAccordion] = useState<string | null>(
     "Design"
   );
+  const [hoveredCard, setHoveredCard] = useState<string | null>(
+    "Content Creation"
+  );
 
   const toggleAccordion = (item: string) => {
     setActiveAccordion(activeAccordion === item ? null : item);
   };
 
-  const accordionItems = [
-    {
-      title: "Design",
-      content:
-        "Our design team creates stunning visual identities, logos, and brand materials that capture your unique essence and resonate with your target audience.",
-    },
-    {
-      title: "Video Edits",
-      content:
-        "Professional video editing services including color correction, audio enhancement, transitions, and effects to create compelling visual stories.",
-    },
-    {
-      title: "Motion Graphics and Explainer Videos",
-      content:
-        "Dynamic motion graphics and animated explainer videos that simplify complex concepts and engage your audience effectively.",
-    },
-    {
-      title: "3D Product Design and Animation",
-      content:
-        "Cutting-edge 3D modeling, product visualization, and animation services that bring your products to life in stunning detail.",
-    },
-  ];
+  const handleCardHover = (cardName: string) => {
+    setHoveredCard(cardName);
+    // Reset accordion to first item when switching cards
+    const accordionSets = getAccordionItems(cardName);
+    if (accordionSets.length > 0) {
+      setActiveAccordion(accordionSets[0].title);
+    }
+  };
+
+  const handleCardLeave = () => {
+    // Keep the last hovered card's accordion visible
+  };
+
+  const getAccordionItems = (cardType: string) => {
+    switch (cardType) {
+      case "Content Creation":
+        return [
+          {
+            title: "Design",
+            content:
+              "Our design team creates stunning visual identities, logos, and brand materials that capture your unique essence and resonate with your target audience.",
+          },
+          {
+            title: "Video Edits",
+            content:
+              "Professional video editing services including color correction, audio enhancement, transitions, and effects to create compelling visual stories.",
+          },
+          {
+            title: "Motion Graphics and Explainer Videos",
+            content:
+              "Dynamic motion graphics and animated explainer videos that simplify complex concepts and engage your audience effectively.",
+          },
+          {
+            title: "3D Product Design and Animation",
+            content:
+              "Cutting-edge 3D modeling, product visualization, and animation services that bring your products to life in stunning detail.",
+          },
+        ];
+
+      case "Social Media Management":
+        return [
+          {
+            title: "Content Strategy & Planning",
+            content:
+              "Comprehensive social media strategies tailored to your brand, including content calendars, posting schedules, and audience engagement tactics.",
+          },
+          {
+            title: "Community Management",
+            content:
+              "Active community engagement, responding to comments and messages, building relationships with your followers, and fostering brand loyalty.",
+          },
+          {
+            title: "Social Media Analytics",
+            content:
+              "In-depth performance tracking, audience insights, engagement metrics analysis, and monthly reporting to optimize your social presence.",
+          },
+          {
+            title: "Influencer Partnerships",
+            content:
+              "Strategic influencer collaborations, partnership management, and campaign coordination to expand your reach and credibility.",
+          },
+        ];
+
+      case "Ads & Search Engine":
+        return [
+          {
+            title: "Google Ads Management",
+            content:
+              "Strategic Google Ads campaigns including search, display, and shopping ads optimized for maximum ROI and conversion rates.",
+          },
+          {
+            title: "Search Engine Optimization",
+            content:
+              "Comprehensive SEO strategies including keyword research, on-page optimization, technical SEO, and link building to improve organic rankings.",
+          },
+          {
+            title: "Social Media Advertising",
+            content:
+              "Targeted advertising campaigns across Facebook, Instagram, LinkedIn, and other platforms to reach your ideal customers effectively.",
+          },
+          {
+            title: "Performance Analytics & Reporting",
+            content:
+              "Detailed campaign performance tracking, A/B testing, conversion optimization, and comprehensive reporting for data-driven decisions.",
+          },
+        ];
+
+      case "AI Automation":
+        return [
+          {
+            title: "Chatbot Development",
+            content:
+              "Intelligent chatbots for customer service, lead generation, and sales support that provide 24/7 automated assistance to your customers.",
+          },
+          {
+            title: "Email Marketing Automation",
+            content:
+              "Smart email sequences, drip campaigns, and automated nurturing workflows that convert leads into customers while you sleep.",
+          },
+          {
+            title: "CRM Integration & Automation",
+            content:
+              "Seamless CRM integration with automated lead scoring, data entry, follow-up sequences, and customer journey optimization.",
+          },
+          {
+            title: "AI-Powered Analytics",
+            content:
+              "Advanced analytics using machine learning to predict customer behavior, optimize campaigns, and provide actionable business insights.",
+          },
+        ];
+
+      default:
+        return [];
+    }
+  };
+
+  const currentAccordionItems = getAccordionItems(
+    hoveredCard || "Content Creation"
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] py-8">
@@ -56,12 +157,14 @@ const Expertise = () => {
           <div
             className="group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
           hover:from-[#FED65E] hover:to-[#FED65E] transition-all"
+            onMouseEnter={() => handleCardHover("Content Creation")}
+            onMouseLeave={handleCardLeave}
           >
             <div className="rounded-2xl p-6 text-center relative h-full bg-[#4C12BF]">
               {/* Default State */}
               <div className="group-hover:opacity-0 transition-opacity duration-700">
                 <div className="flex justify-center mb-6">
-                  <img className="" src={Frame} alt="Frame" />
+                  <img className="" src={Content} alt="Frame" />
                 </div>
                 <h3 className="text-white text-xl font-bold mb24">
                   Content Creation
@@ -94,6 +197,8 @@ const Expertise = () => {
           <div
             className="group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
           hover:from-[#FED65E] hover:to-[#FED65E] transition-all"
+            onMouseEnter={() => handleCardHover("Social Media Management")}
+            onMouseLeave={handleCardLeave}
           >
             <div className="rounded-2xl p-6 text-center relative h-full bg-[#4C12BF]">
               {/* Default State */}
@@ -119,8 +224,8 @@ const Expertise = () => {
                   Social Media management
                 </h3>
                 <p className="text-white text-left text-sm mb-6 leading-relaxed">
-                  Engaging content that converts, we create content that
-                  resonates with your audience.
+                  Strategic social media management that builds communities and
+                  drives engagement across all platforms.
                 </p>
                 <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors">
                   Let's Talk
@@ -133,6 +238,8 @@ const Expertise = () => {
           <div
             className="group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
           hover:from-[#FED65E] hover:to-[#FED65E] transition-all"
+            onMouseEnter={() => handleCardHover("Ads & Search Engine")}
+            onMouseLeave={handleCardLeave}
           >
             <div className="rounded-2xl p-6 text-center relative h-full bg-[#4C12BF]">
               {/* Default State */}
@@ -158,8 +265,8 @@ const Expertise = () => {
                   Ads & Search Engine
                 </h3>
                 <p className="text-white text-left text-sm mb-6 leading-relaxed">
-                  Engaging content that converts, we create content that
-                  resonates with your audience.
+                  Data-driven advertising and SEO strategies that maximize your
+                  online visibility and ROI.
                 </p>
                 <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors">
                   Let's Talk
@@ -172,6 +279,8 @@ const Expertise = () => {
           <div
             className="group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
           hover:from-[#FED65E] hover:to-[#FED65E] transition-all"
+            onMouseEnter={() => handleCardHover("AI Automation")}
+            onMouseLeave={handleCardLeave}
           >
             <div className="rounded-2xl p-6 text-center relative h-full bg-[#4C12BF]">
               {/* Default State */}
@@ -196,8 +305,8 @@ const Expertise = () => {
                   AI Automation
                 </h3>
                 <p className="text-white text-left text-sm mb-6 leading-relaxed">
-                  Engaging content that converts, we create content that
-                  resonates with your audience.
+                  Smart automation solutions that streamline your processes and
+                  enhance customer experiences.
                 </p>
                 <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors">
                   Let's Talk
@@ -207,9 +316,14 @@ const Expertise = () => {
           </div>
         </div>
 
-        {/* Accordion Section */}
+        {/* Dynamic Accordion Section */}
         <div className="mx-auto">
-          {accordionItems.map((item) => (
+          <div className="mb-6">
+            {/* <h2 className="text-white text-2xl font-bold">
+              {hoveredCard || "Content Creation"} Services
+            </h2> */}
+          </div>
+          {currentAccordionItems.map((item) => (
             <div
               key={item.title}
               className="border-b border-purple-400 last:border-b"
@@ -228,7 +342,7 @@ const Expertise = () => {
                   {item.title}
                 </span>
                 <div
-                  className={`transform transition-transform duration-200 ${
+                  className={`transform transition-transform duration-300 ${
                     activeAccordion === item.title ? "rotate-45" : ""
                   }`}
                 >

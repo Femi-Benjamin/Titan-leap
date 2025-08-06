@@ -5,7 +5,7 @@ import Twitter from "../assets/Twitter.svg";
 const Footer = () => {
   return (
     <footer className="bg-[#4C12BF] text-white px-12 py-16">
-      <div className="max-w7xl mx-auto">
+      <div className="mx-auto">
         {/* Main footer content */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mb-16 md:pl-20">
           {/* Our services */}
@@ -215,14 +215,13 @@ const Footer = () => {
         {/* Bottom section */}
         <div className="flex justify-between items-center">
           {/* Contact info */}
-          <div className="text-gray-200">
+          <div className="text-gray-200 flex pl-40 items-center">
             <span>+1 (415) 655-1002</span>
             <span className="mx-3">|</span>
             <span>830 Stewart Drive, #212, Sunnyvale, CA, USA, 94085</span>
-          </div>
 
           {/* Social icons and copyright */}
-          <div className="flex items-center space-x-6">
+          <div className="flex justify-center items-center space-x-6 pl-10">
             {/* Social icons */}
             <div className="flex space-x-4">
               {/* LinkedIn */}
@@ -248,9 +247,10 @@ const Footer = () => {
               </a>
             </div>
           </div>
+          </div>
 
           {/* Copyright */}
-          <div className="text-gray-200">
+          <div className="text-gray-200 flex">
             <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>

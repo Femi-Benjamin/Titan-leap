@@ -25,6 +25,7 @@ const PricingPage: React.FC = () => {
         "Animated Texts",
         "Social Media Cuts",
         "100 short-form videos",
+        "1 Iman Gadzi Style Edits",
         "(Reels, TikToks, Shorts)",
       ],
       deliverables: 100,
@@ -65,8 +66,12 @@ const PricingPage: React.FC = () => {
     setSelectedPlan(planKey);
   };
 
-  const getSelectedPlanAnnualTotal = () => {
-    return plans[selectedPlan].annualPrice;
+  const getSelectedPlanTotal = () => {
+    if (billingType === "Annual") {
+      return plans[selectedPlan].annualPrice;
+    } else {
+      return plans[selectedPlan].monthlyPrice;
+    }
   };
 
   return (
@@ -86,23 +91,23 @@ const PricingPage: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Toggle */}
         <div className="text-center mb-12">
-          <div className="inline-flex bgwhite/20 bg-[#4C12BF] rounded-full p-1 backdrop-blur-sm">
+          <div className="inline-flex bg-[#4C12BF] rounded-2xl p-1 backdrop-blur-sm border font-bold">
             <button
               onClick={() => setBillingType("Annual")}
-              className={`px-6 py-2 rounded-full transition-all ${
+              className={`px-6 py-2 rounded-2xl transition-all ${
                 billingType === "Annual"
                   ? "bg-white text-purple-700 font-medium"
-                  : "text-white hover:bg-white/10"
+                  : "text-white"
               }`}
             >
               Annual
             </button>
             <button
               onClick={() => setBillingType("Monthly")}
-              className={`px-6 py-2 rounded-full transition-all ${
+              className={`px-6 py-2 rounded-2xl transition-all ${
                 billingType === "Monthly"
                   ? "bg-white text-purple-700 font-medium"
-                  : "text-white hover:bg-white/10"
+                  : "text-white "
               }`}
             >
               Monthly
@@ -116,7 +121,7 @@ const PricingPage: React.FC = () => {
             <div
               key={key}
               onClick={() => handlePlanClick(key)}
-              className={`relative bg-[#4C12BF] backdrop-blursm rounded-2xl p-8 cursor-pointer transition-all duration-300 
+              className={`relative bg-[#4C12BF] backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition-all duration-300 
                 hover:bg-gradient-to-t from-[#160043] to-[#4C12BF] hover:scale-105 hover:shadow-2xl ${
                   selectedPlan === key
                     ? "ring-2 ring-yellow-400 bg-gradient-to-t from-[#160043] to-[#4C12BF]"
@@ -154,11 +159,16 @@ const PricingPage: React.FC = () => {
 
               <div className="mb-6">
                 <span className="text-4xl font-bold text-yellow-400">
-                  ${plan.monthlyPrice.toLocaleString()}
+                  $
+                  {billingType === "Monthly"
+                    ? plan.monthlyPrice.toLocaleString()
+                    : plan.monthlyPrice.toLocaleString()}
                 </span>
                 <span className="text-lg ml-2">/month</span>
                 <div className="text-sm text-white/80 mt-1">
-                  ${plan.annualPrice.toLocaleString()} billed annually
+                  {billingType === "Annual"
+                    ? `$${plan.annualPrice.toLocaleString()} billed annually`
+                    : `$${plan.monthlyPrice.toLocaleString()} billed monthly`}
                 </div>
               </div>
 
@@ -170,7 +180,7 @@ const PricingPage: React.FC = () => {
                     ) : (
                       <>
                         <svg
-                          className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0"
+                          className="w-5 h-5 text-[#FFFFFF] mr-3 mt-0.5 flex-shrink-0"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -203,12 +213,16 @@ const PricingPage: React.FC = () => {
         <div className="flex items-center justify-evenly pb-4 text-lg ">
           <span className="font-medium">{selectedPlan}</span>
           <div>
-            <span className="text-3xl font-bold">
-              $ {getSelectedPlanAnnualTotal().toLocaleString()}
+            <span className="md:text-3xl text-xl font-bold">
+              $ {getSelectedPlanTotal().toLocaleString()}
             </span>
-            <span className="font-medium">/year</span>
+            <span className="font-medium">
+              /{billingType === "Annual" ? "year" : "month"}
+            </span>
           </div>
-          <span className="text-white font-medium">Billed Annually</span>
+          <span className="text-white font-medium">
+            Billed {billingType === "Annual" ? "Annually" : "Monthly"}
+          </span>
         </div>
 
         {/* Subscribe Button */}

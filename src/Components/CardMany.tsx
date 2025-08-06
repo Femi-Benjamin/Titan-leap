@@ -64,15 +64,24 @@ export default function CardMany() {
           <div>
             <h3 className="font-semibold">{current.name}</h3>
             <p className="text-sm text-gray-600">{current.position}</p>
-          </div>
-        </div>
-        <div className="pt-4">
           <p className="text-orange-500 font-semibold uppercase tracking-wider">
             {current.company}
           </p>
+          </div>
         </div>
       </div>
-      <div className="flex justify-end space-x-2 mt-6">
+      <div className="flex justify-center space-x-2 space-y-40 mt-4">
+        {testimonials.map((_, index) => (
+          <div
+            key={index}
+            className={`w-2 h-2 rounded-full transition-colors ${
+              index === currentIndex ? "bg-orange500" : "bg-gray300"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="flex justify-center space-x-2 mt-6">
         <button
           onClick={prevTestimonial}
           className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -86,16 +95,9 @@ export default function CardMany() {
           <ArrowRight className="w-6 h-6 text-gray-600" />
         </button>
       </div>
-      <div className="flex justify-center space-x-2 mt-4">
-        {testimonials.map((_, index) => (
-          <div
-            key={index}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentIndex ? "bg-orange-500" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
+
+
+
     </div>
   );
 }
