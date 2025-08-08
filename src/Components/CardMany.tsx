@@ -54,7 +54,7 @@ export default function CardMany() {
   return (
     <div className="max-w-md mx-auto bg-[#F7F7F9] p-8 rounded-3xl h-[671px]">
       <div className="space-y-6">
-        <p className="text-xl font-semibold leading-relaxed">{current.text}</p>
+        <p className="text-xl font-semibold font-Inter leading-relaxed">{current.text}</p>
         <div className="flex items-center space-x-4">
           <img
             src={current.avatar}

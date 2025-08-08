@@ -2,7 +2,7 @@ export default function ContactForm() {
   return (
     <div id="contact">
       <div className="bg-[#4C12BF] p-8 rounded-3xl max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-white mb-8">
+        <h1 className="text-4xl font-bold text-white mb-8 font-Inter">
           Let's build something great together.
         </h1>
         <form className="space-y-6">

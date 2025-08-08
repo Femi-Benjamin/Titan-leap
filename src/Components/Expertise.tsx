@@ -146,13 +146,13 @@ const Expertise = () => {
               OUR EXPERTISE
             </span>
           </div>
-          <h1 className="text-white text-xl md:text-5xl xl:text-6xl font-bold leading-tight">
+          <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo">
             Comprehensive marketing solutions for growth
           </h1>
         </div>
 
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:gap-16 gap-6 mb-16">
           {/* Content Creation Card */}
           <div
             className="group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
@@ -224,7 +224,7 @@ const Expertise = () => {
                   Social Media management
                 </h3>
                 <p className="text-white text-left text-sm mb-6 leading-relaxed">
-                  Strategic social media management that builds communities and
+                  Strategic social media management that builds communities,
                   drives engagement across all platforms.
                 </p>
                 <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors">

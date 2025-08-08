@@ -84,7 +84,7 @@ const PricingPage: React.FC = () => {
             Pricing or Offers
           </span>
         </div>
-        <h1 className="text-xl md:text-5xl xl:text-6xl font-bold text-[#FFFFFF] mb-8 text-left">
+        <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] mb-8 text-left">
           Best things are premium
         </h1>
       </div>
