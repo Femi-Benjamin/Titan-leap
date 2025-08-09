@@ -27,7 +27,7 @@ export default function VideoHero() {
         </video>
       </div>
       {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-400 via-transparent to-transparent z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-100 via-transparent to-transparent z-10"></div>
 
       {/* Content */}
       <div className="relative z-20 flex flex-col justify-end min-h-screen pb-8 md:pb-16 lg:pb-24 px-8 md:px-16 lg:px-24">
