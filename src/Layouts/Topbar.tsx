@@ -20,7 +20,7 @@ export default function Topbar() {
 
   return (
     <div className="relative">
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-white/20 shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur shado">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[65px]">
             {/* Logo */}
@@ -98,7 +98,7 @@ export default function Topbar() {
 
         {/* Mobile Navigation - Positioned absolutely to not affect layout */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 backdrop-blur-md bg-white/90 border-t border-white/20 shadow-lg z-40 transition-all duration-300 ease-in-out ${
+          className={`md:hidden absolute top-full left-0 right-0 backdrop-blur bg-white/90 border-t border-white/20 shadow-lg z-40 transition-all duration-300 ease-in-out ${
             isMobileMenuOpen
               ? "opacity-100 translate-y-0 visible"
               : "opacity-0 -translate-y-4 invisible"
@@ -147,7 +147,7 @@ export default function Topbar() {
       )}
 
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className="h-[65px]"></div>
+      <div className="h-[60px] bg-black opacity-5"></div>
 
       {/* Content area */}
       {/* <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

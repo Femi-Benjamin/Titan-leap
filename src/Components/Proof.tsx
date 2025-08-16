@@ -285,7 +285,7 @@ export default function Component() {
               <div className="text-white md:text-5xl text-3xl font-bold mb-2">
                 2 Mo
               </div>
-              <div className="text-white/80 text-lg">Timeline</div>
+              <div className="text-white/80 xl:text-lg text-sm">Timeline</div>
             </div>
           </div>
         </div>
