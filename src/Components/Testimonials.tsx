@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 interface Particle {
   id: number;
@@ -9,7 +8,7 @@ interface Particle {
   duration: number;
 }
 
-const SpotifyTestimonials = () => {
+const Testimonials = () => {
   const testimonials = [
     {
       text: "People are complimenting your team work, I'm happy I have you on the project",
@@ -34,87 +33,52 @@ const SpotifyTestimonials = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(0);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
-    null
-  );
   const duration = 4000; // 4 seconds per testimonial
 
   const stopAutoPlay = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
-    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
   };
 
   const startAutoPlay = useCallback(() => {
     stopAutoPlay();
-    setProgress(0);
-
-    // Progress animation
-    progressIntervalRef.current = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + 100 / (duration / 50);
-      });
-    }, 50);
-
-    // Slide change
     intervalRef.current = setInterval(() => {
-      if (isPlaying && !isHovered) {
+      if (!isHovered) {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-        setProgress(0);
       }
     }, duration);
-  }, [isPlaying, isHovered, testimonials.length, duration]);
+  }, [isHovered, testimonials.length]);
 
   useEffect(() => {
-    if (isPlaying && !isHovered) {
+    if (!isHovered) {
       startAutoPlay();
     } else {
       stopAutoPlay();
     }
     return () => stopAutoPlay();
-  }, [isPlaying, isHovered, startAutoPlay]);
+  }, [isHovered, startAutoPlay]);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
-    setProgress(0);
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setProgress(0);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-    setProgress(0);
-  };
-
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
   };
 
   const getSlideClass = (index: number) => {
     const baseClass =
-      "absolute w-full px-5 transition-all duration-700 ease-out";
+      "absolute w-full px-5 transition-all duration-700 ease-out pointer-events-none";
 
     if (index === currentIndex) {
-      return `${baseClass} opacity-100 transform translate-y-0`;
+      return `${baseClass} opacity-100 transform translate-y-0 scale-100 z-20 pointer-events-auto`;
     } else if (
       index ===
       (currentIndex - 1 + testimonials.length) % testimonials.length
     ) {
-      return `${baseClass} opacity-30 transform -translate-y-16`;
+      return `${baseClass} opacity-20 transform -translate-y-20 scale-95 z-10`;
     } else if (index === (currentIndex + 1) % testimonials.length) {
-      return `${baseClass} opacity-30 transform translate-y-16`;
+      return `${baseClass} opacity-20 transform translate-y-20 scale-95 z-10`;
     } else {
-      return `${baseClass} opacity-0 transform translate-y-24`;
+      return `${baseClass} opacity-0 transform translate-y-32 scale-90 z-0`;
     }
   };
 
@@ -205,73 +169,43 @@ const SpotifyTestimonials = () => {
         </div>
 
         {/* Testimonials Container */}
-        <div className="relativ h-[32rem] flex flexcol justify-center pt-24">
+        <div className="relative h-[32rem] flex justify-center md:pt-32 pt-24">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
               className={`${getSlideClass(
                 index
-              )} max-w-7xl mx-auto text-center`}
+              )} max-w-6xl mx-auto text-center`}
             >
-              <div className="text-white text-md md:text-3xl xl:text-4xl xl:font-semibold leading-loose mb-12 drop-shadow-lg">
-                {testimonial.text}
-              </div>
-              <div className="text-[#FED65E] md:text-xl font-medium">
-                – {testimonial.author}
+              <div className="bg-blend-saturation bg-opacity-10 rounded-2xl p-8 md:p-12 mx-4 shadow2xl">
+                <div className="text-white text-lg md:text-3xl xl:text-4xl font-extrabold leading-relaxed mb-8 drop-shadow-2xl">
+                  "{testimonial.text}"
+                </div>
+                <div className="text-[#FED65E] md:text-xl font-semibold">
+                  – {testimonial.author}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Navigation Dots */}
-        <div className="flex justify-center space-x-3 mb-8">
+        <div className="flex justify-center space-x-4 mb-8 mt-16">
           {testimonials.map((_, index: number) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-4 h-4 rounded-full transition-all duration-300 shadow-lg ${
                 index === currentIndex
-                  ? "bg-yellow-400 scale-125"
-                  : "bg-white bg-opacity-30 hover:bg-opacity-50"
+                  ? "bg-[#FED65E] scale-125 shadow-yellow-400"
+                  : "bg-white bg-opacity-40 hover:bg-opacity-70 hover:scale-110"
               }`}
             />
           ))}
-        </div>
-
-        {/* Controls */}
-        <div className="flex justify-center space-x-4 mb-8">
-          <button
-            onClick={prevSlide}
-            className="w-5 h-5 rounded-full border-2 border-white border-opacity-30 bg-opacity-10 backdrop-blur-md text-white hover:bg-opacity-20 hover:border-opacity-50 hover:scale-110 transition-all duration-300 flex items-center justify-center"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          <button
-            onClick={togglePlayPause}
-            className="w-5 h-5 rounded-full border-2 border-white border-opacity-30 bg-opacity-10 backdrop-blur-md text-white hover:bg-opacity-20 hover:border-opacity-50 hover:scale-110 transition-all duration-300 flex items-center justify-center"
-          >
-            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="w-5 h-5 rounded-full border-2 border-white border-opacity-30 bg-opacity-10 backdrop-blur-md text-white hover:bg-opacity-20 hover:border-opacity-50 hover:scale-110 transition-all duration-300 flex items-center justify-center"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="w-48 h-1 bg-white bg-opacity-20 rounded-full mx-auto overflow-hidden">
-          <div
-            className="h-full bg-yellow-400 rounded-full transition-all duration-75 ease-linear"
-            style={{ width: `${progress}%` }}
-          />
         </div>
       </div>
     </div>
   );
 };
 
-export default SpotifyTestimonials;
+export default Testimonials;

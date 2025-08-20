@@ -65,7 +65,9 @@ const Footer = () => {
 
           {/* Solutions */}
           <div>
-            <h3 className="text-xl font-semibold mb-8 md:text-left text-right">Solutions</h3>
+            <h3 className="text-xl font-semibold mb-8 md:text-left text-right">
+              Solutions
+            </h3>
             <ul className="space-y-6 md:text-left text-right">
               <li>
                 <a
@@ -220,33 +222,33 @@ const Footer = () => {
             <span className="mx-3">|</span>
             <span>830 Stewart Drive, #212, Sunnyvale, CA, USA, 94085</span>
 
-          {/* Social icons and copyright */}
-          <div className="flex justify-center items-center space-x-6 pl-10">
-            {/* Social icons */}
-            <div className="flex space-x-4">
-              {/* LinkedIn */}
-              <a
-                href="#"
-                className="text-gray-200 hover:text-white transition-colors"
-              >
-                <img src={Linkedin} alt={Linkedin} />
-              </a>
-              {/* Twitter */}
-              <a
-                href="#"
-                className="text-gray-200 hover:text-white transition-colors"
-              >
-                <img src={Twitter} alt={Twitter} />
-              </a>
-              {/* Behance */}
-              <a
-                href="#"
-                className="text-gray-200 hover:text-white transition-colors"
-              >
-                <img src={Behance} alt={Behance} />
-              </a>
+            {/* Social icons and copyright */}
+            <div className="flex justify-center items-center space-x-6 pl-10">
+              {/* Social icons */}
+              <div className="flex space-x-4">
+                {/* LinkedIn */}
+                <a
+                  href="#"
+                  className="text-gray-200 hover:text-white transition-colors"
+                >
+                  <img src={Linkedin} alt={Linkedin} />
+                </a>
+                {/* Twitter */}
+                <a
+                  href="#"
+                  className="text-gray-200 hover:text-white transition-colors"
+                >
+                  <img src={Twitter} alt={Twitter} />
+                </a>
+                {/* Behance */}
+                <a
+                  href="#"
+                  className="text-gray-200 hover:text-white transition-colors"
+                >
+                  <img src={Behance} alt={Behance} />
+                </a>
+              </div>
             </div>
-          </div>
           </div>
 
           {/* Copyright */}
