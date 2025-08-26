@@ -43,8 +43,8 @@ export default function Component() {
   const currentVideo = videos[currentVideoIndex];
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] px-6 py-12">
-      <div className="max-w6xl mx-auto xl:px-22 md:px-10 px-5">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] md:px-0 px-6 py-12">
+      <div className="mx-auto xl:px-22 md:px-10 px-5">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
@@ -60,7 +60,7 @@ export default function Component() {
 
         {/* Main Content Container */}
         <div className="relative mb-8 flex justify-center xl:px-4">
-          <div className="border-2 border-white/20 rounded-3xl h-[400px] xl:w-[1600px] w-full mb-8 relative overflow-hidden">
+          <div className="border-2 border-white/20 rounded-3xl h-[400px] xl:w-[1700px] w-full mb-8 relative overflow-hidden">
             {/* Video Content */}
             <div className="w-full h-full relative">
               <video
