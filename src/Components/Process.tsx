@@ -42,7 +42,7 @@ const SignatureProcess = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] overflow-hidden">
+    <div className="relative md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] overflow-hidden">
       {/* Vertical lines pattern */}
       <div className="absolute inset-0">
         <div className="h-full w-full opacity-20">

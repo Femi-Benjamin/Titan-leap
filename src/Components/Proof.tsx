@@ -43,7 +43,7 @@ export default function Component() {
   const currentVideo = videos[currentVideoIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] px-6 py-12">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] px-6 py-12">
       <div className="max-w6xl mx-auto xl:px-22 md:px-10 px-5">
         {/* Header */}
         <div className="mb-8">

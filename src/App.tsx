@@ -17,7 +17,6 @@
 
 // export default App;
 
-
 import { useState, useEffect } from "react";
 import "./App.css";
 import Intro from "./Pages/Intro";
@@ -31,7 +30,7 @@ function App() {
     // Simulate loading time - adjust duration as needed
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 9000); // 9 seconds loading time
+    }, 5000); // 5 seconds loading time
 
     // Cleanup timer on component unmount
     return () => clearTimeout(timer);

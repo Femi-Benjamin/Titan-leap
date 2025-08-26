@@ -75,7 +75,7 @@ const PricingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white pt-8">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white pt-8">
       {/* Header */}
       <div className="mb-16 xl:px-22 md:px-10 px-5">
         <div className="flex items-center mb-4">
