@@ -53,82 +53,101 @@ export default function TestimonialsSection() {
   const getNextIndex = () => (currentIndex + 1) % testimonials.length;
 
   return (
-    <section className="md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] items-center px-6 md:pt-20 pt-14">
-      {/* Header */}
-      <div className="mb-16 xl:px-22 md:px-10 px-5">
-        <div className="flex items-center mb-4">
-          <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
-          <span className="text-[#4C12BF] font-semibold text-lg tracking-wider">
-            TESTIMONIALS
-          </span>
-        </div>
-        <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#4C12BF] mb-8 text-left">
-          What our clients say
-        </h1>
-      </div>
+    <>
+      <style>{`
+        @keyframes slideUp {
+          from {
+            transform: translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
 
-      <div className="max-w-4xl mx-auto text-center md:pt-20">
-        <div className="relative h-96 flex flex-col justify-center items-center space-y-8 font-Achivo">
-          {/* Previous testimonial (top, faded) */}
-          <div
-            className="opacity-20 scale-90 text-purple-500 cursor-pointer transition-all duration-1000 ease-in-out"
-            onClick={() => handleTestimonialClick(getPreviousIndex())}
-          >
-            <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
-              {testimonials[getPreviousIndex()].text}
-            </blockquote>
-          </div>
+        .animate-slide {
+          animation: slideUp 0.6s ease-out;
+        }
+      `}</style>
 
-          {/* Current testimonial (center, fully visible) */}
-          <div className="opacity-100 scale-100 text-white transition-all duration-1000 ease-in-out">
-            <blockquote className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-relaxed mb-6">
-              {testimonials[currentIndex].text}
-            </blockquote>
-            <cite className="text-yellow-400 text-lg md:text-xl font-medium not-italic">
-              - {testimonials[currentIndex].author}
-            </cite>
+      <section className="md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] items-center px-6 md:pt-20 pt-14">
+        {/* Header */}
+        <div className="mb-16 xl:px-22 md:px-10 px-5">
+          <div className="flex items-center mb-4">
+            <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
+            <span className="text-[#4C12BF] font-semibold text-lg tracking-wider">
+              TESTIMONIALS
+            </span>
           </div>
-
-          {/* Next testimonial (bottom, faded) */}
-          <div
-            className="opacity-20 scale-90 text-purple-300 cursor-pointer transition-all duration-1000 ease-in-out"
-            onClick={() => handleTestimonialClick(getNextIndex())}
-          >
-            <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
-              {testimonials[getNextIndex()].text}
-            </blockquote>
-          </div>
+          <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#4C12BF] mb-8 text-left">
+            What our clients say
+          </h1>
         </div>
 
-        <div className="font-Achivo md:py-36 py-10">
-          {/* Progress Indicators */}
-          <div className="flex justify-center gap-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-yellow-400 w-8"
-                    : "bg-purple-400 hover:bg-purple-300"
-                }`}
-                onClick={() => handleTestimonialClick(index)}
-              />
-            ))}
+        <div className="max-w-4xl mx-auto text-center md:pt-20">
+          <div className="relative h-96 flex flex-col justify-center items-center space-y-8 font-Achivo">
+            {/* Previous testimonial (top, faded) */}
+            <div
+              className="opacity-20 scale-90 text-purple-500 cursor-pointer transition-all duration-1000 ease-in-out"
+              onClick={() => handleTestimonialClick(getPreviousIndex())}
+            >
+              <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
+                {testimonials[getPreviousIndex()].text}
+              </blockquote>
+            </div>
+
+            {/* Current testimonial (center, fully visible) */}
+            <div key={currentIndex} className="opacity-90 scale-100 text-white transition-all duration-1000 ease-in-out animate-slide">
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-relaxed mb-6">
+                {testimonials[currentIndex].text}
+              </blockquote>
+              <cite className="text-yellow-400 text-lg md:text-xl font-medium not-italic">
+                - {testimonials[currentIndex].author}
+              </cite>
+            </div>
+
+            {/* Next testimonial (bottom, faded) */}
+            <div
+              className="opacity-20 scale-90 text-purple-300 cursor-pointer transition-all duration-1000 ease-in-out"
+              onClick={() => handleTestimonialClick(getNextIndex())}
+            >
+              <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
+                {testimonials[getNextIndex()].text}
+              </blockquote>
+            </div>
           </div>
 
-          {/* Auto-scroll indicator */}
-          <div className="text-purple-300 text-sm">
-            {isAutoScrolling ? (
-              <span className="flex items-center justify-center gap-2">
-                {/* <div className="w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div> */}
-                Auto-scrolling
-              </span>
-            ) : (
-              <span>Click any testimonial to navigate manually</span>
-            )}
+          <div className="font-Achivo md:py-36 py-10">
+            {/* Progress Indicators */}
+            <div className="flex justify-center gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? "bg-yellow-400 w-8"
+                      : "bg-purple-400 hover:bg-purple-300"
+                    }`}
+                  onClick={() => handleTestimonialClick(index)}
+                />
+              ))}
+            </div>
+
+            {/* Auto-scroll indicator */}
+            <div className="text-purple-300 text-sm">
+              {isAutoScrolling ? (
+                <span className="flex items-center justify-center gap-2">
+                  {/* <div className="w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div> */}
+                  Auto-scrolling
+                </span>
+              ) : (
+                <span>Click any testimonial to navigate manually</span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
+

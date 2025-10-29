@@ -1,22 +1,3 @@
-// import "./App.css";
-// import Intro from "./Pages/Intro";
-// import Main from "./Pages/Main";
-// import LoadingScreen from "./LoadingScreen/loadingscreen";
-
-// function App() {
-//   return (
-//     <>
-//       <div>
-//         <LoadingScreen/>
-//         <Intro />
-//         <Main />
-//       </div>
-//     </>
-//   );
-// }
-
-// export default App;
-
 import { useState, useEffect } from "react";
 import "./App.css";
 import Intro from "./Pages/Intro";
@@ -53,3 +34,22 @@ function App() {
 }
 
 export default App;
+
+// import "./App.css";
+// import Intro from "./Pages/Intro";
+// import Main from "./Pages/Main";
+// import LoadingScreen from "./LoadingScreen/loadingscreen";
+
+// function App() {
+//   return (
+//     <>
+//       <div>
+//         <LoadingScreen/>
+//         <Intro />
+//         <Main />
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
