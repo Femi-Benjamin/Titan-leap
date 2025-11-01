@@ -42,9 +42,9 @@ const SignatureProcess = () => {
   };
 
   return (
-    <div className="relative md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] overflow-hidden">
+    <div className="relative md:min-h-screen bg-gradient-to-t from-[#5A25C4] to-[#FFFFFF] overflow-hidden">
       {/* Vertical lines pattern */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <div className="h-full w-full opacity-20">
           {Array.from({ length: 20 }).map((_, i: number) => (
             <div
@@ -54,7 +54,7 @@ const SignatureProcess = () => {
             ></div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto py-16">
         {/* Header Section */}

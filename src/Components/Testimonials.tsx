@@ -98,7 +98,10 @@ export default function TestimonialsSection() {
             </div>
 
             {/* Current testimonial (center, fully visible) */}
-            <div key={currentIndex} className="opacity-90 scale-100 text-white transition-all duration-1000 ease-in-out animate-slide">
+            <div
+              key={currentIndex}
+              className="opacity-90 scale-100 text-white transition-all duration-1000 ease-in-out animate-slide"
+            >
               <blockquote className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-relaxed mb-6">
                 {testimonials[currentIndex].text}
               </blockquote>
@@ -124,30 +127,30 @@ export default function TestimonialsSection() {
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex
                       ? "bg-yellow-400 w-8"
                       : "bg-purple-400 hover:bg-purple-300"
-                    }`}
+                  }`}
                   onClick={() => handleTestimonialClick(index)}
                 />
               ))}
             </div>
 
             {/* Auto-scroll indicator */}
-            <div className="text-purple-300 text-sm">
+            {/* <div className="text-purple-300 text-sm">
               {isAutoScrolling ? (
                 <span className="flex items-center justify-center gap-2">
-                  {/* <div className="w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div> */}
+          
                   Auto-scrolling
                 </span>
               ) : (
                 <span>Click any testimonial to navigate manually</span>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
     </>
   );
 }
-
