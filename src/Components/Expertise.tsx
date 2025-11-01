@@ -180,17 +180,17 @@ const Expertise = () => {
                 className="absolute inset-0 px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-700 
               rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] pointer-events-none group-hover:pointer-events-auto"
               >
-                <div className="flex justify-center mb-6 xl:mb-10 ">
+                <div className="flex justify-center mb6 xlmb-10 ">
                   <img
                     className="w-16 h-16"
                     src={Media || "/placeholder.svg"}
                     alt="Frame"
                   />
                 </div>
-                <h3 className="text-white text-xl font-bold mb-3">
+                <h3 className="text-white text-xl font-bold mb3">
                   Content Creation
                 </h3>
-                <p className="text-white text-left text-sm mb-6 leading-relaxed">
+                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
                   Engaging content that converts, we create content that
                   resonates with your audience.
                 </p>
@@ -224,24 +224,24 @@ const Expertise = () => {
                 <h3 className="text-white text-xl font-bold pb-3">
                   Social Media
                 </h3>
-                <p className="text-white text-xl font-bold mb24">management</p>
+                <p className="text-white text-xl font-bold">management</p>
               </div>
               {/* HOVER STATE */}
               <div
                 className="absolute inset-0 px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-700 
               rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] pointer-events-none group-hover:pointer-events-auto"
               >
-                <div className="flex justify-center mb-6 xl:mb-10 ">
+                <div className="flex justify-center">
                   <img
                     className="w-12 h-12"
                     src={Media || "/placeholder.svg"}
                     alt="Frame"
                   />
                 </div>
-                <h3 className="text-white text-xl font-bold mb-3">
+                <h3 className="text-white text-xl font-bold">
                   Social Media management
                 </h3>
-                <p className="text-white text-left text-sm mb-3 leading-relaxed">
+                <p className="text-white text-left text-sm my-0 md:my-0 xl:mb-1 leading-relaxed">
                   Strategic social media management that builds communities,
                   drives engagement across all platforms.
                 </p>
@@ -279,17 +279,17 @@ const Expertise = () => {
                 className="absolute inset-0 px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-700 
               rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] pointer-events-none group-hover:pointer-events-auto"
               >
-                <div className="flex justify-center mb-6 xl:mb-10 ">
+                <div className="flex justify-center mb-6xl:mb-10 ">
                   <img
                     className="w-16 h-16"
                     src={Media || "/placeholder.svg"}
                     alt="Frame"
                   />
                 </div>
-                <h3 className="text-white text-xl font-bold mb-3">
+                <h3 className="text-white text-xl font-bold mb3">
                   Ads & Search Engine
                 </h3>
-                <p className="text-white text-left text-sm mb-6 leading-relaxed">
+                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
                   Data-driven advertising and SEO strategies that maximize your
                   online visibility and ROI.
                 </p>
@@ -326,18 +326,18 @@ const Expertise = () => {
                 className="absolute inset-0 px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-700 
               rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] pointer-events-none group-hover:pointer-events-auto"
               >
-                <div className="flex justify-center mb-6">
+                <div className="flex justify-center mb6">
                   <img
                     className="w-16 h-16"
                     src={Media || "/placeholder.svg"}
                     alt="Frame"
                   />
                 </div>
-                <h3 className="text-white text-xl font-bold mb-3">
+                <h3 className="text-white text-xl font-bold mb3">
                   AI Automation
                 </h3>
-                <p className="text-white text-left text-sm mb-6 xl:mb-10 leading-relaxed">
-                  Smart automation solutions that streamline your processes and
+                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
+                  Smart AI solutions that streamline your processes and
                   enhance customer experiences.
                 </p>
                 <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors hover:bg-yellow-300">
