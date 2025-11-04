@@ -155,31 +155,31 @@ export default function Component() {
 
           <div className="flex md:gap-8 gap-3">
             <div>
-              <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
                 320%
               </div>
               <div className="text-white/80 text-lg">Lead Growth</div>
             </div>
 
             <div>
-              <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
                 58%
               </div>
               <div className="text-white/80 text-lg">Cost Reduction</div>
             </div>
 
             <div>
-              <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
                 320%
               </div>
               <div className="text-white/80 text-lg">ROI</div>
             </div>
 
             <div>
-              <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+              <div className="text-white md:text-5xl text-xl font-bold mb-2">
                 2 Mo
               </div>
-              <div className="text-white/80 xl:text-lg text-sm">Timeline</div>
+              <div className="text-white/80 xl:text-lg text-lg">Timeline</div>
             </div>
           </div>
         </div>
