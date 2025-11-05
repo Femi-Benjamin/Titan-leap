@@ -3,3 +3,13 @@
     --font-Achivo:"Archivo Black", sans-serif;
     --font-Inter:"Inter", sans-serif;
 }
+
+/* body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body,
+html {
+  scroll-behavior: smooth;
+} */
