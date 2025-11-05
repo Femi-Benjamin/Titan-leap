@@ -176,7 +176,7 @@ export default function ContactForm() {
               disabled={isSubmitting}
               className="w-full bg-white text-[#5D3FD3] py-3 rounded-md font-semibold md:mb-0 mb-4 hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Sending..." : "Send request"}
+              {isSubmitting ? "Sending..." : "Send message"}
             </button>
             <p className="text-white/70 text-sm text-center">
               By sending this form, I confirm that I have read and accepted the{" "}
