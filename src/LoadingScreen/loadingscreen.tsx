@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import websiteintro from "../assets/websiteintro.mp4";
 
 interface Particle {
@@ -10,8 +10,9 @@ interface Particle {
 }
 
 export default function TitanLeapLoading() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
-    // Add the wave animation CSS to the document
     const style = document.createElement("style");
     style.textContent = `
       @keyframes wave {
@@ -32,11 +33,26 @@ export default function TitanLeapLoading() {
     `;
     document.head.appendChild(style);
 
-    const timer5 = setTimeout(() => setShowPulse(true), 2500);
+    // ⏳ Slow down video playback after it loads
+    const handleLoadedData = () => {
+      if (videoRef.current) {
+        videoRef.current.playbackRate = 0.6; // 0.6x slower
+        // 0.5 → half speed (very slow)
+        // 0.8 → slightly slower
+        // 1.0 → normal
+        // 1.2 → a little faster
+      }
+    };
+
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      videoElement.addEventListener("loadeddata", handleLoadedData);
+    }
 
     return () => {
-      clearTimeout(timer5);
-      // Clean up the style element
+      if (videoElement) {
+        videoElement.removeEventListener("loadeddata", handleLoadedData);
+      }
       if (style.parentNode) {
         style.parentNode.removeChild(style);
       }
@@ -59,7 +75,6 @@ export default function TitanLeapLoading() {
           };
 
           setParticles((prev) => [...prev, newParticle]);
-
           setTimeout(() => {
             setParticles((prev) => prev.filter((p) => p.id !== id));
           }, newParticle.duration * 1000);
@@ -91,8 +106,9 @@ export default function TitanLeapLoading() {
 
   return (
     <div className="min-h-screen font-Achivo flex items-center justify-center relative overflow-hidden">
-      {/* Video Background */}
+      {/* 🎬 Video Background (now slowed down) */}
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
@@ -128,6 +144,137 @@ export default function TitanLeapLoading() {
     </div>
   );
 }
+
+// "use client";
+// import { useEffect, useState } from "react";
+// import websiteintro from "../assets/websiteintro.mp4";
+
+// interface Particle {
+//   id: number;
+//   left: number;
+//   size: number;
+//   duration: number;
+// }
+
+// export default function TitanLeapLoading() {
+//   useEffect(() => {
+//     // Add the wave animation CSS to the document
+//     const style = document.createElement("style");
+//     style.textContent = `
+//       @keyframes wave {
+//         0% { transform: rotate(0deg); }
+//         10% { transform: rotate(14deg); }
+//         20% { transform: rotate(-8deg); }
+//         30% { transform: rotate(14deg); }
+//         40% { transform: rotate(-4deg); }
+//         50% { transform: rotate(10deg); }
+//         60% { transform: rotate(0deg); }
+//         100% { transform: rotate(0deg); }
+//       }
+//       .animate-wave {
+//         animation: wave 2s infinite;
+//         display: inline-block;
+//         transform-origin: 70% 70%;
+//       }
+//     `;
+//     document.head.appendChild(style);
+
+//     const timer5 = setTimeout(() => setShowPulse(true), 2500);
+
+//     return () => {
+//       clearTimeout(timer5);
+//       // Clean up the style element
+//       if (style.parentNode) {
+//         style.parentNode.removeChild(style);
+//       }
+//     };
+//   }, []);
+
+//   // Floating particles component
+//   const FloatingParticles = () => {
+//     const [particles, setParticles] = useState<Particle[]>([]);
+
+//     useEffect(() => {
+//       const createParticle = () => {
+//         if (Math.random() > 0.7) {
+//           const id = Date.now() + Math.random();
+//           const newParticle: Particle = {
+//             id,
+//             left: Math.random() * 100,
+//             size: Math.random() * 4 + 2,
+//             duration: Math.random() * 4 + 4,
+//           };
+
+//           setParticles((prev) => [...prev, newParticle]);
+
+//           setTimeout(() => {
+//             setParticles((prev) => prev.filter((p) => p.id !== id));
+//           }, newParticle.duration * 1000);
+//         }
+//       };
+
+//       const interval = setInterval(createParticle, 500);
+//       return () => clearInterval(interval);
+//     }, []);
+
+//     return (
+//       <div className="absolute inset-0 pointer-events-none">
+//         {particles.map((particle) => (
+//           <div
+//             key={particle.id}
+//             className="absolute bg-blue-400/40 rounded-full animate-ping"
+//             style={{
+//               left: `${particle.left}%`,
+//               top: `${Math.random() * 100}%`,
+//               width: `${particle.size}px`,
+//               height: `${particle.size}px`,
+//               animationDuration: `${particle.duration}s`,
+//             }}
+//           />
+//         ))}
+//       </div>
+//     );
+//   };
+
+//   return (
+//     <div className="min-h-screen font-Achivo flex items-center justify-center relative overflow-hidden">
+//       {/* Video Background */}
+//       <video
+//         autoPlay
+//         loop
+//         muted
+//         playsInline
+//         className="absolute inset-0 w-full h-full object-cover"
+//       >
+//         <source src={websiteintro} type="video/mp4" />
+//       </video>
+
+//       {/* Animated background elements */}
+//       <FloatingParticles />
+//       <div className="absolute inset-0">
+//         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+//         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+//         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl animate-ping"></div>
+//       </div>
+
+//       {/* Static floating particles */}
+//       <div className="absolute inset-0 pointer-events-none">
+//         {[...Array(20)].map((_, i) => (
+//           <div
+//             key={i}
+//             className="absolute w-1 h-1 bg-blue-400/30 rounded-full animate-ping"
+//             style={{
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               animationDelay: `${Math.random() * 3}s`,
+//               animationDuration: `${2 + Math.random() * 2}s`,
+//             }}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
 // "use client";
 // import { useEffect, useState } from "react";
