@@ -33,14 +33,10 @@ export default function TitanLeapLoading() {
     `;
     document.head.appendChild(style);
 
-    // ⏳ Slow down video playback after it loads
+    // 🎬 Slow down video playback
     const handleLoadedData = () => {
       if (videoRef.current) {
-        videoRef.current.playbackRate = 0.6; // 0.6x slower
-        // 0.5 → half speed (very slow)
-        // 0.8 → slightly slower
-        // 1.0 → normal
-        // 1.2 → a little faster
+        videoRef.current.playbackRate = 0.6;
       }
     };
 
@@ -59,7 +55,7 @@ export default function TitanLeapLoading() {
     };
   }, []);
 
-  // Floating particles component
+  // ✨ Floating particles
   const FloatingParticles = () => {
     const [particles, setParticles] = useState<Particle[]>([]);
 
@@ -105,25 +101,31 @@ export default function TitanLeapLoading() {
   };
 
   return (
-    <div className="min-h-screen font-Achivo flex items-center justify-center relative overflow-hidden">
-      {/* 🎬 Video Background (now slowed down) */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src={websiteintro} type="video/mp4" />
-      </video>
+    <div className="min-h-screen max-h-screen w-full font-Achivo flex items-center justify-center relative overflow-hidden">
+      {/* 🎬 Responsive Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover object-center"
+        >
+          <source src={websiteintro} type="video/mp4" />
+        </video>
+
+        {/* Slight dark overlay for visibility */}
+        <div className="absolute inset-0 bg-black/20 sm:bg-black/10"></div>
+      </div>
 
       {/* Animated background elements */}
       <FloatingParticles />
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl animate-ping"></div>
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-cyan-500/20 rounded-full blur-2xl animate-ping"></div>
       </div>
 
       {/* Static floating particles */}
@@ -141,9 +143,21 @@ export default function TitanLeapLoading() {
           />
         ))}
       </div>
+
+      {/* 📱 Text only visible on mobile */}
+      <div className="z-10 text-white text-center px-4 block sm:hidden">
+        <h1 className="text-2xl font-semibold drop-shadow-lg">
+          Welcome to Titan Leap
+        </h1>
+        {/* <p className="mt-2 text-sm opacity-80">
+          Loading experience in progress...
+        </p> */}
+      </div>
     </div>
   );
 }
+
+
 
 // "use client";
 // import { useEffect, useState } from "react";
