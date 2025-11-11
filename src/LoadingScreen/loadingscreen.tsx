@@ -36,7 +36,7 @@ export default function TitanLeapLoading() {
     // 🎬 Slow down video playback
     const handleLoadedData = () => {
       if (videoRef.current) {
-        videoRef.current.playbackRate = 0.0;
+        videoRef.current.playbackRate = 0.6;
       }
     };
 
