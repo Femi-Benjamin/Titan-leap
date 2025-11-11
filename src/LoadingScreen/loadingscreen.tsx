@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import websiteintro from "../assets/websiteintro.mp4";
+import titanwebsiteintro from "../assets/titanwebsiteintro.mp4";
 
 interface Particle {
   id: number;
@@ -36,7 +36,7 @@ export default function TitanLeapLoading() {
     // 🎬 Slow down video playback
     const handleLoadedData = () => {
       if (videoRef.current) {
-        videoRef.current.playbackRate = 0.5;
+        videoRef.current.playbackRate = 0.0;
       }
     };
 
@@ -113,7 +113,7 @@ export default function TitanLeapLoading() {
           preload="auto"
           className="w-full h-full object-cover object-center"
         >
-          <source src={websiteintro} type="video/mp4" />
+          <source src={titanwebsiteintro} type="video/mp4" />
         </video>
 
         {/* Slight dark overlay for visibility */}
@@ -156,8 +156,6 @@ export default function TitanLeapLoading() {
     </div>
   );
 }
-
-
 
 // "use client";
 // import { useEffect, useState } from "react";
