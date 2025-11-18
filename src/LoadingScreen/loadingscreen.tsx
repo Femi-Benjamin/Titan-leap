@@ -68,7 +68,7 @@ export default function TitanLeapLoading() {
           }}
           onLoadedMetadata={(e) => {
             const video = e.currentTarget;
-            video.playbackRate = 0.75;
+            video.playbackRate = 0.5;
           }}
         >
           <source
