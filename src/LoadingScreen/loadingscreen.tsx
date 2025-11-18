@@ -79,11 +79,11 @@ export default function TitanLeapLoading() {
       </div>
 
       {/* Loading indicator while video loads */}
-      {!isLoaded && (
+      {/* {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-black">
           <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
