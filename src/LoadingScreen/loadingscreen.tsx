@@ -66,6 +66,10 @@ export default function TitanLeapLoading() {
             objectFit: "cover",
             objectPosition: "center",
           }}
+          onLoadedMetadata={(e) => {
+            const video = e.currentTarget;
+            video.playbackRate = 0.75;
+          }}
         >
           <source
             src={isMobile ? websiteintro2phone : websiteintronew}
