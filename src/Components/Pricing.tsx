@@ -313,7 +313,6 @@
 // export default PricingPage;
 
 
-
 "use client";
 import type React from "react";
 import { useState, useEffect } from "react";
@@ -355,6 +354,18 @@ declare global {
     };
   }
 }
+
+// Add proper typing for import.meta.env
+interface ImportMetaEnv {
+  VITE_PAYSTACK_PUBLIC_KEY?: string;
+  VITE_PAYSTACK_CURRENCY?: string;
+}
+
+interface ImportMeta {
+  env: ImportMetaEnv;
+}
+
+// declare const import_meta: ImportMeta;
 
 const PricingPage: React.FC = () => {
   const [billingType, setBillingType] = useState<"Annual" | "Monthly">(
@@ -426,11 +437,23 @@ const PricingPage: React.FC = () => {
     }
   }, []);
 
+  // Helper to safely access environment variables
+  const getEnvVar = (key: string, defaultValue: string): string => {
+    try {
+      // Access import.meta.env with proper type casting
+      const env = (import.meta as unknown as ImportMeta).env;
+      return (env[key as keyof ImportMetaEnv] as string) || defaultValue;
+    } catch {
+      return defaultValue;
+    }
+  };
+
   // Helper to start a Paystack transaction
   const payWithPaystack = async () => {
-    // Recommended: set your public key in a .env file as VITE_PAYSTACK_PUBLIC_KEY
-    const publicKey = (import.meta as Record<string, unknown>).env?.VITE_PAYSTACK_PUBLIC_KEY as string ||
-      "pk_test_3a00e1ea19de19eed59d846a1b2b65f799609fb6";
+    const publicKey = getEnvVar(
+      "VITE_PAYSTACK_PUBLIC_KEY",
+      "pk_test_3a00e1ea19de19eed59d846a1b2b65f799609fb6"
+    );
 
     if (!publicKey || publicKey.includes("replace")) {
       alert(
@@ -443,7 +466,7 @@ const PricingPage: React.FC = () => {
     const email = window.prompt("Enter your email for the receipt:") || "customer@example.com";
 
     // Compute amount in minor currency unit
-    const currency = (import.meta as Record<string, unknown>).env?.VITE_PAYSTACK_CURRENCY as string || "NGN";
+    const currency = getEnvVar("VITE_PAYSTACK_CURRENCY", "NGN");
     const rawAmount = getSelectedPlanTotal();
 
     // Paystack expects amount in kobo (NGN) or cents for other currencies.
@@ -456,18 +479,9 @@ const PricingPage: React.FC = () => {
       currency,
       ref: `titan-${Date.now()}`,
       onClose: function () {
-        // User closed the payment modal
-        // console.log("Payment closed");
         alert("Payment window closed.");
       },
       callback: function (response: PaystackResponse) {
-        // Payment successful — response.reference is important
-        // IMPORTANT: verify the transaction on your server using Paystack secret key
-        // Example (client-side): POST to your verification endpoint with reference
-        // fetch(`/api/verify-payment`, { method: 'POST', body: JSON.stringify({ reference: response.reference }) })
-        //   .then(...) // handle verification
-        // For now, show success to the user
-        // console.log("Payment success", response);
         alert("Payment successful. Reference: " + response.reference);
       },
     });
