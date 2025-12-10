@@ -171,10 +171,11 @@ const Expertise = () => {
           {/* Content Creation Card */}
           <div
             className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${clickedCard === "Content Creation"
-                ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-                : ""
-              }`}
+          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
+            clickedCard === "Content Creation"
+              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
+              : ""
+          }`}
             onMouseEnter={() => handleCardHover("Content Creation")}
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick("Content Creation")}
@@ -182,10 +183,11 @@ const Expertise = () => {
             <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
               {/* Default State */}
               <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${clickedCard === "Content Creation"
+                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
+                  clickedCard === "Content Creation"
                     ? "opacity-0"
                     : "group-hover:opacity-0"
-                  }`}
+                }`}
               >
                 <div className="flex justify-center mb-6">
                   <img
@@ -201,10 +203,11 @@ const Expertise = () => {
               {/* HOVER STATE */}
               <div
                 className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${clickedCard === "Content Creation"
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-                  }`}
+              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
+                clickedCard === "Content Creation"
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+              }`}
               >
                 <div className="flex justify-center mb6 xlmb-10 ">
                   <img
@@ -233,10 +236,11 @@ const Expertise = () => {
           {/* Social Media Management Card */}
           <div
             className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${clickedCard === "Social Media Management"
-                ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-                : ""
-              }`}
+          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
+            clickedCard === "Social Media Management"
+              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
+              : ""
+          }`}
             onMouseEnter={() => handleCardHover("Social Media Management")}
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick("Social Media Management")}
@@ -244,10 +248,11 @@ const Expertise = () => {
             <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
               {/* Default State */}
               <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${clickedCard === "Social Media Management"
+                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
+                  clickedCard === "Social Media Management"
                     ? "opacity-0"
                     : "group-hover:opacity-0"
-                  }`}
+                }`}
               >
                 <div className="flex justify-center mb-6">
                   <img
@@ -264,10 +269,11 @@ const Expertise = () => {
               {/* HOVER STATE */}
               <div
                 className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${clickedCard === "Social Media Management"
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-                  }`}
+              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
+                clickedCard === "Social Media Management"
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+              }`}
               >
                 <div className="flex justify-center">
                   <img
@@ -293,10 +299,11 @@ const Expertise = () => {
           {/* Ads & Search Engine Card */}
           <div
             className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${clickedCard === "Ads & Search Engine"
-                ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-                : ""
-              }`}
+          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
+            clickedCard === "Ads & Search Engine"
+              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
+              : ""
+          }`}
             onMouseEnter={() => handleCardHover("Ads & Search Engine")}
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick("Ads & Search Engine")}
@@ -304,10 +311,11 @@ const Expertise = () => {
             <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
               {/* Default State */}
               <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${clickedCard === "Ads & Search Engine"
+                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
+                  clickedCard === "Ads & Search Engine"
                     ? "opacity-0"
                     : "group-hover:opacity-0"
-                  }`}
+                }`}
               >
                 <div className="flex justify-center mb-6">
                   <img
@@ -324,10 +332,11 @@ const Expertise = () => {
               {/* HOVER STATE */}
               <div
                 className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${clickedCard === "Ads & Search Engine"
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-                  }`}
+              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
+                clickedCard === "Ads & Search Engine"
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+              }`}
               >
                 <div className="flex justify-center mb-6xl:mb-10 ">
                   <img
@@ -353,10 +362,11 @@ const Expertise = () => {
           {/* AI Automation Card */}
           <div
             className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${clickedCard === "AI Automation"
-                ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-                : ""
-              }`}
+          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
+            clickedCard === "AI Automation"
+              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
+              : ""
+          }`}
             onMouseEnter={() => handleCardHover("AI Automation")}
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick("AI Automation")}
@@ -364,10 +374,11 @@ const Expertise = () => {
             <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
               {/* Default State */}
               <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${clickedCard === "AI Automation"
+                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
+                  clickedCard === "AI Automation"
                     ? "opacity-0"
                     : "group-hover:opacity-0"
-                  }`}
+                }`}
               >
                 <div className="flex justify-center mb-6">
                   <img
@@ -383,10 +394,11 @@ const Expertise = () => {
               {/* HOVER STATE */}
               <div
                 className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${clickedCard === "AI Automation"
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-                  }`}
+              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
+                clickedCard === "AI Automation"
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+              }`}
               >
                 <div className="flex justify-center mb6">
                   <img
@@ -427,16 +439,18 @@ const Expertise = () => {
                 className="w-full flex justify-between items-center py-6 text-left hover:text-yellow-400 transition-colors"
               >
                 <span
-                  className={`text-xl font-medium ${activeAccordion === item.title
+                  className={`text-xl font-medium ${
+                    activeAccordion === item.title
                       ? "text-white"
                       : "text-purple-200"
-                    }`}
+                  }`}
                 >
                   {item.title}
                 </span>
                 <div
-                  className={`transform transition-transform duration-300 ${activeAccordion === item.title ? "rotate-45" : ""
-                    }`}
+                  className={`transform transition-transform duration-300 ${
+                    activeAccordion === item.title ? "rotate-45" : ""
+                  }`}
                 >
                   <svg
                     className="w-6 h-6 text-white"
