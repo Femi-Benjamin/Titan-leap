@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useRef } from "react";
-import brandingvideo from "../assets/brandingvideo.mp4";
+// import brandingvideo from "../assets/brandingvideo.mp4";
+import website from "../assets/website.mp4";
 
 export default function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.playbackRate = 0.25;
+      videoRef.current.playbackRate = 0.55;
     }
   }, []);
 
@@ -23,7 +24,7 @@ export default function VideoHero() {
           loop
           playsInline
         >
-          <source src={brandingvideo} type="video/mp4" />
+          <source src={website} type="video/mp4" />
         </video>
       </div>
       {/* Dark overlay for better text readability */}
