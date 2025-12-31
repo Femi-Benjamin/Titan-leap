@@ -1,6 +1,5 @@
 "use client";
 import { useRef } from "react";
-// import brandingvideo from "../assets/brandingvideo.mp4";
 import website1 from "../assets/website1.mp4";
 
 export default function VideoHero() {
@@ -32,7 +31,6 @@ export default function VideoHero() {
             <div className="text-6xl md:text-7xl lg:text-8xl">Succeed.</div>
           </h1> */}
 
-
           {/* <div className="flex flex-col sm:flex-row gap-4">
             <button className="bg-[#FED65E] text-[#4C12BF] hover:bg-[#4C12BF] text-[20px] hover:text-[#FED65E] px-10 py-2 rounded-xl cursor-pointer transition-colors duration-200 shadow-xl font-Achivo">
             {"Let's Talk"}
@@ -41,10 +39,10 @@ export default function VideoHero() {
             See our work
             </button>
             </div> */}
-            <p className="text-white text-lg md:text-xl mb-8 leading-relaxed max-w-xl font-DM Sans">
-              Next-level content, ads, and automation — We do the work, while you
-              recharge and scale.
-            </p>
+          <p className="text-white text-lg md:text-xl mb-8 leading-relaxed max-w-xl font-DM Sans">
+            Next-level content, ads, and automation — We do the work, while you
+            recharge and scale.
+          </p>
         </div>
       </div>
     </div>

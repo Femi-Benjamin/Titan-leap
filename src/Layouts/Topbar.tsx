@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import Logo from "../assets/Logo.png";
 
-
-
 export default function Topbar() {
   const [activeItem, setActiveItem] = useState("Home");
   const [hoveredItem, setHoveredItem] = useState("");
@@ -81,8 +79,10 @@ export default function Topbar() {
         <div
           className="absolute inset-0 backdrop-blur-2xl z-0"
           style={{
-            maskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent 100%)"
+            maskImage:
+              "linear-gradient(to bottom, black 50%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 50%, transparent 100%)",
           }}
         />
 
@@ -107,18 +107,20 @@ export default function Topbar() {
                     onClick={() => handleNavClick(item)}
                     onMouseEnter={() => setHoveredItem(item)}
                     onMouseLeave={() => setHoveredItem("")}
-                    className={`relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${activeItem === item
-                      ? "text-purple-600"
-                      : `${textColor} hover:text-purple-600`
-                      }`}
+                    className={`relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${
+                      activeItem === item
+                        ? "text-purple-600"
+                        : `${textColor} hover:text-purple-600`
+                    }`}
                   >
                     {item}
                     {/* Yellow dot indicator */}
                     <div
-                      className={`absolute top-[9px] right-1 transform translate-y-1/2 w-2 h-2 bg-yellow-400 rounded-full transition-opacity duration-200 ${activeItem === item || hoveredItem === item
-                        ? "opacity-100"
-                        : "opacity-0"
-                        }`}
+                      className={`absolute top-[9px] right-1 transform translate-y-1/2 w-2 h-2 bg-yellow-400 rounded-full transition-opacity duration-200 ${
+                        activeItem === item || hoveredItem === item
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
                     />
                   </button>
                 </div>
@@ -127,10 +129,11 @@ export default function Topbar() {
 
             {/* CTA Button */}
             <button
-              className={`hidden md:inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${textColor === "text-gray-300"
+              className={`hidden md:inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${
+                textColor === "text-gray-300"
                   ? "border-gray-300 text-gray-300 hover:bg-gray-50/10"
                   : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
-                }`}
+              }`}
             >
               {"Let's talk"}
             </button>
@@ -170,20 +173,22 @@ export default function Topbar() {
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 backdrop-blur-md bg-white/90 border-t border-white/20 shadow-lg z-40 transition-all duration-300 ease-in-out ${isMobileMenuOpen
+          className={`md:hidden absolute top-full left-0 right-0 backdrop-blur-md bg-white/90 border-t border-white/20 shadow-lg z-40 transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen
               ? "opacity-100 translate-y-0 visible"
               : "opacity-0 -translate-y-4 invisible"
-            }`}
+          }`}
         >
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navItems.map((item, index) => (
               <button
                 key={item}
                 onClick={() => handleNavClick(item)}
-                className={`block px-4 py-3 text-base font-medium w-full text-left rounded-lg transition-all duration-200 transform ${activeItem === item
+                className={`block px-4 py-3 text-base font-medium w-full text-left rounded-lg transition-all duration-200 transform ${
+                  activeItem === item
                     ? "text-[#411697] bg-purple-50/80 border-l-4 border-[#411697]"
                     : "text-gray-700 hover:text-[#411697] hover:bg-gray-50/80"
-                  }`}
+                }`}
                 style={{
                   animationDelay: isMobileMenuOpen ? `${index * 50}ms` : "0ms",
                 }}
@@ -199,10 +204,11 @@ export default function Topbar() {
             <div className="pt-4 border-t border-gray-200">
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`w-full inline-flex justify-center items-center px-6 py-3 border text-sm font-medium rounded-lg transition-colors duration-200 ${textColor === "text-gray-300"
+                className={`w-full inline-flex justify-center items-center px-6 py-3 border text-sm font-medium rounded-lg transition-colors duration-200 ${
+                  textColor === "text-gray-300"
                     ? "border-gray-300 text-gray-300 hover:bg-gray-50/10"
                     : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
-                  }`}
+                }`}
               >
                 {"Let's talk"}
               </button>
@@ -218,8 +224,6 @@ export default function Topbar() {
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
-
-
     </div>
   );
 }
