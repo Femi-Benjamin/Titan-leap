@@ -257,7 +257,7 @@ const Footer = () => {
               Privacy Policy
             </a>
             <span className="mx-3">|</span>
-            <span>© 2025, Titan leap</span>
+            <span>© {new Date().getFullYear()}, Titan leap</span>
           </div>
         </div>
       </div>

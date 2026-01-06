@@ -1,10 +1,11 @@
 @import "tailwindcss";
-@theme{
-    --font-Achivo:"Archivo Black", sans-serif;
-    --font-Inter:"Inter", sans-serif;
+
+@theme {
+  --font-Achivo: "Archivo Black", sans-serif;
+  --font-Inter: "Inter", sans-serif;
 }
 
-/* body::-webkit-scrollbar,
+body::-webkit-scrollbar,
 html::-webkit-scrollbar {
   display: none;
 }
@@ -12,4 +13,4 @@ html::-webkit-scrollbar {
 body,
 html {
   scroll-behavior: smooth;
-} */
+}

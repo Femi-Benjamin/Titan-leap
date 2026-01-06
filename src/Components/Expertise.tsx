@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Media from "../assets/Media.png";
-import content from "../assets/content.png";
-import Frame from "../assets/Frame.png";
+// import content from "../assets/content.png";
+// import Frame from "../assets/Frame.png";
 
 const Expertise = () => {
   const [activeAccordion, setActiveAccordion] = useState<string | null>(
@@ -13,13 +13,54 @@ const Expertise = () => {
   );
   const [clickedCard, setClickedCard] = useState<string | null>(null);
 
+  const cards = [
+    {
+      id: "Strategy & Brand Positioning",
+      title: "Strategy & Brand Positioning",
+      description:
+        "We define how you win in your market before spending a dollar on ads.",
+      icon: Media,
+    },
+    {
+      id: "Funnel Design & Conversion Systems",
+      title: "Funnel Design & Conversion Systems",
+      description:
+        "We design high-converting funnels that turn attention into revenue.",
+      icon: Media,
+    },
+    {
+      id: "Paid Advertising",
+      title: "Paid Advertising (Performance marketing)",
+      description: "We run ads only after strategy and funnels are locked in.",
+      icon: Media,
+    },
+    {
+      id: "Content Creation",
+      title: "Content Creation",
+      description: "Content is the new currency. We mint it daily.",
+      icon: Media,
+    },
+    {
+      id: "Social Media Management",
+      title: "Social Media Management",
+      description:
+        "We design high-converting funnels that turn attention into revenue.",
+      icon: Media,
+    },
+    {
+      id: "AI Automation",
+      title: "AI Automation & Growth Agents",
+      description: "We run ads only after strategy and funnels are locked in.",
+      icon: Media,
+    },
+  ];
+
   const toggleAccordion = (item: string) => {
     setActiveAccordion(activeAccordion === item ? null : item);
   };
 
   const handleCardHover = (cardName: string) => {
     setHoveredCard(cardName);
-    // Reset accordion to first item when switching cards
     const accordionSets = getAccordionItems(cardName);
     if (accordionSets.length > 0) {
       setActiveAccordion(accordionSets[0].title);
@@ -48,96 +89,58 @@ const Expertise = () => {
       case "Content Creation":
         return [
           {
-            title: "Design",
+            title: "Outcome",
             content:
-              "Our design team creates stunning visual identities, logos, and brand materials that capture your unique essence and resonate with your target audience.",
+              "A brand that looks premium, modern, and impossible to ignore.",
           },
-          {
-            title: "Video Edits",
-            content:
-              "Professional video editing services including color correction, audio enhancement, transitions, and effects to create compelling visual stories.",
-          },
-          {
-            title: "Motion Graphics and Explainer Videos",
-            content:
-              "Dynamic motion graphics and animated explainer videos that simplify complex concepts and engage your audience effectively.",
-          },
-          {
-            title: "3D Product Design and Animation",
-            content:
-              "Cutting-edge 3D modeling, product visualization, and animation services that bring your products to life in stunning detail.",
-          },
+
         ];
 
       case "Social Media Management":
         return [
           {
-            title: "Content Strategy & Planning",
+            title: "Outcome",
             content:
               "Comprehensive social media strategies tailored to your brand, including content calendars, posting schedules, and audience engagement tactics.",
           },
-          {
-            title: "Community Management",
-            content:
-              "Active community engagement, responding to comments and messages, building relationships with your followers, and fostering brand loyalty.",
-          },
-          {
-            title: "Social Media Analytics",
-            content:
-              "In-depth performance tracking, audience insights, engagement metrics analysis, and monthly reporting to optimize your social presence.",
-          },
-          {
-            title: "Influencer Partnerships",
-            content:
-              "Strategic influencer collaborations, partnership management, and campaign coordination to expand your reach and credibility.",
-          },
+
         ];
 
+      case "Paid Advertising":
       case "Ads & Search Engine":
         return [
           {
-            title: "Google Ads Management",
+            title: "Outcome",
             content:
-              "Strategic Google Ads campaigns including search, display, and shopping ads optimized for maximum ROI and conversion rates.",
+              "Consistent, scalable ad performance — not random spikes.",
           },
-          {
-            title: "Search Engine Optimization",
-            content:
-              "Comprehensive SEO strategies including keyword research, on-page optimization, technical SEO, and link building to improve organic rankings.",
-          },
-          {
-            title: "Social Media Advertising",
-            content:
-              "Targeted advertising campaigns across Facebook, Instagram, LinkedIn, and other platforms to reach your ideal customers effectively.",
-          },
-          {
-            title: "Performance Analytics & Reporting",
-            content:
-              "Detailed campaign performance tracking, A/B testing, conversion optimization, and comprehensive reporting for data-driven decisions.",
-          },
+
         ];
 
       case "AI Automation":
         return [
           {
-            title: "Chatbot Development",
+            title: "Outcome",
             content:
               "Intelligent chatbots for customer service, lead generation, and sales support that provide 24/7 automated assistance to your customers.",
           },
+        ];
+
+      case "Strategy & Brand Positioning":
+        return [
           {
-            title: "Email Marketing Automation",
+            title: "Outcome",
             content:
-              "Smart email sequences, drip campaigns, and automated nurturing workflows that convert leads into customers while you sleep.",
+              "A brand that knows what to say, who to say it to, and how to dominate attention.",
           },
+        ];
+
+      case "Funnel Design & Conversion Systems":
+        return [
           {
-            title: "CRM Integration & Automation",
+            title: "Outcome",
             content:
-              "Seamless CRM integration with automated lead scoring, data entry, follow-up sequences, and customer journey optimization.",
-          },
-          {
-            title: "AI-Powered Analytics",
-            content:
-              "Advanced analytics using machine learning to predict customer behavior, optimize campaigns, and provide actionable business insights.",
+              "A predictable system that converts visitors into leads, bookings, and sales.",
           },
         ];
 
@@ -167,268 +170,48 @@ const Expertise = () => {
         </div>
 
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-16 gap-6 mb-16">
-          {/* Content Creation Card */}
-          <div
-            className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
-            clickedCard === "Content Creation"
-              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-              : ""
-          }`}
-            onMouseEnter={() => handleCardHover("Content Creation")}
-            onMouseLeave={handleCardLeave}
-            onClick={() => handleCardClick("Content Creation")}
-          >
-            <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
-              {/* Default State */}
-              <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
-                  clickedCard === "Content Creation"
-                    ? "opacity-0"
-                    : "group-hover:opacity-0"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              className={`group relative rounded-2xl p-[1px] transition-all duration-300 ${clickedCard === card.id
+                ? "bg-[#FED65E]"
+                : "bg-gradient-to-t from-purple-900 to-white hover:bg-[#FED65E]"
                 }`}
-              >
-                <div className="flex justify-center mb-6">
-                  <img
-                    className=""
-                    src={content || "/placeholder.svg"}
-                    alt="Frame"
-                  />
+              onMouseEnter={() => handleCardHover(card.id)}
+              onMouseLeave={handleCardLeave}
+              onClick={() => handleCardClick(card.id)}
+            >
+              <div className="bg-[#4C12BF] rounded-2xl p-6 h-full flex flex-col relative">
+                <div className="flex flex-row gap-4 mb-6">
+                  <div className="flex-shrink-0 flex items-center">
+                    <img
+                      src={card.icon || "/placeholder.svg"}
+                      alt={card.title}
+                      className="object-contain pt-12"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <h3 className="text-white text-lg font-bold leading-tight mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="text-purple-100 text-sm leading-relaxed">
+                      {card.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-white text-xl font-bold mb24">
-                  Content Creation
-                </h3>
-              </div>
-              {/* HOVER STATE */}
-              <div
-                className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
-                clickedCard === "Content Creation"
-                  ? "opacity-100 pointer-events-auto"
-                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-              }`}
-              >
-                <div className="flex justify-center mb6 xlmb-10 ">
-                  <img
-                    className="w-16 h-16"
-                    src={Media || "/placeholder.svg"}
-                    alt="Frame"
-                  />
+                <div className="flex justify-end mt-auto">
+                  <button className="bg-[#FED65E] text-[#4C12BF] py-2.5 px-6 rounded-lg hover:bg-yellow-300 transition-colors text-sm w-[calc(83%-2rem)] font-Achivo">
+                    Let's Talk
+                  </button>
                 </div>
-                <h3 className="text-white text-xl font-bold mb3">
-                  Content Creation
-                </h3>
-                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
-                  Engaging content that converts, we create content that
-                  resonates with your audience.
-                </p>
-                <button
-                  className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 
-                rounded-lg cursor-pointer transition-colors hover:bg-yellow-300"
-                >
-                  Let's Talk
-                </button>
               </div>
             </div>
-          </div>
-
-          {/* Social Media Management Card */}
-          <div
-            className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
-            clickedCard === "Social Media Management"
-              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-              : ""
-          }`}
-            onMouseEnter={() => handleCardHover("Social Media Management")}
-            onMouseLeave={handleCardLeave}
-            onClick={() => handleCardClick("Social Media Management")}
-          >
-            <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
-              {/* Default State */}
-              <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
-                  clickedCard === "Social Media Management"
-                    ? "opacity-0"
-                    : "group-hover:opacity-0"
-                }`}
-              >
-                <div className="flex justify-center mb-6">
-                  <img
-                    className=""
-                    src={Frame || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold pb-3">
-                  Social Media
-                </h3>
-                <p className="text-white text-xl font-bold">management</p>
-              </div>
-              {/* HOVER STATE */}
-              <div
-                className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
-                clickedCard === "Social Media Management"
-                  ? "opacity-100 pointer-events-auto"
-                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-              }`}
-              >
-                <div className="flex justify-center">
-                  <img
-                    className="w-12 h-12"
-                    src={Media || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold">
-                  Social Media management
-                </h3>
-                <p className="text-white text-left text-sm my-0 md:my-0 xl:mb-1 leading-relaxed">
-                  Strategic social media management that builds communities,
-                  drives engagement across all platforms.
-                </p>
-                <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors hover:bg-yellow-300">
-                  Let's Talk
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Ads & Search Engine Card */}
-          <div
-            className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
-            clickedCard === "Ads & Search Engine"
-              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-              : ""
-          }`}
-            onMouseEnter={() => handleCardHover("Ads & Search Engine")}
-            onMouseLeave={handleCardLeave}
-            onClick={() => handleCardClick("Ads & Search Engine")}
-          >
-            <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
-              {/* Default State */}
-              <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
-                  clickedCard === "Ads & Search Engine"
-                    ? "opacity-0"
-                    : "group-hover:opacity-0"
-                }`}
-              >
-                <div className="flex justify-center mb-6">
-                  <img
-                    className=""
-                    src={Frame || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold pb-3">
-                  Ads & Search
-                </h3>
-                <p className="text-white text-xl font-bold mb24">Engine</p>
-              </div>
-              {/* HOVER STATE */}
-              <div
-                className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
-                clickedCard === "Ads & Search Engine"
-                  ? "opacity-100 pointer-events-auto"
-                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-              }`}
-              >
-                <div className="flex justify-center mb-6xl:mb-10 ">
-                  <img
-                    className="w-16 h-16"
-                    src={Media || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold mb3">
-                  Ads & Search Engine
-                </h3>
-                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
-                  Data-driven advertising and SEO strategies that maximize your
-                  online visibility and ROI.
-                </p>
-                <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors hover:bg-yellow-300">
-                  Let's Talk
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* AI Automation Card */}
-          <div
-            className={`group bg-gradient-to-t from-purple-900 to-[#FFFFFF] p-0.5 rounded-2xl hover:bg-gradient-to-t 
-          hover:from-[#FED65E] hover:to-[#FED65E] transition-all ${
-            clickedCard === "AI Automation"
-              ? "bg-gradient-to-t from-[#FED65E] to-[#FED65E]"
-              : ""
-          }`}
-            onMouseEnter={() => handleCardHover("AI Automation")}
-            onMouseLeave={handleCardLeave}
-            onClick={() => handleCardClick("AI Automation")}
-          >
-            <div className="rounded-2xl p-6 text-center grid grid-cols-1 grid-rows-1 h-full bg-[#4C12BF]">
-              {/* Default State */}
-              <div
-                className={`col-start-1 row-start-1 transition-opacity duration-700 ${
-                  clickedCard === "AI Automation"
-                    ? "opacity-0"
-                    : "group-hover:opacity-0"
-                }`}
-              >
-                <div className="flex justify-center mb-6">
-                  <img
-                    className=""
-                    src={Frame || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold mb24">
-                  AI Automation
-                </h3>
-              </div>
-              {/* HOVER STATE */}
-              <div
-                className={`col-start-1 row-start-1 px-6 py-3 transition-opacity duration-700 
-              rounded-2xl bg-gradient-to-t from-[#160043] to-[#4C12BF] ${
-                clickedCard === "AI Automation"
-                  ? "opacity-100 pointer-events-auto"
-                  : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-              }`}
-              >
-                <div className="flex justify-center mb6">
-                  <img
-                    className="w-16 h-16"
-                    src={Media || "/placeholder.svg"}
-                    alt="Frame"
-                  />
-                </div>
-                <h3 className="text-white text-xl font-bold mb3">
-                  AI Automation
-                </h3>
-                <p className="text-white text-left text-sm my-0 md:my-0 xl:my-1 leading-relaxed">
-                  Smart AI solutions that streamline your processes and enhance
-                  customer experiences.
-                </p>
-                <button className="w-full bg-[#FED65E] text-purple-900 font-semibold py-3 px-6 rounded-lg cursor-pointer transition-colors hover:bg-yellow-300">
-                  Let's Talk
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Dynamic Accordion Section */}
         <div className="mx-auto">
-          <div className="mb-6">
-            {/* <h2 className="text-white text-2xl font-bold">
-              {hoveredCard || "Content Creation"} Services
-            </h2> */}
-          </div>
           {currentAccordionItems.map((item) => (
             <div
               key={item.title}
@@ -439,18 +222,16 @@ const Expertise = () => {
                 className="w-full flex justify-between items-center py-6 text-left hover:text-yellow-400 transition-colors"
               >
                 <span
-                  className={`text-xl font-medium ${
-                    activeAccordion === item.title
-                      ? "text-white"
-                      : "text-purple-200"
-                  }`}
+                  className={`text-xl font-medium ${activeAccordion === item.title
+                    ? "text-white"
+                    : "text-purple-200"
+                    }`}
                 >
                   {item.title}
                 </span>
                 <div
-                  className={`transform transition-transform duration-300 ${
-                    activeAccordion === item.title ? "rotate-45" : ""
-                  }`}
+                  className={`transform transition-transform duration-300 ${activeAccordion === item.title ? "rotate-45" : ""
+                    }`}
                 >
                   <svg
                     className="w-6 h-6 text-white"
