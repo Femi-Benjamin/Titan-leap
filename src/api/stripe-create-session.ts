@@ -50,9 +50,9 @@ export const createStripeSession = async (
       email,
       name,
       phone,
-      planName,
-      billingType,
-      currency,
+      // planName,
+      // billingType,
+      // currency,
     } = req;
 
     // Validate inputs
