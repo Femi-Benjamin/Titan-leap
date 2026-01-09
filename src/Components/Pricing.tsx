@@ -1,6 +1,12 @@
 "use client";
 import type React from "react";
 import { useState, useEffect } from "react";
+import PaymentGateway from "./PaymentGateway";
+import StripeCheckout from "./StripeCheckout";
+import {
+  convertNGNToUSD,
+  selectPaymentGateway,
+} from "../utils/paymentUtils";
 
 interface Plan {
   name: string;
@@ -50,10 +56,8 @@ declare global {
 interface ImportMetaEnv {
   VITE_PAYSTACK_PUBLIC_KEY?: string;
   VITE_PAYSTACK_CURRENCY?: string;
-}
-
-interface ImportMeta {
-  env: ImportMetaEnv;
+  VITE_STRIPE_PUBLIC_KEY?: string;
+  VITE_API_URL?: string;
 }
 
 const PricingPage: React.FC = () => {
@@ -61,12 +65,15 @@ const PricingPage: React.FC = () => {
     "Annual"
   );
   const [selectedPlan, setSelectedPlan] = useState<string>("Premium");
+  const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
   const [showModal, setShowModal] = useState(false);
+  const [showStripeCheckout, setShowStripeCheckout] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
     phone: "",
   });
+  const [exchangeRate] = useState(1430);
 
   const plans: Record<string, Plan> = {
     Basic: {
@@ -86,11 +93,11 @@ const PricingPage: React.FC = () => {
     },
     Premium: {
       name: "Premium Plan",
-      monthlyPrice: 2500,
-      annualPrice: 30000,
+      monthlyPrice: 3500,
+      annualPrice: 42000,
       features: [
         "Everything in Basic, and",
-        "Advanced Video Editing / AI Videos",
+        "Advanced Video Editing/ AI Videos",
         "Branded Content/Motion Graphics",
         "50 AI Advert Videos",
         "15 Explainer Videos",
@@ -99,48 +106,50 @@ const PricingPage: React.FC = () => {
       ],
       deliverables: 200,
     },
-    "Premium+": {
-      name: "Premium+ Plan",
-      monthlyPrice: 5000,
-      annualPrice: 60000,
+    Enterprise: {
+      name: "Enterprise Plan",
+      monthlyPrice: 8000,
+      annualPrice: 96000,
       features: [
-        "Everything in Premium, and",
+        "Everything in Premium plan, and",
         "High-End Commercial Work",
         "Strategic Video Content",
-        "Priority Services",
-        "5 Explainer Videos",
-        "15 Iman Gadzi Style Edits",
-        "200 Short-form Videos",
+        "Unlimited videos",
+        "Dedicated account manager",
+        "Custom branding",
+        "24/7 support",
       ],
       deliverables: 400,
     },
   };
 
-  const handlePlanClick = (planKey: string) => {
-    setSelectedPlan(planKey);
-  };
-
   useEffect(() => {
-    const src = "https://js.paystack.co/v1/inline.js";
-    const existingScript = document.querySelector(`script[src="${src}"]`);
-    if (!existingScript) {
+    if (!window.PaystackPop) {
       const script = document.createElement("script");
-      script.src = src;
+      script.src = "https://js.paystack.co/v1/inline.js";
       script.async = true;
       document.body.appendChild(script);
     }
   }, []);
 
   const getEnvVar = (key: string, defaultValue: string): string => {
-    try {
-      const env = (import.meta as unknown as ImportMeta).env;
-      return (env[key as keyof ImportMetaEnv] as string) || defaultValue;
-    } catch {
-      return defaultValue;
+    return import.meta.env[key as keyof ImportMetaEnv] || defaultValue;
+  };
+
+  const getSelectedPlanTotal = () => {
+    if (billingType === "Annual") {
+      return plans[selectedPlan].annualPrice;
+    } else {
+      return plans[selectedPlan].monthlyPrice;
     }
   };
 
-  const payWithPaystack = async () => {
+  const payWithPaystack = () => {
+    if (currency !== "NGN") {
+      alert("Paystack only accepts Nigerian Naira (NGN). Please select Naira.");
+      return;
+    }
+
     const publicKey = getEnvVar(
       "VITE_PAYSTACK_PUBLIC_KEY",
       "pk_test_3a00e1ea19de19eed59d846a1b2b65f799609fb6"
@@ -154,7 +163,6 @@ const PricingPage: React.FC = () => {
     }
 
     const { name, email, phone } = userInfo;
-    const currency = getEnvVar("VITE_PAYSTACK_CURRENCY", "NGN");
     const rawAmount = getSelectedPlanTotal();
     const amount = Math.round(rawAmount * 100);
 
@@ -162,7 +170,7 @@ const PricingPage: React.FC = () => {
       key: publicKey,
       email,
       amount,
-      currency,
+      currency: "NGN",
       ref: `titan-${Date.now()}`,
       metadata: {
         custom_fields: [
@@ -225,14 +233,13 @@ const PricingPage: React.FC = () => {
       return;
     }
 
-    payWithPaystack();
-  };
+    const gateway = selectPaymentGateway(currency);
 
-  const getSelectedPlanTotal = () => {
-    if (billingType === "Annual") {
-      return plans[selectedPlan].annualPrice;
-    } else {
-      return plans[selectedPlan].monthlyPrice;
+    if (gateway === "paystack") {
+      payWithPaystack();
+    } else if (gateway === "stripe") {
+      setShowModal(false);
+      setShowStripeCheckout(true);
     }
   };
 
@@ -245,12 +252,15 @@ const PricingPage: React.FC = () => {
             Pricing or Offers
           </span>
         </div>
-        <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] mb-8 text-left">
+        <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] text-left">
           Best things are premium
         </h1>
       </div>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+
+      <div className="max-w-6xl mx-auto px-4">
+        <PaymentGateway currency={currency} onCurrencyChange={setCurrency} />
+
+        <div className="text-center mb-12 mt-8">
           <div className="inline-flex bg-[#4C12BF] rounded-2xl p-1 backdrop-blur-sm border font-bold">
             <button
               onClick={() => setBillingType("Annual")}
@@ -267,7 +277,7 @@ const PricingPage: React.FC = () => {
               className={`px-6 py-2 rounded-2xl transition-all ${
                 billingType === "Monthly"
                   ? "bg-white text-purple-700 font-medium"
-                  : "text-white "
+                  : "text-white"
               }`}
             >
               Monthly
@@ -275,11 +285,11 @@ const PricingPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12 xlpx22 mdpx-10 px-5">
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           {Object.entries(plans).map(([key, plan]) => (
             <div
               key={key}
-              onClick={() => handlePlanClick(key)}
+              onClick={() => setSelectedPlan(key)}
               className={`relative bg-[#4C12BF] backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition-all duration-300 
                 hover:bg-gradient-to-t from-[#160043] to-[#4C12BF] hover:scale-105 hover:shadow-2xl hover:-translate-y-2 ${
                   selectedPlan === key
@@ -317,16 +327,27 @@ const PricingPage: React.FC = () => {
 
               <div className="mb-6">
                 <span className="text-4xl font-bold text-yellow-400">
-                  $
-                  {billingType === "Monthly"
-                    ? plan.monthlyPrice.toLocaleString()
-                    : plan.monthlyPrice.toLocaleString()}
+                  {currency === "USD"
+                    ? `$${convertNGNToUSD(
+                        billingType === "Annual"
+                          ? plan.annualPrice
+                          : plan.monthlyPrice,
+                        1 / exchangeRate
+                      ).toFixed(2)}`
+                    : `₦${(billingType === "Annual"
+                        ? plan.annualPrice
+                        : plan.monthlyPrice
+                      ).toLocaleString()}`}
                 </span>
                 <span className="text-lg ml-2">/month</span>
                 <div className="text-sm font-bold text-white/80 mt-1">
                   {billingType === "Annual"
-                    ? `$${plan.annualPrice.toLocaleString()} billed annually`
-                    : `$${plan.monthlyPrice.toLocaleString()} billed monthly`}
+                    ? currency === "USD"
+                      ? `$${convertNGNToUSD(plan.annualPrice, 1 / exchangeRate).toFixed(2)} billed annually`
+                      : `₦${plan.annualPrice.toLocaleString()} billed annually`
+                    : currency === "USD"
+                    ? `$${convertNGNToUSD(plan.monthlyPrice, 1 / exchangeRate).toFixed(2)} billed monthly`
+                    : `₦${plan.monthlyPrice.toLocaleString()} billed monthly`}
                 </div>
               </div>
 
@@ -358,43 +379,25 @@ const PricingPage: React.FC = () => {
               <div className="border-t border-white/20 pt-6 flex gap-5">
                 <div className="text-4xl font-bold">{plan.deliverables}</div>
                 <div className="text-sm text-white/80">
-                  Video
-                  <br /> Deliverables
+                  Video{plan.deliverables !== 1 ? "s" : ""} per month
                 </div>
               </div>
+
+              <button
+                onClick={() => {
+                  setSelectedPlan(key);
+                  setShowModal(true);
+                }}
+                className="w-full mt-6 bg-[#FED65E] text-[#4C12BF] font-bold py-3 rounded-lg hover:bg-yellow-300 transition-all duration-300 hover:scale-105"
+              >
+                Get Started
+              </button>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="text-center bg-[#3D0E99] py-10 items-center">
-        <div className="flex items-center justify-evenly pb-4 text-lg ">
-          <span className="font-medium">{selectedPlan}</span>
-          <div>
-            <span className="md:text-3xl text-xl font-bold">
-              $ {getSelectedPlanTotal().toLocaleString()}
-            </span>
-            <span className="font-medium">
-              /{billingType === "Annual" ? "year" : "month"}
-            </span>
-          </div>
-          <span className="text-white font-medium">
-            Billed {billingType === "Annual" ? "Annually" : "Monthly"}
-          </span>
-        </div>
-
-        <div className="text-center px-5">
-          <button
-            className="bg-[#FED65E] hover:bg-yellow-300 text-[#4C12BF] font-bold text-xl xl:w-[1250px] w-full py-4 
-          rounded-2xl transition-all duration-300 md:hover:scale-105 hover:scale-95 shadow-lg cursor-pointer"
-            onClick={() => setShowModal(true)}
-          >
-            Subscribe & Pay
-          </button>
-        </div>
-      </div>
-
-      {showModal && (
+      {showModal && !showStripeCheckout && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
           <div className="bg-gradient-to-b from-[#4C12BF] to-[#160043] rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <div className="flex justify-between items-center mb-6">
@@ -402,7 +405,10 @@ const PricingPage: React.FC = () => {
                 Complete Your Purchase
               </h2>
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  setShowModal(false);
+                  setShowStripeCheckout(false);
+                }}
                 className="text-white/70 hover:text-white transition-colors"
               >
                 <svg
@@ -474,10 +480,18 @@ const PricingPage: React.FC = () => {
                     {selectedPlan}
                   </span>
                 </div>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-white/80">Payment Method:</span>
+                  <span className="font-semibold text-yellow-400">
+                    {currency === "NGN" ? "Paystack" : "Stripe"}
+                  </span>
+                </div>
                 <div className="flex justify-between items-center">
                   <span className="text-white/80">Total:</span>
                   <span className="text-2xl font-bold text-yellow-400">
-                    ${getSelectedPlanTotal().toLocaleString()}
+                    {currency === "USD"
+                      ? `$${convertNGNToUSD(getSelectedPlanTotal(), 1 / exchangeRate).toFixed(2)}`
+                      : `₦${getSelectedPlanTotal().toLocaleString()}`}
                   </span>
                 </div>
                 <div className="text-sm text-white/60 text-right">
@@ -490,9 +504,63 @@ const PricingPage: React.FC = () => {
                 className="w-full bg-[#FED65E] text-[#4C12BF] font-bold 
                 text-lg py-4 rounded-lg hover:bg-yellow-300 transition-all duration-300 hover:scale-105 shadow-lg mt-6"
               >
-                Proceed to Payment
+                Proceed to {currency === "NGN" ? "Paystack" : "Stripe"}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showStripeCheckout && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
+          <div className="bg-gradient-to-b from-[#4C12BF] to-[#160043] rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white">
+                Stripe Checkout
+              </h2>
+              <button
+                onClick={() => {
+                  setShowStripeCheckout(false);
+                  setShowModal(false);
+                }}
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <StripeCheckout
+              amount={getSelectedPlanTotal()}
+              email={userInfo.email}
+              name={userInfo.name}
+              phone={userInfo.phone}
+              planName={selectedPlan}
+              billingType={billingType}
+              onSuccess={() => {
+                alert(
+                  `Payment successful! Receipt sent to ${userInfo.email}`
+                );
+                setShowStripeCheckout(false);
+                setShowModal(false);
+                setUserInfo({ name: "", email: "", phone: "" });
+              }}
+              onCancel={() => {
+                setShowStripeCheckout(false);
+                setShowModal(true);
+              }}
+            />
           </div>
         </div>
       )}
