@@ -240,7 +240,7 @@ const PricingPage: React.FC = () => {
   };
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white xl:pt-0 pt-8">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white xl:pt-20 pt-8">
       <div className="mb-16 xl:px-22 md:px-10 px-5">
         <div className="flex items-center mb-4">
           <div className="w-10 h-1 bg-yellow-400 mr-4"></div>

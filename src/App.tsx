@@ -11,7 +11,9 @@ import Contacts from "./Pages/Contacts";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [paymentStatus, setPaymentStatus] = useState<"success" | "canceled" | null>(null);
+  const [paymentStatus, setPaymentStatus] = useState<
+    "success" | "canceled" | null
+  >(null);
 
   useEffect(() => {
     // Check for payment status in URL
@@ -58,11 +60,17 @@ function App() {
             Thank you for your purchase. Your plan is now active!
           </p>
           <div className="space-y-4">
-            <p className="text-white/70">A confirmation email has been sent to your inbox.</p>
+            <p className="text-white/70">
+              A confirmation email has been sent to your inbox.
+            </p>
             <button
               onClick={() => {
                 setPaymentStatus(null);
-                window.history.replaceState({}, document.title, window.location.pathname);
+                window.history.replaceState(
+                  {},
+                  document.title,
+                  window.location.pathname
+                );
               }}
               className="bg-[#FED65E] text-[#4C12BF] font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition-all duration-300"
             >
@@ -103,7 +111,11 @@ function App() {
           <button
             onClick={() => {
               setPaymentStatus(null);
-              window.history.replaceState({}, document.title, window.location.pathname);
+              window.history.replaceState(
+                {},
+                document.title,
+                window.location.pathname
+              );
             }}
             className="bg-[#FED65E] text-[#4C12BF] font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition-all duration-300"
           >
