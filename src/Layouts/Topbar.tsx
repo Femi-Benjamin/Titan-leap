@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
 export default function Topbar() {
@@ -8,7 +9,15 @@ export default function Topbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [textColor, setTextColor] = useState("text-black"); // default
 
-  const navItems = ["Home", "Our work", "Services", "Pricing", "Contacts"];
+  const navItems: { label: string; path: string }[] = [
+    { label: "Home", path: "/" },
+    { label: "Our work", path: "/our-work" },
+    { label: "Services", path: "/services" },
+    { label: "Pricing", path: "/pricing" },
+    { label: "Contacts", path: "/contacts" },
+  ];
+
+  const location = useLocation();
 
   // 🔹 Helper to get effective background color at a point
   const getBackgroundColorAtPoint = (x: number, y: number) => {
@@ -68,6 +77,11 @@ export default function Topbar() {
     setIsMobileMenuOpen(false);
   };
 
+  useEffect(() => {
+    const match = navItems.find((n) => n.path === location.pathname);
+    if (match) setActiveItem(match.label);
+  }, [location.pathname]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -102,27 +116,27 @@ export default function Topbar() {
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
-                <div key={item} className="relative">
-                  <button
-                    onClick={() => handleNavClick(item)}
-                    onMouseEnter={() => setHoveredItem(item)}
+                <div key={item.path} className="relative">
+                  <NavLink
+                    to={item.path}
+                    onMouseEnter={() => setHoveredItem(item.label)}
                     onMouseLeave={() => setHoveredItem("")}
-                    className={`relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${
-                      activeItem === item
-                        ? "text-purple-600"
-                        : `${textColor} hover:text-purple-600`
-                    }`}
+                    onClick={() => handleNavClick(item.label)}
+                    className={({ isActive }) =>
+                      `relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${
+                        isActive ? "text-purple-600" : `${textColor} hover:text-purple-600`
+                      }`
+                    }
                   >
-                    {item}
-                    {/* Yellow dot indicator */}
+                    {item.label}
                     <div
                       className={`absolute top-[9px] right-1 transform translate-y-1/2 w-2 h-2 bg-yellow-400 rounded-full transition-opacity duration-200 ${
-                        activeItem === item || hoveredItem === item
+                        activeItem === item.label || hoveredItem === item.label
                           ? "opacity-100"
                           : "opacity-0"
                       }`}
                     />
-                  </button>
+                  </NavLink>
                 </div>
               ))}
             </nav>
@@ -181,25 +195,28 @@ export default function Topbar() {
         >
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navItems.map((item, index) => (
-              <button
-                key={item}
-                onClick={() => handleNavClick(item)}
-                className={`block px-4 py-3 text-base font-medium w-full text-left rounded-lg transition-all duration-200 transform ${
-                  activeItem === item
-                    ? "text-[#411697] bg-purple-50/80 border-l-4 border-[#411697]"
-                    : "text-gray-700 hover:text-[#411697] hover:bg-gray-50/80"
-                }`}
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={() => handleNavClick(item.label)}
+                className={({ isActive }) =>
+                  `block px-4 py-3 text-base font-medium w-full text-left rounded-lg transition-all duration-200 transform ${
+                    isActive
+                      ? "text-[#411697] bg-purple-50/80 border-l-4 border-[#411697]"
+                      : "text-gray-700 hover:text-[#411697] hover:bg-gray-50/80"
+                  }`
+                }
                 style={{
                   animationDelay: isMobileMenuOpen ? `${index * 50}ms` : "0ms",
                 }}
               >
                 <div className="flex items-center justify-between">
-                  {item}
-                  {activeItem === item && (
+                  {item.label}
+                  {activeItem === item.label && (
                     <div className="w-2 h-2 bg-yellow-400 rounded-full" />
                   )}
                 </div>
-              </button>
+              </NavLink>
             ))}
             <div className="pt-4 border-t border-gray-200">
               <button

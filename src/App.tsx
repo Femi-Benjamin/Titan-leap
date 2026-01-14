@@ -3,6 +3,11 @@ import "./App.css";
 import Intro from "./Pages/Intro";
 import Main from "./Pages/Main";
 import LoadingScreen from "./LoadingScreen/loadingscreen";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import OurWork from "./Pages/OurWork";
+import Services from "./Pages/Services";
+import Pricing from "./Pages/Pricing";
+import Contacts from "./Pages/Contacts";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -116,12 +121,32 @@ function App() {
 
   // Show main content after loading is complete
   return (
-    <>
-      <div>
-        <Intro />
-        <Main />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Intro />
+              <Main />
+            </>
+          }
+        />
+        <Route path="/our-work" element={<OurWork />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route
+          path="*"
+          element={
+            <>
+              <Intro />
+              <Main />
+            </>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
