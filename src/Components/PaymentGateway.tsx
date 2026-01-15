@@ -17,20 +17,14 @@ const PaymentGateway: React.FC<PaymentGatewayProps> = ({
 }) => {
   return (
     <div className="mb-12 px-5 md:px-10 xl:px-22">
-      {/* <div className="flex items-center justify-center mb-6">
-        <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
-        <span className="text-[#FED65E] font-semibold text-lg tracking-wider">
-          Select Payment Method
-        </span>
-      </div> */}
-       <div className="mb-6 bg-white/5 rounded-lg p-4 border border-white/10">
-          <p className="text-sm text-white/70 text-center">
-            💡 Choose your preferred payment method. Prices will be displayed in{" "}
-            <span className="font-semibold text-yellow-400">
-              {currency === "NGN" ? "Nigerian Naira (NGN)" : "US Dollars (USD)"}
-            </span>
-          </p>
-        </div>
+      <div className="mb-6 bg-white/5 rounded-lg p-4 border border-white/10">
+        <p className="text-sm text-white/70 text-center">
+          Choose your preferred payment method. Prices will be displayed in{" "}
+          <span className="font-semibold text-[#FED65E]">
+            {currency === "NGN" ? "Nigerian Naira (NGN)" : "US Dollars (USD)"}
+          </span>
+        </p>
+      </div>
 
       <div className="max-w-3xl mx-auto">
         <div className="grid grid-cols-2 gap-4">
@@ -48,7 +42,9 @@ const PaymentGateway: React.FC<PaymentGatewayProps> = ({
                 <h3 className="text-xl font-bold text-white text-left">
                   Paystack
                 </h3>
-                <p className="text-sm text-white/70 text-left">NGN (Nigerian Naira)</p>
+                <p className="text-sm text-white/70 text-left">
+                  NGN (Nigerian Naira)
+                </p>
               </div>
               <div
                 className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
@@ -91,7 +87,9 @@ const PaymentGateway: React.FC<PaymentGatewayProps> = ({
                 <h3 className="text-xl font-bold text-white text-left">
                   Stripe
                 </h3>
-                <p className="text-sm text-white/70 text-left">USD (US Dollar)</p>
+                <p className="text-sm text-white/70 text-left">
+                  USD (US Dollar)
+                </p>
               </div>
               <div
                 className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
@@ -122,7 +120,6 @@ const PaymentGateway: React.FC<PaymentGatewayProps> = ({
         </div>
 
         {/* Info Box */}
-       
       </div>
     </div>
   );

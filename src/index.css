@@ -5,6 +5,12 @@
   --font-Inter: "Inter", sans-serif;
 }
 
+/* Prevent white flash on page load */
+body,
+html {
+  background-color: #000000;
+}
+
 body::-webkit-scrollbar,
 html::-webkit-scrollbar {
   display: none;

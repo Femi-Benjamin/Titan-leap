@@ -1,6 +1,8 @@
 import Topbar from "../Layouts/Topbar";
 import Footer from "../Layouts/Footer";
 import { Plus } from "lucide-react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import strategy from "../assets/strategy.png";
 import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
@@ -74,7 +76,7 @@ const coreServices: ServiceProps[] = [
     description:
       "Posting with purpose. We don't just post — we engineer attention and authority.",
     image: SocialImg,
-    bgClass: "bg-[#240b36]", // Deep dark purple
+    bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
     items: [
       "Content calendar & posting strategy",
       "Caption writing & CTA optimization",
@@ -87,7 +89,7 @@ const coreServices: ServiceProps[] = [
     description:
       "Scale without hiring 10 people. We integrate AI systems to automate and accelerate marketing.",
     image: AiImg,
-    bgClass: "bg-gradient-to-b from-white/10 to-purple-900/50", // Light to dark
+    bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#FFFFFF]",
     items: [
       "Auto-posting systems",
       "Lead qualification & follow-ups",
@@ -100,7 +102,7 @@ const coreServices: ServiceProps[] = [
     description:
       "Long-term traffic that compounds. For brands ready to dominate organically.",
     image: AiImg, // Using AI image as placeholder
-    bgClass: "bg-[#1a0b3c]", // Deep purple
+    bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
     items: [
       "SEO content strategy",
       "Keyword research & optimization",
@@ -158,6 +160,26 @@ const ServiceItem = ({ service }: { service: ServiceProps }) => (
 );
 
 const Services = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Scroll to service section if navigated from Expertise
+    if (location.state?.scrollTo) {
+      const targetTitle = location.state.scrollTo;
+      const serviceElements = document.querySelectorAll("h2");
+
+      for (const element of serviceElements) {
+        if (element.textContent === targetTitle) {
+          // Small delay to ensure page is fully rendered
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
+          break;
+        }
+      }
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen text-white bg-[#160043]">
       <Topbar />

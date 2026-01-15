@@ -70,7 +70,28 @@ const PricingPage: React.FC = () => {
     email: "",
     phone: "",
   });
-  const [exchangeRate] = useState(1472); // Exchange rate NGN to USD
+  // const [exchangeRate] = useState(1474.5); // Exchange rate NGN to USD
+  const [exchangeRate, setExchangeRate] = useState<number>(1474.5); // Exchange rate: 1 USD = 1474.5 NGN
+
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch(
+          "https://api.exchangerate.host/latest?base=USD&symbols=NGN"
+        );
+        const data = await response.json();
+
+        if (data?.rates?.NGN) {
+          setExchangeRate(data.rates.NGN); // NGN per USD
+        }
+      } catch (error) {
+        console.error("Exchange rate fetch failed, using fallback.", error);
+        setExchangeRate(1474.5); // fallback rate
+      }
+    };
+
+    fetchExchangeRate();
+  }, []);
 
   const plans: Record<string, Plan> = {
     Basic: {
@@ -240,7 +261,7 @@ const PricingPage: React.FC = () => {
   };
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white xl:pt-20 pt-8">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white xl:pt-20 pt-20">
       <div className="mb-16 xl:px-22 md:px-10 px-5">
         <div className="flex items-center mb-4">
           <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
@@ -326,12 +347,12 @@ const PricingPage: React.FC = () => {
                   {currency === "USD"
                     ? `$${convertNGNToUSD(
                         billingType === "Annual"
-                          ? plan.annualPrice
+                          ? plan.annualPrice / 12
                           : plan.monthlyPrice,
                         1 / exchangeRate
                       ).toFixed(2)}`
                     : `₦${(billingType === "Annual"
-                        ? plan.monthlyPrice
+                        ? Math.round(plan.annualPrice / 12)
                         : plan.monthlyPrice
                       ).toLocaleString()}`}
                 </span>
@@ -404,7 +425,7 @@ const PricingPage: React.FC = () => {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
           <div className="bg-gradient-to-b from-[#4C12BF] to-[#160043] rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="md:text-2xl text-xl font-bold text-white text-center">
                 Complete Your Purchase
               </h2>
               <button

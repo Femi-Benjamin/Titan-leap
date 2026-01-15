@@ -1,10 +1,14 @@
 "use client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Media from "../assets/Media.png";
-// import content from "../assets/content.png";
-// import Frame from "../assets/Frame.png";
+import strategy from "../assets/strategy.png";
+import funnel from "../assets/funnel.png";
+import ads from "../assets/ads.png";
+import content from "../assets/content.png";
 
 const Expertise = () => {
+  const navigate = useNavigate();
   const [activeAccordion, setActiveAccordion] = useState<string | null>(
     "Design"
   );
@@ -15,30 +19,30 @@ const Expertise = () => {
 
   const cards = [
     {
-      id: "Strategy & Brand Positioning",
-      title: "Strategy & Brand Positioning",
+      id: "Strategy and Brand Positioning",
+      title: "Strategy and Brand Positioning",
       description:
         "We define how you win in your market before spending a dollar on ads.",
-      icon: Media,
+      icon: strategy,
     },
     {
       id: "Funnel Design & Conversion Systems",
       title: "Funnel Design & Conversion Systems",
       description:
         "We design high-converting funnels that turn attention into revenue.",
-      icon: Media,
+      icon: funnel,
     },
     {
-      id: "Paid Advertising",
-      title: "Paid Advertising (Performance marketing)",
+      id: "Paid Advertising (Performance Marketing)",
+      title: "Paid Advertising (Performance Marketing)",
       description: "We run ads only after strategy and funnels are locked in.",
-      icon: Media,
+      icon: ads,
     },
     {
       id: "Content Creation",
       title: "Content Creation",
       description: "Content is the new currency. We mint it daily.",
-      icon: Media,
+      icon: content,
     },
     {
       id: "Social Media Management",
@@ -48,9 +52,16 @@ const Expertise = () => {
       icon: Media,
     },
     {
-      id: "AI Automation",
+      id: "AI Automation & Growth Agents",
       title: "AI Automation & Growth Agents",
       description: "We run ads only after strategy and funnels are locked in.",
+      icon: Media,
+    },
+    {
+      id: "SEO & Authority Building",
+      title: "SEO & Authority Building",
+      description:
+        "Long-term traffic that compounds. For brands ready to dominate organically.",
       icon: Media,
     },
   ];
@@ -84,6 +95,11 @@ const Expertise = () => {
     // Keep the last hovered card's accordion visible
   };
 
+  const handleLetsTalkClick = (cardTitle: string) => {
+    // Navigate to services page and scroll to the corresponding section
+    navigate("/services", { state: { scrollTo: cardTitle } });
+  };
+
   const getAccordionItems = (cardType: string) => {
     switch (cardType) {
       case "Content Creation":
@@ -93,7 +109,6 @@ const Expertise = () => {
             content:
               "A brand that looks premium, modern, and impossible to ignore.",
           },
-
         ];
 
       case "Social Media Management":
@@ -103,7 +118,6 @@ const Expertise = () => {
             content:
               "Comprehensive social media strategies tailored to your brand, including content calendars, posting schedules, and audience engagement tactics.",
           },
-
         ];
 
       case "Paid Advertising":
@@ -111,10 +125,8 @@ const Expertise = () => {
         return [
           {
             title: "Outcome",
-            content:
-              "Consistent, scalable ad performance — not random spikes.",
+            content: "Consistent, scalable ad performance — not random spikes.",
           },
-
         ];
 
       case "AI Automation":
@@ -141,6 +153,14 @@ const Expertise = () => {
             title: "Outcome",
             content:
               "A predictable system that converts visitors into leads, bookings, and sales.",
+          },
+        ];
+      case "SEO & Authority Building":
+        return [
+          {
+            title: "Outcome",
+            content:
+              "Long-term traffic that compounds. For brands ready to dominate organically.",
           },
         ];
 
@@ -174,21 +194,22 @@ const Expertise = () => {
           {cards.map((card) => (
             <div
               key={card.id}
-              className={`group relative rounded-2xl p-[1px] transition-all duration-300 ${clickedCard === card.id
-                ? "bg-[#FED65E]"
-                : "bg-gradient-to-t from-purple-900 to-white hover:bg-[#FED65E]"
-                }`}
+              className={`group relative rounded-2xl p-[1px] transition-all duration-300 ${
+                clickedCard === card.id
+                  ? "bg-[#FED65E]"
+                  : "bg-gradient-to-t from-purple-900 to-white hover:bg-[#FED65E]"
+              }`}
               onMouseEnter={() => handleCardHover(card.id)}
               onMouseLeave={handleCardLeave}
               onClick={() => handleCardClick(card.id)}
             >
               <div className="bg-[#4C12BF] rounded-2xl p-6 h-full flex flex-col relative">
                 <div className="flex flex-row gap-4 mb-6">
-                  <div className="flex-shrink-0 flex items-center">
+                  <div className="flex-shrink-0 flex items-center pt-5">
                     <img
                       src={card.icon || "/placeholder.svg"}
                       alt={card.title}
-                      className="object-contain pt-12"
+                      className="w-20 h-20 object-contain"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -201,7 +222,10 @@ const Expertise = () => {
                   </div>
                 </div>
                 <div className="flex justify-end mt-auto">
-                  <button className="bg-[#FED65E] text-[#4C12BF] py-2.5 px-6 rounded-lg hover:bg-yellow-300 transition-colors text-sm w-[calc(83%-2rem)] font-Achivo">
+                  <button
+                    onClick={() => handleLetsTalkClick(card.title)}
+                    className="bg-[#FED65E] text-[#4C12BF] py-2.5 px-6 rounded-lg cursor-pointer hover:bg-yellow-300 transition-colors text-sm w-[calc(83%-2rem)] font-Achivo"
+                  >
                     Let's Talk
                   </button>
                 </div>
@@ -222,16 +246,18 @@ const Expertise = () => {
                 className="w-full flex justify-between items-center py-6 text-left hover:text-yellow-400 transition-colors"
               >
                 <span
-                  className={`text-xl font-medium ${activeAccordion === item.title
-                    ? "text-white"
-                    : "text-purple-200"
-                    }`}
+                  className={`text-xl font-medium ${
+                    activeAccordion === item.title
+                      ? "text-white"
+                      : "text-purple-200"
+                  }`}
                 >
                   {item.title}
                 </span>
                 <div
-                  className={`transform transition-transform duration-300 ${activeAccordion === item.title ? "rotate-45" : ""
-                    }`}
+                  className={`transform transition-transform duration-300 ${
+                    activeAccordion === item.title ? "rotate-45" : ""
+                  }`}
                 >
                   <svg
                     className="w-6 h-6 text-white"

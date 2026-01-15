@@ -3,21 +3,23 @@ import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
+const navItems: { label: string; path: string }[] = [
+  { label: "Home", path: "/" },
+  { label: "Portfolio", path: "/portfolio" },
+  { label: "Services", path: "/services" },
+  { label: "Pricing", path: "/pricing" },
+  { label: "Contacts", path: "/contacts" },
+];
+
 export default function Topbar() {
   const [activeItem, setActiveItem] = useState("Home");
   const [hoveredItem, setHoveredItem] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [textColor, setTextColor] = useState("text-black"); // default
 
-  const navItems: { label: string; path: string }[] = [
-    { label: "Home", path: "/" },
-    { label: "Our work", path: "/our-work" },
-    { label: "Services", path: "/services" },
-    { label: "Pricing", path: "/pricing" },
-    { label: "Contacts", path: "/contacts" },
-  ];
-
   const location = useLocation();
+
+  // ... rest of your code remains the same
 
   // 🔹 Helper to get effective background color at a point
   const getBackgroundColorAtPoint = (x: number, y: number) => {
@@ -124,7 +126,9 @@ export default function Topbar() {
                     onClick={() => handleNavClick(item.label)}
                     className={({ isActive }) =>
                       `relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${
-                        isActive ? "text-purple-600" : `${textColor} hover:text-purple-600`
+                        isActive
+                          ? "text-purple-600"
+                          : `${textColor} hover:text-purple-600`
                       }`
                     }
                   >

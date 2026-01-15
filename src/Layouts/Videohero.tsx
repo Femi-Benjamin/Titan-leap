@@ -6,7 +6,7 @@ export default function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[#000000]">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -39,7 +39,7 @@ export default function VideoHero() {
             See our work
             </button>
             </div> */}
-          <p className="text-white text-lg md:text-xl mb-8 leading-relaxed max-w-xl font-DM Sans">
+          <p className="text-white text-lg md:text-2xl mb-8 leading-relaxed max-w-xl font-DM Sans">
             Next-level content, ads, and automation — We do the work, while you
             recharge and scale.
           </p>

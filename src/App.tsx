@@ -4,7 +4,7 @@ import Intro from "./Pages/Intro";
 import Main from "./Pages/Main";
 import LoadingScreen from "./LoadingScreen/loadingscreen";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import OurWork from "./Pages/OurWork";
+import Portfolio from "./Pages/Portfolio";
 import Services from "./Pages/Services";
 import Pricing from "./Pages/Pricing";
 import Contacts from "./Pages/Contacts";
@@ -144,7 +144,7 @@ function App() {
             </>
           }
         />
-        <Route path="/our-work" element={<OurWork />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/services" element={<Services />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contacts" element={<Contacts />} />
@@ -163,8 +163,3 @@ function App() {
 }
 
 export default App;
-//     </>
-//   );
-// }
-
-// export default App;
