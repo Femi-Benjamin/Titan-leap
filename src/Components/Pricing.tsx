@@ -258,7 +258,7 @@ const PricingPage: React.FC = () => {
                 )}
 
                 <div className="flex justify-between items-start mb-4 mt-2">
-                  <h3 className="text-3xl font-bold text-yellow-400 leading-tight pr-8 font-Inter">
+                  <h3 className="md:text-4xl text-2xl font-bold text-yellow-400 leading-tight font-Inter">
                     {plan.title}
                   </h3>
 
