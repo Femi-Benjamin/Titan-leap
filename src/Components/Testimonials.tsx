@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
         <div className="mb-16 xl:px-22 md:px-10 px-5">
           <div className="flex items-center mb-4">
             <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
-            <span className="text-[#4C12BF] font-semibold text-lg tracking-wider">
+            <span className="text-[#4C12BF] font-bold text-lg tracking-wider">
               TESTIMONIALS
             </span>
           </div>

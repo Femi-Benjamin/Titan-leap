@@ -49,7 +49,7 @@ export default function Component() {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-1 bg-[#FED65E]"></div>
-            <span className="text-[#FED65E] font-semibold text-lg tracking-wider">
+            <span className="text-[#FED65E] font-bold text-lg tracking-wider uppercase">
               Proof & Portfolio
             </span>
           </div>

@@ -180,7 +180,7 @@ const Expertise = () => {
         <div className="mb-12">
           <div className="flex items-center mb-4">
             <div className="h-1 bg-[#FED65E] w-10 mr-4"></div>
-            <span className="text-yellow-400 font-semibold text-lg tracking-wider uppercase">
+            <span className="text-yellow-400 font-bold text-lg tracking-wider uppercase">
               OUR EXPERTISE
             </span>
           </div>
