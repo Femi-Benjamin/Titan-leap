@@ -7,9 +7,9 @@ import strategy from "../assets/strategy.png";
 import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
-import SocialImg from "../assets/social-media.png";
-import AiImg from "../assets/ai-automation.png";
-
+import ChatGPT from "../assets/ChatGPT.png";
+import SEO from "../assets/SEO.png";
+import AI from "../assets/AI.png";
 interface ServiceProps {
   title: string;
   description: string;
@@ -75,7 +75,7 @@ const coreServices: ServiceProps[] = [
     title: "Social Media Management",
     description:
       "Posting with purpose. We don't just post — we engineer attention and authority.",
-    image: SocialImg,
+    image: ChatGPT,
     bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
     items: [
       "Content calendar & posting strategy",
@@ -88,7 +88,7 @@ const coreServices: ServiceProps[] = [
     title: "AI Automation & Growth Agents",
     description:
       "Scale without hiring 10 people. We integrate AI systems to automate and accelerate marketing.",
-    image: AiImg,
+    image: AI,
     bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#FFFFFF]",
     items: [
       "Auto-posting systems",
@@ -101,7 +101,7 @@ const coreServices: ServiceProps[] = [
     title: "SEO & Authority Building",
     description:
       "Long-term traffic that compounds. For brands ready to dominate organically.",
-    image: AiImg, // Using AI image as placeholder
+    image: SEO,
     bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
     items: [
       "SEO content strategy",

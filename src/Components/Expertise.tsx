@@ -1,19 +1,21 @@
 "use client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Media from "../assets/Media.png";
 import strategy from "../assets/strategy.png";
 import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
+import ChatGPT from "../assets/ChatGPT.png";
+import SEO from "../assets/SEO.png";
+import AI from "../assets/AI.png";
 
 const Expertise = () => {
   const navigate = useNavigate();
   const [activeAccordion, setActiveAccordion] = useState<string | null>(
-    "Design"
+    "Design",
   );
   const [hoveredCard, setHoveredCard] = useState<string | null>(
-    "Content Creation"
+    "Content Creation",
   );
   const [clickedCard, setClickedCard] = useState<string | null>(null);
 
@@ -49,20 +51,20 @@ const Expertise = () => {
       title: "Social Media Management",
       description:
         "We design high-converting funnels that turn attention into revenue.",
-      icon: Media,
+      icon: ChatGPT,
     },
     {
       id: "AI Automation & Growth Agents",
       title: "AI Automation & Growth Agents",
       description: "We run ads only after strategy and funnels are locked in.",
-      icon: Media,
+      icon: AI,
     },
     {
       id: "SEO & Authority Building",
       title: "SEO & Authority Building",
       description:
         "Long-term traffic that compounds. For brands ready to dominate organically.",
-      icon: Media,
+      icon: SEO,
     },
   ];
 
@@ -170,7 +172,7 @@ const Expertise = () => {
   };
 
   const currentAccordionItems = getAccordionItems(
-    hoveredCard || "Content Creation"
+    hoveredCard || "Content Creation",
   );
 
   return (
