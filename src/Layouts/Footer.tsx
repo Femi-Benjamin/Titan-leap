@@ -1,4 +1,4 @@
-import { Linkedin, Twitter } from "lucide-react"; // Dribbble as replacement for Behance if not available, or use generic
+import { Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
 
           {/* Solutions */}
-          <div>
+          <div className="text-right md:text-left">
             <h3 className="font-bold text-lg mb-8">Solutions</h3>
             <ul className="space-y-4 text-purple-200 text-sm font-light">
               <li>
@@ -111,7 +111,7 @@ const Footer = () => {
           </div>
 
           {/* Company */}
-          <div>
+          <div className="text-right md:text-left">
             <h3 className="font-bold text-lg mb-8">Company</h3>
             <ul className="space-y-4 text-purple-200 text-sm font-light">
               <li>

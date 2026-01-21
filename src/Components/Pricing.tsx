@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface Plan {
   title: string;
   subtitle: string;
-  annualPrice: number; // Changed to explicitly mean Annual Price
+  monthlyPrice: number; // Changed to explicitly mean Monthly Price
   currencySymbol: string;
   unit: string;
   features: string[];
@@ -17,7 +17,7 @@ interface Plan {
 
 const PricingPage: React.FC = () => {
   const [billingType, setBillingType] = useState<"Annual" | "Monthly">(
-    "Monthly"
+    "Monthly",
   );
   // Default to Annual since prices are annual? Or Monthly? User selected "Scale System".
   const [selectedPlan, setSelectedPlan] = useState<string>("Scale System");
@@ -33,7 +33,7 @@ const PricingPage: React.FC = () => {
     {
       title: "Growth Foundation",
       subtitle: "For businesses that need visibility, leads, and clarity",
-      annualPrice: 2999,
+      monthlyPrice: 2999,
       currencySymbol: "$",
       unit: "Starting | USD",
       buttonText: "Select Plan",
@@ -52,9 +52,9 @@ const PricingPage: React.FC = () => {
     {
       title: "The Scaling System",
       subtitle: "For brands that want predictable leads and sales",
-      annualPrice: 5999,
+      monthlyPrice: 5999,
       currencySymbol: "$",
-      unit: "Starting | NGN",
+      unit: "Starting | USD",
       buttonText: "Select Plan",
       isPopular: true,
       features: [
@@ -78,9 +78,9 @@ const PricingPage: React.FC = () => {
     {
       title: "Authority Domination",
       subtitle: "For brands that want to own attention in their market",
-      annualPrice: 9999,
+      monthlyPrice: 9999,
       currencySymbol: "$",
-      unit: "Starting | NGN",
+      unit: "Starting | USD",
       buttonText: "Get Started",
       features: [
         "Features",
@@ -128,8 +128,8 @@ const PricingPage: React.FC = () => {
     // We will round up to nearest integer for clean display.
     const price =
       billingType === "Annual"
-        ? plan.annualPrice
-        : Math.ceil(plan.annualPrice / 12);
+        ? Math.round(plan.monthlyPrice * 12 * 0.85)
+        : plan.monthlyPrice;
 
     return `${plan.currencySymbol}${price.toLocaleString()}`;
   };
@@ -157,8 +157,8 @@ const PricingPage: React.FC = () => {
 
     const price =
       billingType === "Annual"
-        ? plan.annualPrice
-        : Math.ceil(plan.annualPrice / 12);
+        ? Math.round(plan.monthlyPrice * 12 * 0.85)
+        : plan.monthlyPrice;
 
     const unitTime = billingType === "Annual" ? "/Year" : "/Month";
 
@@ -227,7 +227,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
           {plans.map((plan, index) => (
             <div key={plan.title} className="flex flex-col gap-4 group">
               {/* TOP CARD: Pricing Info */}
@@ -247,8 +247,8 @@ const PricingPage: React.FC = () => {
                 onClick={() => setSelectedPlan(plan.title)}
                 className={`flex flex-col rounded-3xl p-8 backdrop-blur-sm transition-all duration-300 relative ${
                   selectedPlan === plan.title
-                    ? "bg-[#4C12BF] hover:bg-[#4B11BF]"
-                    : "bg-[#4C12BF] hover:bg-[#4B11BF]"
+                    ? "bg-[#4C12BF] hover:bg-[#280a6b]"
+                    : "bg-[#4C12BF] hover:bg-[#280a6b]"
                 }`}
               >
                 {plan.isPopular && (
@@ -280,9 +280,7 @@ const PricingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-white/80 text-sm mb6 min-h-[40px]">
-                  {plan.subtitle}
-                </p>
+                <p className="text-white/80 text-sm">{plan.subtitle}</p>
 
                 <div className="mb-2">
                   {/* Animated Price Change */}
@@ -296,6 +294,11 @@ const PricingPage: React.FC = () => {
                       className="text-5xl font-bold text-yellow-400 font-sans block"
                     >
                       {getPriceDisplay(plan)}
+                      {billingType === "Annual" && (
+                        <span className="text-sm font-bold text-white/70 ml-3 bg-white/10 px-2 py-1 rounded-lg align-middle">
+                          Save 15%
+                        </span>
+                      )}
                     </motion.span>
                   </AnimatePresence>
                 </div>
@@ -313,8 +316,8 @@ const PricingPage: React.FC = () => {
                     plan.isPopular
                       ? "bg-[#FED65E] text-[#4C12BF] border-[#FED65E] hover:bg-[#ffe187] shadow-lg hover:shadow-xl cursor-pointer"
                       : index === 2
-                      ? "bg-gradient-to-b from-[#4C12BF] to-[#FED65E] text-white border-white/20 hover:opacity-90 shadow-lg hover:shadow-xl cursor-pointer"
-                      : "bg-white/10 text-white border-white hover:bg-white/20 backdrop-blur-md cursor-pointer"
+                        ? "bg-gradient-to-b from-[#4C12BF] to-[#FED65E] text-white border-white/20 hover:opacity-90 shadow-lg hover:shadow-xl cursor-pointer"
+                        : "bg-white/10 text-white border-white hover:bg-white/20 backdrop-blur-md cursor-pointer"
                   }`}
                 >
                   {plan.buttonText}
@@ -333,7 +336,7 @@ const PricingPage: React.FC = () => {
                 }}
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
                 onClick={() => setSelectedPlan(plan.title)}
-                className={`flex-1 rounded-3xl p-8 backdrop-blur-sm border border-white/5 cursor-pointer transition-colors duration-300 ${
+                className={`rounded-3xl p-8 backdrop-blur-sm border border-white/5 cursor-pointer transition-colors duration-300 ${
                   selectedPlan === plan.title
                     ? "bg-[#340d87]"
                     : "bg-[#340d87] hover:bg-[#280a6b]"
@@ -343,7 +346,7 @@ const PricingPage: React.FC = () => {
                   {plan.features.map((feature, i) => (
                     <div key={i} className={`flex items-start gap-3`}>
                       {feature === "Features" ? (
-                        <span className="text-white/50 text-xs font-bold uppercase mb-2 block">
+                        <span className="text-white text-base font-bold uppercase mb-2 block">
                           Features
                         </span>
                       ) : feature.includes("Everything in") ||
@@ -602,7 +605,7 @@ const PricingPage: React.FC = () => {
                 billingType={billingType}
                 onSuccess={() => {
                   alert(
-                    `Payment successful! Receipt sent to ${userInfo.email}`
+                    `Payment successful! Receipt sent to ${userInfo.email}`,
                   );
                   setShowStripeCheckout(false);
                   setShowModal(false);
