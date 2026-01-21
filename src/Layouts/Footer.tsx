@@ -99,14 +99,14 @@ const Footer = () => {
                   Client XYZ
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="hover:text-white transition-colors mt-8 inline-block opacity-70"
                 >
                   See more cases
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -178,7 +178,7 @@ const Footer = () => {
               Privacy Policy
             </a>
             <span className="hidden md:inline">|</span>
-            <span>© 2024, Titan Leap</span>
+            <span>© {new Date().getFullYear()}, Titan Leap</span>
           </div>
         </div>
       </div>
