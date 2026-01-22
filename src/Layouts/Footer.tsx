@@ -8,8 +8,8 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {/* Our Services */}
           <div>
-            <h3 className="font-bold text-lg mb-8">Our services</h3>
-            <ul className="space-y-4 text-purple-200 text-sm font-light">
+            <h3 className="font-bold text-lg md:text-xl mb-8">Our services</h3>
+            <ul className="space-y-4 text-purple-200 text-sm md:text-base font-light">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   Online Media Management
@@ -45,8 +45,8 @@ const Footer = () => {
 
           {/* Solutions */}
           <div className="text-right md:text-left">
-            <h3 className="font-bold text-lg mb-8">Solutions</h3>
-            <ul className="space-y-4 text-purple-200 text-sm font-light">
+            <h3 className="font-bold text-lg md:text-xl mb-8">Solutions</h3>
+            <ul className="space-y-4 text-purple-200 text-sm md:text-base font-light">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   Digital Marketing
@@ -72,8 +72,8 @@ const Footer = () => {
 
           {/* Cases */}
           <div>
-            <h3 className="font-bold text-lg mb-8">Cases</h3>
-            <ul className="space-y-4 text-purple-200 text-sm font-light">
+            <h3 className="font-bold text-lg md:text-xl mb-8">Cases</h3>
+            <ul className="space-y-4 text-purple-200 text-sm md:text-base font-light">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   Future Pay
@@ -112,8 +112,8 @@ const Footer = () => {
 
           {/* Company */}
           <div className="text-right md:text-left">
-            <h3 className="font-bold text-lg mb-8">Company</h3>
-            <ul className="space-y-4 text-purple-200 text-sm font-light">
+            <h3 className="font-bold text-lg md:text-xl mb-8">Company</h3>
+            <ul className="space-y-4 text-purple-200 text-sm md:text-base font-light">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   Who we are
@@ -147,10 +147,10 @@ const Footer = () => {
         <div className="w-full h-px bg-purple-400/30 mb-8"></div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between text-xs text-purple-200 gap-6 md:gap-0">
+        <div className="flex flex-col md:flex-row items-center justify-between text-purple-200 gap-6 md:gap-0 text-sm md:text-base">
           {/* Contact Info (Left) */}
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-8">
-            <span>+1 (415) 655-1002</span>
+            <span>+234 81-4115-1183</span>
             <span className="hidden md:inline">|</span>
             <span>830 Stewart Drive, #212, Sunnyvale, CA, USA, 94085</span>
           </div>

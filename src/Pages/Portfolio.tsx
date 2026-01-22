@@ -1,15 +1,27 @@
 import Topbar from "../Layouts/Topbar";
 import Footer from "../Layouts/Footer";
+import Video2 from "../Components/Video2";
+import Video1 from "../Components/Video1";
+import Video3 from "../Components/Video3";
+import Video4 from "../Components/Video4";
 
 const OurWork = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] text-white">
+    <div className="min-h-screen bg-gradient-to-t from-[#000000] to-[#4C12BF] text-white">
       <Topbar />
-      <main className="max-w-6xl mx-auto px-6 py-24">
-        <h1 className="text-4xl font-bold mb-6">Portfolio</h1>
-        <p className="text-white/80">
-          Showcase your portfolio, case studies, and highlights here.
-        </p>
+      <main className="mx-auto">
+        <div className="pt-20 px-4 md:px-40 max-w-7xl">
+          <h1 className="text-white text-6xl md:text-7xl leading-loose font-bold text-center md:text-left">
+            Portfolio
+          </h1>
+        </div>
+
+        <div>
+          <Video2 />
+          <Video1 />
+          <Video3 />
+          <Video4 />
+        </div>
       </main>
       <Footer />
     </div>

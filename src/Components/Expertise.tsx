@@ -122,8 +122,7 @@ const Expertise = () => {
           },
         ];
 
-      case "Paid Advertising":
-      case "Ads & Search Engine":
+      case "Paid Advertising (Performance Marketing)":
         return [
           {
             title: "Outcome",
@@ -131,7 +130,7 @@ const Expertise = () => {
           },
         ];
 
-      case "AI Automation":
+      case "AI Automation & Growth Agents":
         return [
           {
             title: "Outcome",
@@ -140,7 +139,7 @@ const Expertise = () => {
           },
         ];
 
-      case "Strategy & Brand Positioning":
+      case "Strategy and Brand Positioning":
         return [
           {
             title: "Outcome",

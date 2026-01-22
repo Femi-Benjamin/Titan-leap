@@ -131,7 +131,7 @@ const ServiceItem = ({ service }: { service: ServiceProps }) => (
           />
         </div>
         {/* Glow effect behind image */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-600/30 blur-[100px] rounded-full -z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-900/30 blur-[100px] rounded-full -z-0" />
       </div>
 
       {/* Content Section */}
@@ -139,7 +139,9 @@ const ServiceItem = ({ service }: { service: ServiceProps }) => (
         <h2 className="text-3xl md:text-4xl font-bold leading-tight">
           {service.title}
         </h2>
-        <p className="text-md text-white/80">{service.description}</p>
+        <p className="text-base md:text-xl text-white/80">
+          {service.description}
+        </p>
       </div>
     </div>
 
@@ -184,9 +186,9 @@ const Services = () => {
     <div className="min-h-screen text-white bg-[#160043]">
       <Topbar />
       {/* Page Title Section */}
-      <div className="bg-gradient-to-t from-[#4C12BF] to-[#ffffff] min-h-screen">
+      <div className="bg-gradient-to-b from-[#4C12BF] to-[#ffffff] min-h-screen">
         <div className="max-w-7xl mx-auto px-6 pt-20">
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tight">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-loose">
             Services
           </h1>
         </div>

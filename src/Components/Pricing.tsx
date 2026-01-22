@@ -181,22 +181,24 @@ const PricingPage: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-24 p-6 md:px-12 lg:px-20 mb-16"
+        className="md:px-12 lg:px-20"
       >
-        <div className="flex justify-center min-h-screen">
-          <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo">
-            Pricing
-          </h1>
+        <div className="min-h-screen">
+          <div className="max-w-7xl mx-auto px-6 pt-20">
+            <h1 className="text-6xl md:text-7xl font-bold tracking-loose">
+              Pricing
+            </h1>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-4 mb-4 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
           <span className="text-yellow-400 font-bold text-lg tracking-wider uppercase">
             Pricing or Offers
           </span>
         </div>
 
-        <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo">
+        <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo px-4 md:px-0">
           Best things are premium
         </h2>
 
@@ -227,7 +229,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start pb-10 md:pb-16 px-4">
           {plans.map((plan, index) => (
             <div key={plan.title} className="flex flex-col gap-4 group">
               {/* TOP CARD: Pricing Info */}
