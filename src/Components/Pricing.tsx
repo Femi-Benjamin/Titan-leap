@@ -172,7 +172,7 @@ const PricingPage: React.FC = () => {
       {/* Header Section */}
         <div className="min-h-screen flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
           <div className="max-w-7xl pb-16 px-6">
-            <h1 className="text-5xl md:text-7xl tracking-loose align-text-bottom text-white leading-loose font-Achivo">
+            <h1 className="text-7xl md:text-9xl tracking-loose align-text-bottom text-white leading-loose font-Achivo">
               Pricing
             </h1>
           </div>

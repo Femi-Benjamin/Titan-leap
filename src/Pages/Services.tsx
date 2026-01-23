@@ -188,7 +188,7 @@ const Services = () => {
       {/* Page Title Section */}
       <div className="bg-gradient-to-t from-[#4C12BF] to-[#ffffff] min-h-screen  flex flex-col justify-end">
         <div className="max-w-7xl pb-16 px-6">
-          <h1 className="text-5xl md:text-7xl tracking-loose align-text-bottom text-white leading-tight font-Achivo">
+          <h1 className="text-7xl md:text-9xl tracking-loose align-text-bottom text-white leading-tight font-Achivo">
             Services
           </h1>
         </div>
