@@ -525,9 +525,9 @@ const PricingPage: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#FED65E] text-[#2E027F] py-4 rounded-full font-bold text-lg hover:bg-[#ffe187] transition-all transform hover:scale-[1.01] shadow-lg"
+                className="w-full bg-[#FED65E] text-[#2E027F] py-4 rounded-full text-lg hover:bg-[#ffe187] transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
               >
-                <span className="text-2xl">👉 </span>
+                <span className="">👉 </span>
                 <span>Get My Free Audit</span>
               </motion.button>
             </motion.div>
