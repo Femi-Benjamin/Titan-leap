@@ -168,8 +168,15 @@ const PricingPage: React.FC = () => {
   const activePlan = activePlanDetails();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#b8a4ff] via-[#4C12BF] to-[#160043] font-sans pb-0 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#4B11BF] via-[#4C12BF] to-[#170044] font-sans pb-0 overflow-x-hidden">
       {/* Header Section */}
+        <div className="min-h-screen flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
+          <div className="max-w-7xl pb-16 px-6">
+            <h1 className="text-xl md:text-7xl tracking-loose align-text-bottom text-white leading-loose font-Achivo">
+              Pricing
+            </h1>
+          </div>
+        </div>
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -177,13 +184,6 @@ const PricingPage: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:px-12 lg:px-20"
       >
-        <div className="min-h-screen flex flex-col justify-end">
-          <div className="max-w-7xl pb-20 px-6">
-            <h1 className="text-xl md:text-5xl tracking-loose align-text-bottom text-white leading-tight font-Achivo">
-              Pricing
-            </h1>
-          </div>
-        </div>
 
         <div className="flex items-center gap-4 mb-4 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
@@ -243,8 +243,8 @@ const PricingPage: React.FC = () => {
                 onClick={() => setSelectedPlan(plan.title)}
                 className={`flex flex-col rounded-3xl p-8 backdrop-blur-sm transition-all duration-300 relative cursor-pointer ${
                   selectedPlan === plan.title
-                    ? "bg-[#4C12BF] hover:bg-[#280a6b]"
-                    : "bg-[#4C12BF] hover:bg-[#280a6b]"
+                    ? "bg-[#3D0E99] hover:bg-[#280a6b]"
+                    : "bg-[#3D0E99] hover:bg-[#280a6b]"
                 }`}
               >
                 {plan.isPopular && (
