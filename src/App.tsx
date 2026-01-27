@@ -69,7 +69,7 @@ function App() {
                 window.history.replaceState(
                   {},
                   document.title,
-                  window.location.pathname
+                  window.location.pathname,
                 );
               }}
               className="bg-[#FED65E] text-[#4C12BF] font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition-all duration-300"
@@ -114,7 +114,7 @@ function App() {
               window.history.replaceState(
                 {},
                 document.title,
-                window.location.pathname
+                window.location.pathname,
               );
             }}
             className="bg-[#FED65E] text-[#4C12BF] font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition-all duration-300"

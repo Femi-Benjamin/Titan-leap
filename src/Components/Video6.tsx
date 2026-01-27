@@ -11,7 +11,7 @@ export default function Component() {
             </span>
           </div>
           <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
-            KLOUDAA LOGO ANIMATION
+            SHOW REEL
           </h2>
         </div>
         <div className="relative mb-8 flex justify-center xl:px-4">
@@ -23,7 +23,7 @@ export default function Component() {
                 <iframe
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/zDrMw4qObng?si=WGT-CQy8XlcC-Miv&autoplay=1&mute=1"
+                  src="https://www.youtube.com/embed/3IHXNbRLZRo?si=TZh5EB_xXnK4Nnsx&autoplay=1&mute=1"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -65,25 +65,6 @@ export default function Component() {
               </div>
               <div className="text-white/80 xl:text-lg text-lg">Timeline</div>
             </div>
-          </div>
-        </div>
-        {/* Logos */}
-        <div className="flex flex-wrap justify-evenly items-center gap-5 md:gap-0 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 px-4">
-          {/* Replicating the logos from image as text/shapes for now */}
-          <div className="text-3xl font-bold font-sans tracking-tighter text-white">
-            /// make
-          </div>
-
-          <div className="flex items-center gap-2 text-white">
-            <span className="text-4xl font-bold">A</span>
-            <span className="text-2xl font-semibold tracking-tight">Adobe</span>
-          </div>
-          <div className="text-3xl font-bold font-sans tracking-tighter text-white">
-            /// make
-          </div>
-          <div className="flex items-center gap-2 text-white">
-            <span className="text-4xl font-bold">A</span>
-            <span className="text-2xl font-semibold tracking-tight">Adobe</span>
           </div>
         </div>
       </div>

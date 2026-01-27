@@ -17,8 +17,19 @@ export default function Component() {
   };
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#000000] to-[#4C12BF] pb-10 pt-20 md:pt-36">
-      <div className="max-w-7xl mx-auto xl:px-22 md:px-10 px-5">
+    <div className="md:min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] pb-10 pt-20 md:pt-36">
+      <div className="max-w-7xl mx-auto xl:px-0 px-3">
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-1 bg-[#FED65E]"></div>
+            <span className="text-[#FED65E] font-bold text-lg tracking-wider uppercase">
+              Proof & Portfolio
+            </span>
+          </div>
+          <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
+            XEBIT PROJECT
+          </h2>
+        </div>
         {/* Main Content Container */}
         <div className="relative mb-8 flex justify-center xl:px-4 group">
           {/* Left Arrow */}
@@ -88,10 +99,6 @@ export default function Component() {
 
         {/* Select Punters Section */}
         <div className="mb-16">
-          <h2 className="text-white text-base md:text-5xl font-bold mb-8">
-            XEBIT PROJECT
-          </h2>
-
           <div className="grid grid-cols-2 gap-y-8 gap-x-4 md:flex md:gap-8">
             <div>
               <div className="text-white md:text-5xl text-3xl font-bold mb-2">

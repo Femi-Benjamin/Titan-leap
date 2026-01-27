@@ -19,8 +19,6 @@ export default function Topbar() {
 
   const location = useLocation();
 
-  // ... rest of your code remains the same
-
   // 🔹 Helper to get effective background color at a point
   const getBackgroundColorAtPoint = (x: number, y: number) => {
     const elements = document.elementsFromPoint(x, y);
@@ -116,7 +114,7 @@ export default function Topbar() {
             </div>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-5">
               {navItems.map((item) => (
                 <div key={item.path} className="relative">
                   <NavLink
@@ -125,7 +123,7 @@ export default function Topbar() {
                     onMouseLeave={() => setHoveredItem("")}
                     onClick={() => handleNavClick(item.label)}
                     className={({ isActive }) =>
-                      `relative px-3 py-2 xl:text-xl md:text-md font-medium transition-colors duration-200 ${
+                      `relative px-3 py-2 text-base leading-10 font-medium transition-colors duration-200 ${
                         isActive
                           ? "text-purple-600"
                           : `${textColor} hover:text-purple-600`

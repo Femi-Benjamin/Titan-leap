@@ -25,6 +25,9 @@ const PricingPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [showStripeCheckout, setShowStripeCheckout] = useState(false);
   const [expandedFeatures, setExpandedFeatures] = useState(false);
+  const [expandedCards, setExpandedCards] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -137,6 +140,13 @@ const PricingPage: React.FC = () => {
     setExpandedFeatures(!expandedFeatures);
   };
 
+  const toggleCardExpansion = (planTitle: string) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [planTitle]: !prev[planTitle],
+    }));
+  };
+
   const activePlanDetails = () => {
     const plan = plans.find((p) => p.title === selectedPlan);
 
@@ -170,13 +180,13 @@ const PricingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#4B11BF] via-[#4C12BF] to-[#170044] font-sans pb-0 overflow-x-hidden">
       {/* Header Section */}
-        <div className="min-h-screen flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
-          <div className="max-w-7xl pb-16 px-6">
-            <h1 className="text-7xl md:text-9xl md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-Achivo">
-              Pricing
-            </h1>
-          </div>
+      <div className="min-h-screen flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
+        <div className="max-w-7xl pb-16 px-6">
+          <h1 className="text-7xl md:text-9xl md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-Achivo">
+            Pricing
+          </h1>
         </div>
+      </div>
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -184,7 +194,6 @@ const PricingPage: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:px-12 lg:px-20"
       >
-
         <div className="flex items-center gap-4 mb-4 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
           <span className="text-yellow-400 font-bold text-lg tracking-wider uppercase">
@@ -223,7 +232,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start pb-10 md:pb-16 px-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start pb-10 md:pb-0 px-4">
           {plans.map((plan, index) => (
             <div key={plan.title} className="flex flex-col gap-4 group">
               {/* TOP CARD: Pricing Info */}
@@ -330,17 +339,21 @@ const PricingPage: React.FC = () => {
                 }}
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
                 onClick={() => setSelectedPlan(plan.title)}
-                className={`rounded-3xl p-8 backdrop-blur-sm border border-white/5 cursor-pointer transition-colors duration-300 relative ${
+                className={`rounded-3xl p-8 backdrop-blur-md cursor-pointer transition-colors duration-300 relative ${
                   selectedPlan === plan.title
                     ? "bg-[#340d87]"
-                    : "bg-[#340d87] hover:bg-[#280a6b]"
+                    : "bg-[#340d87] hover:bg-[#340d87]"
                 }`}
               >
                 <div
                   className={`space-y-4 transition-all duration-500 ${
-                    expandedFeatures
-                      ? "max-h-[2000px]"
-                      : "max-h-[280px] overflow-hidden"
+                    window.innerWidth < 768
+                      ? expandedCards[plan.title]
+                        ? "max-h-[2000px]"
+                        : "max-h-[280px] overflow-hidden"
+                      : expandedFeatures
+                        ? "max-h-[2000px]"
+                        : "max-h-[280px] overflow-hidden"
                   }`}
                 >
                   {plan.features.map((feature, i) => (
@@ -378,58 +391,98 @@ const PricingPage: React.FC = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Mobile Expand/Collapse Button */}
+                <div className="md:hidden mt-4 flex justify-center">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleCardExpansion(plan.title);
+                    }}
+                    className="text-[#FED65E] text-xs font-medium flex items-center gap-2 hover:text-yellow-300 transition-colors"
+                  >
+                    {expandedCards[plan.title] ? "Show less" : "Show more"}
+                    <svg
+                      className={`w-3 h-3 transition-transform duration-300 ${
+                        expandedCards[plan.title] ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </motion.div>
             </div>
           ))}
         </div>
 
         {/* Centered Click to Scroll Down Button */}
-        <div className="flex justify-center pb-10 md:pb-16">
-          {!expandedFeatures ? (
-            <motion.button
-              onClick={toggleFeatureExpansion}
-              className="text-[#FED65E] text-sm font-medium flex items-center justify-center gap-2 hover:text-yellow-300 transition-colors px-6 py-3"
-              whileHover={{ y: 2 }}
-              transition={{ duration: 0.2 }}
-            >
-              Click to scroll down
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div className="relative z-30 hidden md:block">
+          {/* Background Blur Layer with Fade Mask */}
+          <div
+            className="absolute inset-0 backdrop-blur-7xl backdrop z-30 w-full"
+            style={{
+              maskImage: "linear-gradient(to top, black 50%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to top, black 50%, transparent 100%)",
+            }}
+          />
+
+          <div className="flex justify-center pt-3 pb-7 relative z-40">
+            {!expandedFeatures ? (
+              <motion.button
+                onClick={toggleFeatureExpansion}
+                className="text-[#FED65E] md:text-md text-sm cursor-pointer font-medium flex items-center justify-center gap-1 hover:text-yellow-300 transition-colors"
+                whileHover={{ y: 2 }}
+                transition={{ duration: 0.2 }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </motion.button>
-          ) : (
-            <motion.button
-              onClick={toggleFeatureExpansion}
-              className="text-[#FED65E] text-sm font-medium flex items-center justify-center gap-2 hover:text-yellow-300 transition-colors px-6 py-3"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
-            >
-              Click to scroll up
-              <svg
-                className="w-4 h-4 rotate-180"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+                Click to scroll down
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </motion.button>
+            ) : (
+              <motion.button
+                onClick={toggleFeatureExpansion}
+                className="text-[#FED65E] text-sm font-medium cursor-pointer flex items-center justify-center gap-2 hover:text-yellow-300 transition-colors px-6 py-3"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2 }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </motion.button>
-          )}
+                Click to scroll up
+                <svg
+                  className="w-4 h-4 rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </motion.button>
+            )}
+          </div>
         </div>
       </motion.div>
 
@@ -438,16 +491,16 @@ const PricingPage: React.FC = () => {
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
-        className="bg-[#2E027F] border-t border-white/10 w-full z-20 py-8 sticky bottom-0 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
+        className="bg-[#2E027F]  w-full z-20 py-8 md:py-10 sticky bottom-0 shadow[0_-10px_40px_rgba(0,0,0,0.3)]"
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto md:px-0 px-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 text-center md:text-left">
             <motion.span
               key={activePlan.title}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-white font-bold text-xl md:w-1/3"
+              className="text-white font-bold text-sm md:w-1/3 uppercase"
             >
               {activePlan.title}
             </motion.span>
@@ -468,7 +521,7 @@ const PricingPage: React.FC = () => {
             </div>
 
             <div className="md:w-1/3 text-right">
-              <span className="text-white font-extrabold text-sm uppercase tracking-wide">
+              <span className="text-white font-bold text-sm md:w-1/3 uppercase">
                 {activePlan.billing}
               </span>
             </div>
@@ -478,7 +531,7 @@ const PricingPage: React.FC = () => {
             onClick={() => {
               setShowModal(true);
             }}
-            className="w-full bg-[#FED65E] text-[#2E027F] py-4 rounded-full font-bold text-lg hover:bg-[#ffe187] transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
+            className="w-full bg-[#FED65E] text-[#4C12BF] py-4 rounded-2xl font-bold text-lg transition-all transform hover:scale-[1.01] shadow-lg active:scale-95 font-Achivo"
           >
             Subscribe & Pay
           </button>
@@ -487,7 +540,7 @@ const PricingPage: React.FC = () => {
 
       {/* Gift Section */}
       <div className="bg-gradient-to-b from-[#170044] to-[#4B11BF] pt-20 px-4 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto relative">
+        <div className="max-w-7xl mx-auto relative">
           {/* Gift Image - positioned with bottom hidden, top visible */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -505,19 +558,19 @@ const PricingPage: React.FC = () => {
           </motion.div>
 
           {/* Purple rounded container */}
-          <div className="bg-gradient-to-b from-[#4B11BF] to-[#170044] rounded-tr-4xl rounded-tl-4xl px-8 md:px-16 py-10 md:py-16 relative overflow-hidden z-10 font-Achivo">
+          <div className="bg-gradient-to-b from-[#4B11BF] to-[#170044] rounded-tr-4xl rounded-tl-4xl px-8 md:px-16 pt-7 md:pb-16 pb-10 relative overflow-hidden z-10 font-Achivo">
             {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center space-y-6 pt-12 md:pt-8 items-center justify-center"
+              className="text-center items-center justify-center"
             >
-              <h2 className="text-xl md:text-2xl lg:text-4xl text-white leading-tight">
+              <h2 className="text-xl md:text-3xl lg:text-5xl text-white leading-tight pb-5">
                 Get a free Growth Readiness Audit
               </h2>
-              <p className="text-[#FED65E] text-base md:text-md max-w-4xl mx-auto">
+              <p className="text-[#FED65E] text-xl md:text-2xl max-w-6xl mx-auto pb-15">
                 Get a free Growth Readiness Audit and see exactly what's holding
                 your business back.
               </p>
@@ -525,7 +578,7 @@ const PricingPage: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#FED65E] text-[#2E027F] py-4 rounded-full text-lg hover:bg-[#ffe187] transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
+                className="w-full bg-[#FED65E] text-[#4C12BF] py-4 rounded-2xl text-lg transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
               >
                 <span className="">👉 </span>
                 <span>Get My Free Audit</span>

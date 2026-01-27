@@ -1,8 +1,19 @@
 export default function Component() {
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#000000] to-[#4C12BF] pb-10 pt-20 md:pt-36">
-      <div className="max-w-7xl mx-auto xl:px-22 md:px-10 px-5">
+    <div className="md:min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] pb-10 pt-20 md:pt-36">
+      <div className="max-w-7xl mx-auto xl:px-0 px-3">
         {/* Main Content Container */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-1 bg-[#FED65E]"></div>
+            <span className="text-[#FED65E] font-bold text-lg tracking-wider uppercase">
+              Proof & Portfolio
+            </span>
+          </div>
+          <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
+            SUCKIE EXHANGE
+          </h2>
+        </div>
         <div className="relative mb-8 flex justify-center xl:px-4">
           <div className="relative rounded-3xl w-full aspect-[21/12] md:aspect-[16/9] mb-8 overflow-hidden">
             {/* Gradient Border */}
@@ -26,10 +37,6 @@ export default function Component() {
 
         {/* Select Punters Section */}
         <div className="mb-16">
-          <h2 className="text-white text-base md:text-5xl font-bold mb-8">
-            SUCKIE EXHANGE
-          </h2>
-
           <div className="flex md:gap-8 gap-3">
             <div>
               <div className="text-white md:text-5xl text-xl font-bold mb-2">

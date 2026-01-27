@@ -32,7 +32,7 @@ export default function Component() {
 
   const goToPrevious = () => {
     setCurrentVideoIndex((prevIndex) =>
-      prevIndex === 0 ? videos.length - 1 : prevIndex - 1
+      prevIndex === 0 ? videos.length - 1 : prevIndex - 1,
     );
   };
 
