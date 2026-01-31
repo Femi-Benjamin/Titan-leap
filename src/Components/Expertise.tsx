@@ -6,7 +6,7 @@ import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
-import SEO from "../assets/SEO.png";
+// import SEO from "../assets/SEO.png";
 import AI from "../assets/AI.png";
 
 const Expertise = () => {
@@ -59,13 +59,13 @@ const Expertise = () => {
       description: "We run ads only after strategy and funnels are locked in.",
       icon: AI,
     },
-    {
-      id: "SEO & Authority Building",
-      title: "SEO & Authority Building",
-      description:
-        "Long-term traffic that compounds. For brands ready to dominate organically.",
-      icon: SEO,
-    },
+    // {
+    //   id: "SEO & Authority Building",
+    //   title: "SEO & Authority Building",
+    //   description:
+    //     "Long-term traffic that compounds. For brands ready to dominate organically.",
+    //   icon: SEO,
+    // },
   ];
 
   const toggleAccordion = (item: string) => {

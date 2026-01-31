@@ -1,3 +1,5 @@
+import ibomAirVideo from "../assets/ibomAir.mp4";
+
 export default function Component() {
   return (
     <div className="md:min-h-screen bg-gradient-to-b from-[rgb(76,18,191)] to-[#160043] pb-10 pt-20 md:pt-0">
@@ -39,16 +41,17 @@ export default function Component() {
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
                 {/* Video Content */}
-                <iframe
+                <video
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/PBLwc0VqXmg?si=LrQtlaKHF4QD6UOj&autoplay=1&mute=1"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
+                  autoPlay
+                  muted={true}
+                  controls
                   className="w-full h-full"
-                ></iframe>
+                >
+                  <source src={ibomAirVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>

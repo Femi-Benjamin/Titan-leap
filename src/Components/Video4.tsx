@@ -1,3 +1,5 @@
+import kloudaaVideo from "../assets/kloudaa.mp4";
+
 export default function Component() {
   return (
     <div className="md:min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] pb-10 pt-20 md:pt-36">
@@ -11,7 +13,7 @@ export default function Component() {
             </span>
           </div>
           <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
-            KLOUDAA LOGO ANIMATION
+            KLOUDAA
           </h2>
         </div>
         <div className="relative mb-8 flex justify-center xl:px-4">
@@ -20,16 +22,17 @@ export default function Component() {
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
                 {/* Video Content */}
-                <iframe
+                <video
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/zDrMw4qObng?si=WGT-CQy8XlcC-Miv&autoplay=1&mute=1"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
+                  autoPlay
+                  muted={true}
+                  controls
                   className="w-full h-full"
-                ></iframe>
+                >
+                  <source src={kloudaaVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>

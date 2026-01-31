@@ -8,8 +8,8 @@ import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
-import SEO from "../assets/SEO.png";
 import AI from "../assets/AI.png";
+// import SEO from "../assets/SEO.png";
 interface ServiceProps {
   title: string;
   description: string;
@@ -97,69 +97,88 @@ const coreServices: ServiceProps[] = [
       "Funnel + ad performance tracking",
     ],
   },
-  {
-    title: "SEO & Authority Building",
-    description:
-      "Long-term traffic that compounds. For brands ready to dominate organically.",
-    image: SEO,
-    bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
-    items: [
-      "SEO content strategy",
-      "Keyword research & optimization",
-      "Authority content creation",
-      "Website performance optimization",
-    ],
-  },
+  // {
+  //   title: "SEO & Authority Building",
+  //   description:
+  //     "Long-term traffic that compounds. For brands ready to dominate organically.",
+  //   image: SEO,
+  //   bgClass: "bg-gradient-to-b from-[#4C12BF] to-[#160043",
+  //   items: [
+  //     "SEO content strategy",
+  //     "Keyword research & optimization",
+  //     "Authority content creation",
+  //     "Website performance optimization",
+  //   ],
+  // },
 ];
 
 const allServices = [...coreServices];
 
-const ServiceItem = ({ service }: { service: ServiceProps }) => (
-  <div className="group">
-    <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-      {/* Image Section */}
-      <div className="relative font-Achivo">
-        <div className="flex items-center gap-3 text-md tracking-wider text-[#FED65E]">
-          <div className="w-8 h-[2px] bg-[#FED65E]"></div>
-          OUR SERVICES
-        </div>
-        <div className="relative z-10 w-full aspect-square max-w-[500px] mx-auto lg:mx-0">
-          <img
-            src={service.image}
-            alt={service.title}
-            className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        {/* Glow effect behind image */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-900/30 blur-[100px] rounded-full -z-0" />
-      </div>
+const ServiceItem = ({ service }: { service: ServiceProps }) => {
+  const getAccordionBorderColor = (serviceTitle: string) => {
+    const yellowBorder = [
+      "Strategy and Brand Positioning",
+      "Paid Advertising (Performance Marketing)",
+      "Social Media Management",
+      "SEO & Authority Building",
+    ];
+    return yellowBorder.includes(serviceTitle) ? "#FED65E" : "#4C12BF";
+  };
 
-      {/* Content Section */}
-      <div className="space-y-6 font-Achivo">
-        <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-          {service.title}
-        </h2>
-        <p className="text-base md:text-xl text-white/80">
-          {service.description}
-        </p>
-      </div>
-    </div>
+  const borderColor = getAccordionBorderColor(service.title);
 
-    {/* List Items / Accordions Section (Below and Full Width) */}
-    <div className="w-full mt-12 pt-8 border-t border-white/10">
-      <div className="grid gap-4">
-        {service.items.map((item, idx) => (
-          <div key={idx} className="group/item">
-            <div className="flex items-center justify-between py-4 border-b border-white/20 group-hover/item:border-white/40 transition-colors cursor-pointer">
-              <span className="text-base md:text-lg font-medium">{item}</span>
-              <Plus className="w-5 h-5 text-purple-400 group-hover/item:text-white transition-colors" />
-            </div>
+  return (
+    <div className="group">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+        {/* Image Section */}
+        <div className="relative font-Achivo">
+          <div className="flex items-center gap-3 text-md tracking-wider text-[#FED65E]">
+            <div className="w-8 h-[2px] bg-[#FED65E]"></div>
+            OUR SERVICES
           </div>
-        ))}
+          <div className="relative z-10 w-full aspect-square max-w-[500px] mx-auto lg:mx-0">
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          {/* Glow effect behind image */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-900/30 blur-[100px] rounded-full -z-0" />
+        </div>
+
+        {/* Content Section */}
+        <div className="space-y-6 font-Achivo">
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+            {service.title}
+          </h2>
+          <p className="text-base md:text-xl text-white/80">
+            {service.description}
+          </p>
+        </div>
+      </div>
+
+      {/* List Items / Accordions Section (Below and Full Width) */}
+      <div className="w-full mt-12 pt-8 border-t border-white/10">
+        <div className="grid gap-4">
+          {service.items.map((item, idx) => (
+            <div key={idx} className="group/item">
+              <div
+                className="flex items-center justify-between py-4 border-b transition-colors cursor-pointer"
+                style={{
+                  borderBottomColor: borderColor,
+                }}
+              >
+                <span className="text-base md:text-lg font-medium">{item}</span>
+                <Plus className="w-5 h-5 text-purple-400 group-hover/item:text-white transition-colors" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Services = () => {
   const location = useLocation();

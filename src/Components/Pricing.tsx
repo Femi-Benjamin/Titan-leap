@@ -647,7 +647,7 @@ const PricingPage: React.FC = () => {
                     setUserInfo({ ...userInfo, name: e.target.value })
                   }
                   className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                 />
               </div>
 
