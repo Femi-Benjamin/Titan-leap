@@ -4,7 +4,7 @@ import Video1 from "../Components/Video1";
 import Video2 from "../Components/Video2";
 import Video3 from "../Components/Video3";
 import Video4 from "../Components/Video4";
-import Video5 from "../Components/Video5";
+// import Video5 from "../Components/Video5";
 import Video6 from "../Components/Video6";
 
 const OurWork = () => {
@@ -23,7 +23,7 @@ const OurWork = () => {
         {/* Video Stack */}
         <div>
           <Video2 />
-          <Video5 />
+          {/* <Video5 /> */}
           <Video6 />
           <Video1 />
           <Video3 />
