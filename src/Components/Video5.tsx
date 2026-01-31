@@ -1,5 +1,3 @@
-import ideaSprintVideo from "../assets/ideaSprint.mp4";
-
 export default function Component() {
   return (
     <div className="md:min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] pb-10 pt-20 md:pt-36">
@@ -22,17 +20,16 @@ export default function Component() {
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
                 {/* Video Content */}
-                <video
+                <iframe
                   width="100%"
                   height="100%"
-                  autoPlay
-                  muted={true}
-                  controls
+                  src="https://www.youtube.com/embed/AkhGAeLBSkg?si=ACylDI6V2k2w4Qjy&autoplay=1&mute=1"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
                   className="w-full h-full"
-                >
-                  <source src={ideaSprintVideo} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                ></iframe>
               </div>
             </div>
           </div>
