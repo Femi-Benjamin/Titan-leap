@@ -32,7 +32,9 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const getEnvVar = (key: string, defaultValue: string): string => {
-    return (import.meta.env[key as keyof ImportMetaEnv] as string) || defaultValue;
+    return (
+      (import.meta.env[key as keyof ImportMetaEnv] as string) || defaultValue
+    );
   };
 
   const handleCheckout = async () => {
@@ -41,21 +43,23 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({
 
     try {
       const stripeKey = getEnvVar("VITE_STRIPE_PUBLIC_KEY", "");
-      
+
       if (!stripeKey) {
-        throw new Error("Stripe public key not configured. Check VITE_STRIPE_PUBLIC_KEY in .env");
+        throw new Error(
+          "Stripe public key not configured. Check VITE_STRIPE_PUBLIC_KEY in .env",
+        );
       }
 
       // Load Stripe
       const stripe = await loadStripe(stripeKey);
-      
+
       if (!stripe) {
         throw new Error("Failed to load Stripe");
       }
 
       // Create checkout session by calling your backend
       const apiUrl = getEnvVar("VITE_API_URL", "http://localhost:3000");
-      
+
       const response = await fetch(`${apiUrl}/api/stripe/create-session`, {
         method: "POST",
         headers: {
@@ -78,7 +82,7 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({
       }
 
       const session = await response.json();
-      
+
       if (!session.sessionId) {
         throw new Error("No session ID returned from server");
       }
@@ -112,7 +116,8 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({
           <p className="text-red-200 text-sm font-semibold">Error:</p>
           <p className="text-red-200 text-sm mt-1">{error}</p>
           <p className="text-red-300 text-xs mt-2 font-mono">
-            Make sure your backend API is running and VITE_API_URL is set in .env
+            Make sure your backend API is running and VITE_API_URL is set in
+            .env
           </p>
         </div>
       )}
