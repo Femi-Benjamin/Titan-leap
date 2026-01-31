@@ -9,11 +9,9 @@ export default function Component() {
   ];
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
   const handleNext = () => {
     setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
   };
-
   const handlePrev = () => {
     setCurrentVideoIndex((prev) => (prev - 1 + videos.length) % videos.length);
   };
