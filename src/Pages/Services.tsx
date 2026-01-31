@@ -17,7 +17,6 @@ interface ServiceProps {
   bgClass: string;
   items: string[];
 }
-
 const coreServices: ServiceProps[] = [
   {
     title: "Strategy and Brand Positioning",
