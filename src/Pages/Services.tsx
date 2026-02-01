@@ -124,7 +124,17 @@ const ServiceItem = ({ service }: { service: ServiceProps }) => {
     return yellowBorder.includes(serviceTitle) ? "#FED65E" : "#4C12BF";
   };
 
+  const getAccordionTextColor = (serviceTitle: string) => {
+    const purpleTextServices = [
+      "Funnel Design & Conversion Systems",
+      "Content Creation",
+      "AI Automation & Growth Agents",
+    ];
+    return purpleTextServices.includes(serviceTitle) ? "text-[#4C12BF]" : "";
+  };
+
   const borderColor = getAccordionBorderColor(service.title);
+  const textColorClass = getAccordionTextColor(service.title);
 
   return (
     <div className="group">
@@ -168,7 +178,11 @@ const ServiceItem = ({ service }: { service: ServiceProps }) => {
                   borderBottomColor: borderColor,
                 }}
               >
-                <span className="text-base md:text-lg font-medium">{item}</span>
+                <span
+                  className={`text-base md:text-lg font-medium ${textColorClass}`}
+                >
+                  {item}
+                </span>
                 <Plus className="w-5 h-5 text-purple-400 group-hover/item:text-white transition-colors" />
               </div>
             </div>
