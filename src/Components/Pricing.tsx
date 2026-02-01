@@ -194,9 +194,9 @@ const PricingPage: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:px-12 lg:px-20"
       >
-        <div className="flex items-center gap-4 mb-4 px-4 md:px-0">
+        <div className="flex items-center gap-4 mb-1 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
-          <span className="text-yellow-400 font-bold text-lg tracking-wider uppercase">
+          <span className="text-yellow-400 font-bold text-xl tracking-wider">
             Pricing or Offers
           </span>
         </div>
