@@ -1,11 +1,9 @@
 import { useState } from "react";
-import xebitProject1 from "../assets/xebitProject1.mp4";
-import xebitProject2 from "../assets/xebitProject2.mp4";
 
 export default function Component() {
   const videos = [
-    xebitProject1,
-    xebitProject2,
+    "https://www.youtube.com/embed/ibJtpgC4oRM?autoplay=1&mute=1",
+    "https://www.youtube.com/embed/1yyK7TC5ddM?si=KqaMPajlveyRynW8&autoplay=1&mute=1",
   ];
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -59,18 +57,17 @@ export default function Component() {
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
                 {/* Video Content */}
-                <video
-                  key={currentVideoIndex}
+                <iframe
+                  key={videos[currentVideoIndex]} // Force re-render on change
                   width="100%"
                   height="100%"
-                  autoPlay
-                  muted={true}
-                  controls
+                  src={videos[currentVideoIndex]}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
                   className="w-full h-full"
-                >
-                  <source src={videos[currentVideoIndex]} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                ></iframe>
               </div>
             </div>
           </div>
