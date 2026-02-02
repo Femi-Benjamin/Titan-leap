@@ -218,9 +218,9 @@ const Services = () => {
     <div className="min-h-screen text-white bg-[#160043]">
       <Topbar />
       {/* Page Title Section */}
-      <div className="bg-gradient-to-t from-[#4C12BF] to-[#ffffff] min-h-screen  flex flex-col justify-end">
-        <div className="max-w-7xl md:pb-28 px-6">
-          <h1 className="text-7xl md:text-9xl md:text-left text-center tracking-loose align-text-bottom text-white leading-tight font-Achivo">
+      <div className="bg-gradient-to-t from-[#4C12BF] to-[#ffffff] lg:min-h-screen py-12 md:py-20 flex flex-col justify-end">
+        <div className="max-w-7xl mdpb-28 px-6 md:py-0 py-24">
+          <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-tight font-Achivo">
             Services
           </h1>
         </div>
