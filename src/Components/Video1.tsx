@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function Component() {
   const videos = [
-    "https://www.youtube.com/embed/ibJtpgC4oRM?autoplay=1&mute=1",
-    "https://www.youtube.com/embed/1yyK7TC5ddM?si=KqaMPajlveyRynW8&autoplay=1&mute=1",
+    "https://www.youtube.com/embed/ibJtpgC4oRM?autoplay=1&mute=1&rel=0&modestbranding=1&end=30",
+    "https://www.youtube.com/embed/1yyK7TC5ddM?si=KqaMPajlveyRynW8&autoplay=1&mute=1&rel=0&modestbranding=1&end=30",
   ];
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);

@@ -23,7 +23,7 @@ export default function Component() {
                 <iframe
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/zDrMw4qObng?si=WGT-CQy8XlcC-Miv&autoplay=1&mute=1"
+                  src="https://www.youtube.com/embed/zDrMw4qObng?si=WGT-CQy8XlcC-Miv&autoplay=1&mute=1&rel=0&modestbranding=1&end=30"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
