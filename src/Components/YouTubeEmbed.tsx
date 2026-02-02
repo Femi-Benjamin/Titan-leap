@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface YouTubeEmbedProps {
   src: string;
@@ -6,7 +6,11 @@ interface YouTubeEmbedProps {
   className?: string;
 }
 
-export default function YouTubeEmbed({ src, title = "YouTube video player", className = "" }: YouTubeEmbedProps) {
+export default function YouTubeEmbed({
+  src,
+  title = "YouTube video player",
+  className = "",
+}: YouTubeEmbedProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -16,7 +20,7 @@ export default function YouTubeEmbed({ src, title = "YouTube video player", clas
         try {
           const iframeDoc = iframeRef.current.contentDocument;
           // Hide all endscreen elements
-          const style = iframeDoc.createElement('style');
+          const style = iframeDoc.createElement("style");
           style.textContent = `
             .ytp-endscreen-container { display: none !important; }
             .ytp-endscreen { display: none !important; }
@@ -26,14 +30,14 @@ export default function YouTubeEmbed({ src, title = "YouTube video player", clas
           iframeDoc.head.appendChild(style);
         } catch {
           // Silently fail if we can't access iframe due to CORS
-          console.log('Cannot access iframe document due to CORS policy');
+          console.log("Cannot access iframe document due to CORS policy");
         }
       }
     };
 
     // Attempt to hide endscreen after iframe loads
     const timer = setTimeout(hideEndscreen, 2000);
-    
+
     return () => clearTimeout(timer);
   }, [src]);
 
@@ -48,7 +52,7 @@ export default function YouTubeEmbed({ src, title = "YouTube video player", clas
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
-        style={{ pointerEvents: 'auto' }}
+        style={{ pointerEvents: "auto" }}
       ></iframe>
     </div>
   );
