@@ -100,7 +100,7 @@ export default function Topbar() {
           }}
         />
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mx-auto px-4 sm:px-6 lg:px-[90px] relative z-10">
           <div
             className={`flex items-center justify-between h-[65px] ${textColor}`}
           >
