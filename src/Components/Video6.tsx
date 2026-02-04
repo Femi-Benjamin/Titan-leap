@@ -5,18 +5,20 @@ export default function Component() {
     <div className="min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] relative">
       <div className="absolute inset-0">
         <div className="relative w-full h-screen overflow-hidden">
-          {/* Video Content */}
+          {/* Background Video */}
           <video
-            width="100%"
-            height="100%"
             autoPlay
-            muted={true}
-            controls
-            className="w-full h-full absolute inset-0"
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={showreelVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
 
           {/* Bottom Left Overlay Content */}
           <div className="absolute bottom-0 left-0 z-20 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent w-full">

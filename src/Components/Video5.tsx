@@ -3,22 +3,23 @@ export default function Component() {
     <div className="min-h-screen bg-gradient-to-b from-[#4C12BF] to-[#160043] relative">
       <div className="absolute inset-0">
         <div className="relative w-full h-screen overflow-hidden">
-          {/* Video Content */}
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/AkhGAeLBSkg?si=ACylDI6V2k2w4Qjy&autoplay=1&mute=1&rel=0&modestbranding=1&end=30"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="w-full h-full absolute inset-0"
-          ></iframe>
+          {/* Background Video */}
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              src="https://www.youtube.com/embed/AkhGAeLBSkg?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&playlist=AkhGAeLBSkg"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] pointer-events-none"
+            ></iframe>
+          </div>
+
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
 
           {/* Bottom Left Overlay Content */}
           <div className="absolute bottom-0 left-0 z-20 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent w-full">
             <div className="max-w-7xl mx-auto">
-           
               <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
                 IDEA SPRINT
               </h2>
@@ -51,7 +52,9 @@ export default function Component() {
                     <div className="text-white md:text-5xl text-xl font-bold mb-2">
                       2 Mo
                     </div>
-                    <div className="text-white/80 xl:text-lg text-lg">Timeline</div>
+                    <div className="text-white/80 xl:text-lg text-lg">
+                      Timeline
+                    </div>
                   </div>
                 </div>
               </div>

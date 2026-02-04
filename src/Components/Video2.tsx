@@ -2,21 +2,23 @@ import ibomAirVideo from "../assets/ibomAir.mp4";
 
 export default function Component() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[rgb(76,18,191)] to-[#160043] relative">
+    <div className="min-h-screen w-full relative">
       <div className="absolute inset-0">
         <div className="relative w-full h-screen overflow-hidden">
-          {/* Video Content */}
+          {/* Background Video */}
           <video
-            width="100%"
-            height="100%"
             autoPlay
-            muted={true}
-            controls
-            className="w-full h-full absolute inset-0"
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={ibomAirVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
 
           {/* Bottom Left Overlay Content */}
           <div className="absolute bottom-0 left-0 z-20 p-8 md:p-12 w-full">
