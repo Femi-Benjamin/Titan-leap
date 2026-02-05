@@ -15,10 +15,10 @@ export default function Component() {
           </div>
 
           {/* Dark Overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
+          {/* <div className="absolute inset-0 bg-black/20 z-10"></div> */}
 
           {/* Bottom Left Overlay Content */}
-          <div className="absolute bottom-0 left-0 md:-left-10  z-20 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent w-full">
+          <div className="absolute bottom-0 left-0 md:-left-10 z-20 p-8 md:p-12 w-full">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
                 KLOUDAA
