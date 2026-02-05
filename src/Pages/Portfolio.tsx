@@ -14,8 +14,8 @@ const OurWork = () => {
       <main className="mx-auto">
         {/* Page Title Section */}
         <div className="bg-gradient-to-t from-[#4C12BF] to-[#ffffff] lg:min-h-screen py-12 md:py-20 flex flex-col justify-end">
-          <div className="max-w-7xl mdpb-28 px-6 md:py-0 py-24">
-            <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-tight fontAchivo">
+          <div className="max-w-7xl mdpb-28 px-6 md:px-16 md:py-0 py-24">
+            <h1 className="text-7xl md:text-[200px] xl:text-[300px] font-medium md:text-left text-center tracking-loose align-text-bottom text-white leading-tight fontAchivo">
               Portfolio
             </h1>
           </div>

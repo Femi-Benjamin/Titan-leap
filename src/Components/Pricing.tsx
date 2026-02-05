@@ -4,7 +4,6 @@ import { useState } from "react";
 import StripeCheckout from "./StripeCheckout";
 import { motion, AnimatePresence } from "framer-motion";
 import gift from "../assets/gift.png";
-
 interface Plan {
   title: string;
   subtitle: string;
@@ -190,8 +189,8 @@ const PricingPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-[#4B11BF] via-[#4C12BF] to-[#170044] font-sans pb-0 overflow-x-hidden">
       {/* Header Section */}
       <div className="lg:min-h-screen py-12 md:py-0 flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
-        <div className="max-w-7xl pb16 px-6 md:py-0 py-24">
-          <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-Achivo">
+        <div className="max-w-7xl px-6 md:px-16 md:py-0 py-24">
+          <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-medium">
             Pricing
           </h1>
         </div>

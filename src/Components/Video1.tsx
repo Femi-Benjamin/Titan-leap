@@ -58,24 +58,24 @@ export default function Component() {
             <div className="absolute inset-0 bg-black/40 z-10"></div>
 
             {/* Bottom Left Overlay Content */}
-            <div className="absolute bottom-0 left-0 z-20 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent w-full">
+            <div className="absolute bottom-0 -left-0 md:-left-10  z-20 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent w-full">
               <div className="max-w-7xl mx-auto">
                 <h2 className="text-white text-base md:text-5xl font-bold mb-8 z-10 font-Achivo">
                   XEBIT PROJECT
                 </h2>
 
                 {/* Select Punters Section */}
-                <div className="mb-4">
-                  <div className="grid grid-cols-2 gap-y-8 gap-x-4 md:flex md:gap-8">
+                <div>
+                  <div className="flex md:gap-8 gap-3">
                     <div>
-                      <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+                      <div className="text-white md:text-5xl text-xl font-bold mb-2">
                         320%
                       </div>
                       <div className="text-white/80 text-lg">Lead Growth</div>
                     </div>
 
                     <div>
-                      <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+                      <div className="text-white md:text-5xl text-xl font-bold mb-2">
                         58%
                       </div>
                       <div className="text-white/80 text-lg">
@@ -84,14 +84,14 @@ export default function Component() {
                     </div>
 
                     <div>
-                      <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+                      <div className="text-white md:text-5xl text-xl font-bold mb-2">
                         320%
                       </div>
                       <div className="text-white/80 text-lg">ROI</div>
                     </div>
 
                     <div>
-                      <div className="text-white md:text-5xl text-3xl font-bold mb-2">
+                      <div className="text-white md:text-5xl text-xl font-bold mb-2">
                         2 Mo
                       </div>
                       <div className="text-white/80 xl:text-lg text-lg">
