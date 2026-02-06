@@ -4,6 +4,7 @@ import Medias from "../assets/Medias.png";
 
 const SignatureProcess = () => {
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const processSteps = [
     {
@@ -36,9 +37,12 @@ const SignatureProcess = () => {
     },
   ];
 
-  // Explicitly type index as number
   const toggleAccordion = (index: number) => {
     setOpenAccordion(openAccordion === index ? null : index);
+  };
+
+  const toggleCard = (index: number) => {
+    setActiveCard(activeCard === index ? null : index);
   };
 
   return (
@@ -46,7 +50,6 @@ const SignatureProcess = () => {
       {/* Background glow specific to this section */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      {/* Vertical lines pattern - removed to fix parsing issues */}
       <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto py-16">
         {/* Header Section */}
         <div className="mb-16">
@@ -66,17 +69,34 @@ const SignatureProcess = () => {
           {processSteps.map((step, index: number) => (
             <div
               key={index}
-              className="group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF]/10 hover:border-[#FFD646]/30 transition-all duration-500"
+              onClick={() => toggleCard(index)}
+              className={`group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF]/10 transition-all duration-500 cursor-pointer
+                ${activeCard === index ? "border-[#FFD646]/30" : "md:hover:border-[#FFD646]/30"}
+              `}
             >
               {/* Hover Gradient Border Effect - more obvious yellow */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#FFD646]/10 transition-colors duration-500 pointer-events-none"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD646]/0 via-[#FFD646]/10 to-[#FFD646]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
-              <div className="absolute inset-0 bg-[#FFD646]/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
+              <div
+                className={`absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-500 pointer-events-none
+                ${activeCard === index ? "border-[#FFD646]/10" : "md:group-hover:border-[#FFD646]/10"}
+              `}
+              ></div>
+              <div
+                className={`absolute -inset-1 bg-gradient-to-r from-[#FFD646]/0 via-[#FFD646]/10 to-[#FFD646]/0 blur-xl transition-opacity duration-500
+                ${activeCard === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
+              `}
+              ></div>
+              <div
+                className={`absolute inset-0 bg-[#FFD646]/5 rounded-2xl transition-opacity duration-500
+                ${activeCard === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
+              `}
+              ></div>
 
               {/* Icon with hover effect */}
               <div className="relative flex items-center justify-center mb-6">
                 <img
-                  className="transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]"
+                  className={`transition-all duration-500
+                    ${activeCard === index ? "scale-110 drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]" : "md:group-hover:scale-110 md:group-hover:drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]"}
+                  `}
                   src={Medias}
                   alt="Medias"
                 />
