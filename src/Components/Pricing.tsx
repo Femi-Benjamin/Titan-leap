@@ -4,6 +4,7 @@ import { useState } from "react";
 import StripeCheckout from "./StripeCheckout";
 import { motion, AnimatePresence } from "framer-motion";
 import gift from "../assets/gift.png";
+import AuditModal from "./AuditModal";
 interface Plan {
   title: string;
   subtitle: string;
@@ -23,6 +24,7 @@ const PricingPage: React.FC = () => {
     useState<string>("The Scaling System");
   const [showModal, setShowModal] = useState(false);
   const [showStripeCheckout, setShowStripeCheckout] = useState(false);
+  const [showAuditModal, setShowAuditModal] = useState(false);
   const [expandedFeatures, setExpandedFeatures] = useState(false);
   const [expandedCards, setExpandedCards] = useState<{
     [key: string]: boolean;
@@ -584,6 +586,7 @@ const PricingPage: React.FC = () => {
               </p>
 
               <motion.button
+                onClick={() => setShowAuditModal(true)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-[#FED65E] text-[#4C12BF] py-4 rounded-2xl text-lg transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
@@ -965,6 +968,12 @@ const PricingPage: React.FC = () => {
           </motion.div>
         </div>
       )}
+
+      {/* Audit Modal */}
+      <AuditModal
+        isOpen={showAuditModal}
+        onClose={() => setShowAuditModal(false)}
+      />
     </div>
   );
 };
