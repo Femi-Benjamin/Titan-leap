@@ -16,6 +16,7 @@ const steps = [
 
 const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   if (!isOpen) return null;
 
@@ -24,8 +25,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
       setCurrentStep(currentStep + 1);
     } else {
       // Submit logic here
-      onClose();
-      setCurrentStep(1); // Reset for next time
+      setShowSuccessModal(true);
     }
   };
 
@@ -33,6 +33,12 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
+  };
+
+  const handleCloseSuccess = () => {
+    setShowSuccessModal(false);
+    onClose();
+    setCurrentStep(1); // Reset for next time
   };
 
   const renderSidebarItem = (step: { id: number; label: string }) => {
@@ -275,65 +281,102 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-[#1a0b3c]/80 backdrop-blur-md transition-opacity"
-        onClick={onClose}
-      />
+    <>
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-[#1a0b3c]/80 backdrop-blur-md transition-opacity"
+          onClick={onClose}
+        />
 
-      <div className="relative z-10 w-full max-w-6xl flex flex-col md:flex-row gap-6 items-stretch animate-[fade-in-up_0.3s_ease-out]">
-        {/* Sidebar - Intake Checklist */}
-        <div className="w-full md:w-80 bg-white rounded-3xl p-8 shadow-2xl shrink-0 flex flex-col">
-          <h3 className="text-[#4c1d95] font-bold text-xl mb-8">
-            Intake Checklist
-          </h3>
-          <div className="space-y-6">
-            {steps.map((step) => renderSidebarItem(step))}
+        <div className="relative z-10 w-full max-w-6xl flex flex-col md:flex-row gap-6 items-stretch animate-[fade-in-up_0.3s_ease-out]">
+          {/* Sidebar - Intake Checklist */}
+          <div className="w-full md:w-80 bg-white rounded-3xl p-8 shadow-2xl shrink-0 flex flex-col">
+            <h3 className="text-[#4c1d95] font-bold text-xl mb-8">
+              Intake Checklist
+            </h3>
+            <div className="space-y-6">
+              {steps.map((step) => renderSidebarItem(step))}
+            </div>
           </div>
-        </div>
 
-        {/* Main Form Area */}
-        <div className="flex-1 w-full bg-[#4c1d95] rounded-3xl p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden flex flex-col min-h-[500px]">
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
-          >
-            <X size={24} />
-          </button>
+          {/* Main Form Area */}
+          <div className="flex-1 w-full bg-[#4c1d95] rounded-3xl p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden flex flex-col min-h-[500px]">
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+            >
+              <X size={24} />
+            </button>
 
-          <form
-            className="flex-1 flex flex-col justify-between"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <div className="flex-1">{renderFormContent()}</div>
+            <form
+              className="flex-1 flex flex-col justify-between"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="flex-1">{renderFormContent()}</div>
 
-            <div className="flex justify-between items-center mt-12 pt-6 border-t border-white/10">
-              {currentStep > 1 ? (
+              <div className="flex justify-between items-center mt-12 pt-6 border-t border-white/10">
+                {currentStep > 1 ? (
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="px-10 py-3 rounded-lg font-bold border border-[#6d28d9] text-white hover:bg-[#6d28d9]/50 transition-colors shadow-lg"
+                  >
+                    Back
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+
                 <button
                   type="button"
-                  onClick={handleBack}
-                  className="px-10 py-3 rounded-lg font-bold border border-[#6d28d9] text-white hover:bg-[#6d28d9]/50 transition-colors shadow-lg"
+                  onClick={handleNext}
+                  className="bg-[#FFD646] text-black px-16 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg"
                 >
-                  Back
+                  {currentStep === steps.length ? "Submit" : "Next"}
                 </button>
-              ) : (
-                <div></div>
-              )}
-
-              <button
-                type="button"
-                onClick={handleNext}
-                className="bg-[#FFD646] text-black px-16 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg"
-              >
-                {currentStep === steps.length ? "Submit" : "Next"}
-              </button>
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={handleCloseSuccess}
+          />
+
+          {/* Success Modal Content */}
+          <div className="relative z-10 bg-white rounded-3xl p-8 md:p-12 shadow-2xl max-w-md w-full text-center animate-[fade-in-up_0.3s_ease-out]">
+            {/* Success Icon */}
+            <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check size={40} strokeWidth={3} className="text-white" />
+            </div>
+
+            {/* Success Message */}
+            <h2 className="text-3xl md:text-4xl font-bold text-[#4c1d95] mb-4">
+              Congratulations!
+            </h2>
+            <p className="text-lg text-gray-700 mb-8">
+              Your audit has been submitted and will be ready in 24 hours.
+            </p>
+
+            {/* Close Button */}
+            <button
+              onClick={handleCloseSuccess}
+              className="bg-[#FFD646] text-black px-12 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
