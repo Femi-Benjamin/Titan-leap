@@ -190,13 +190,13 @@ const PricingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#4B11BF] via-[#4C12BF] to-[#170044] font-sans pb-0 overflow-x-hidden">
       {/* Header Section */}
-      <div className="lg:min-h-screen py-12 md:py-0 flex flex-col justify-end bg-gradient-to-t from-[#4C12BF] to-[#ffffff]">
+      {/* <div className="lg:min-h-screen py-12 md:py-0 flex flex-col justify-end bg-[#1a0b3c]">
         <div className="max-w-7xl px-6 md:px-16 md:py-0 py-24">
           <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-medium">
             Pricing
           </h1>
         </div>
-      </div>
+      </div> */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -204,7 +204,7 @@ const PricingPage: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:px-12 lg:px-20"
       >
-        <div className="flex items-center gap-4 mb-1 px-4 md:px-0">
+        <div className="flex items-center gap-4 mb-20 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
           <span className="text-yellow-400 font-bold text-xl tracking-wider">
             Pricing or Offers

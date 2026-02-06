@@ -60,7 +60,7 @@ export default function Component() {
 
         {/* Main Content Container */}
         <div className="relative mb-8 flex justify-center xl:px-4">
-          <div className="relative rounded-3xl h-[400px] xl:h-[500px] xl:w-[1700px] w-full mb-8 overflow-hidden">
+          <div className="relative rounded-3xl md:h-[550px] h-[400px] xl:h-[650px] xl:w-[1700px] w-full mb-8 overflow-hidden">
             {/* Gradient Border */}
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
@@ -147,6 +147,65 @@ export default function Component() {
               <img className="" src={right} alt="" />
             </div>
           </button>
+        </div>
+
+        {/* Marquee Logo Strip */}
+        <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] py-8 mb-8">
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-12 animate-marquee shrink-0">
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <div className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center font-serif text-[10px] text-gray-400">
+                IT
+              </div>
+              <span className="font-bold tracking-tight text-gray-300">
+                DALE
+              </span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="font-bold italic text-xl text-gray-400">||</span>
+              <span className="font-bold text-gray-300 text-lg">make</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="text-2xl text-gray-400 font-black">A</span>
+              <span className="font-bold text-gray-300 text-lg">Adobe</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="font-bold italic text-xl text-gray-400">||</span>
+              <span className="font-bold text-gray-300 text-lg">make</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="text-2xl text-gray-400 font-black">A</span>
+              <span className="font-bold text-gray-300 text-lg">Adobe</span>
+            </li>
+          </ul>
+          <ul
+            className="flex items-center justify-center md:justify-start [&_li]:mx-12 animate-marquee shrink-0"
+            aria-hidden="true"
+          >
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <div className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center font-serif text-[10px] text-gray-400">
+                IT
+              </div>
+              <span className="font-bold tracking-tight text-gray-300">
+                DALE
+              </span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="font-bold italic text-xl text-gray-400">||</span>
+              <span className="font-bold text-gray-300 text-lg">make</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="text-2xl text-gray-400 font-black">A</span>
+              <span className="font-bold text-gray-300 text-lg">Adobe</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="font-bold italic text-xl text-gray-400">||</span>
+              <span className="font-bold text-gray-300 text-lg">make</span>
+            </li>
+            <li className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
+              <span className="text-2xl text-gray-400 font-black">A</span>
+              <span className="font-bold text-gray-300 text-lg">Adobe</span>
+            </li>
+          </ul>
         </div>
 
         {/* Select Punters Section */}

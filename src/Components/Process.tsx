@@ -42,30 +42,21 @@ const SignatureProcess = () => {
   };
 
   return (
-    <div className="relative md:min-h-screen bg-gradient-to-t from-[#5A25C4] to-[#FFFFFF] overflow-hidden">
-      {/* Vertical lines pattern */}
-      {/* <div className="absolute inset-0">
-        <div className="h-full w-full opacity-20">
-          {Array.from({ length: 20 }).map((_, i: number) => (
-            <div
-              key={i}
-              className="absolute top-0 bottom-0 w-px bg-white"
-              style={{ left: `${(i + 1) * 5}%` }}
-            ></div>
-          ))}
-        </div>
-      </div> */}
+    <div className="relative md:min-h-screen bg-gradient-to-b from-[#1a0b3c] to-[#2e1065] overflow-hidden">
+      {/* Background glow specific to this section */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
+      {/* Vertical lines pattern - removed to fix parsing issues */}
       <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto py-16">
         {/* Header Section */}
         <div className="mb-16">
           <div className="flex items-center mb-4">
             <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
-            <span className="text-[#4C12BF] font-bold text-lg tracking-wider">
+            <span className="text-[#FED65E] font-bold text-lg tracking-wider">
               OUR PROCESS
             </span>
           </div>
-          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#4C12BF] mb-8 font-Achivo">
+          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#FFFFFF] mb-8 font-Achivo">
             Our Signature Process
           </h1>
         </div>
@@ -75,17 +66,26 @@ const SignatureProcess = () => {
           {processSteps.map((step, index: number) => (
             <div
               key={index}
-              className="bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] rounded-2xl p-8 border border-white"
+              className="group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF]/10 hover:border-[#FFD646]/30 transition-all duration-500"
             >
-              {/* Icon placeholder */}
-              <div className="flex items-center justify-center mb-6">
-                <img className="" src={Medias} alt="Medias" />
+              {/* Hover Gradient Border Effect - more obvious yellow */}
+              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#FFD646]/10 transition-colors duration-500 pointer-events-none"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD646]/0 via-[#FFD646]/10 to-[#FFD646]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-[#FFD646]/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
+
+              {/* Icon with hover effect */}
+              <div className="relative flex items-center justify-center mb-6">
+                <img
+                  className="transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]"
+                  src={Medias}
+                  alt="Medias"
+                />
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="relative text-2xl font-bold text-white mb-4">
                 {step.title}
               </h3>
-              <p className="text-white/80 text-sm leading-relaxed">
+              <p className="relative text-white/80 text-sm leading-relaxed">
                 {step.description}
               </p>
             </div>

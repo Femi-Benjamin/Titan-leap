@@ -45,57 +45,64 @@ export default function CardMany() {
 
   const prevTestimonial = () => {
     setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   };
 
   const current = testimonials[currentIndex];
 
   return (
-    <div className="max-w-md mx-auto bg-[#F7F7F9] p-8 rounded-3xl h-[671px]">
-      <div className="space-y-6">
-        <p className="text-xl font-semibold font-Inter leading-relaxed">
+    <div className="lg:col-span-2 bg-white text-black rounded-[30px] p-8 md:p-10 flex flex-col max-w-md justify-between relative overflow-hidden min-h-[700px] shadow-2xl">
+      <div className="relative z-10">
+        <p className="text-lg font-medium leading-relaxed mb-8">
           {current.text}
         </p>
-        <div className="flex items-center space-x-4">
-          <img
-            src={current.avatar}
-            alt="Profile picture"
-            className="w-12 h-12 rounded-full object-cover"
-          />
-          <div>
-            <h3 className="font-semibold">{current.name}</h3>
-            <p className="text-sm text-gray-600">{current.position}</p>
-            <p className="text-orange-500 font-semibold uppercase tracking-wider">
-              {current.company}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center space-x-2 space-y-40 mt-4">
-        {testimonials.map((_, index) => (
-          <div
-            key={index}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentIndex ? "bg-orange500" : "bg-gray300"
-            }`}
-          />
-        ))}
       </div>
 
-      <div className="flex justify-center space-x-2 mt-6">
-        <button
-          onClick={prevTestimonial}
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-        >
-          <ArrowLeft className="w-6 h-6 text-gray-600" />
-        </button>
-        <button
-          onClick={nextTestimonial}
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-        >
-          <ArrowRight className="w-6 h-6 text-gray-600" />
-        </button>
+      <div className="relative z-10 mt-auto">
+        <div className="flex items-center gap-4 mb-6">
+          <img
+            src={current.avatar}
+            alt={current.name}
+            className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+          />
+          <div>
+            <div className="font-bold text-sm">{current.name}</div>
+            <div className="text-xs text-gray-500">{current.position}</div>
+            <div className="text-[10px] font-bold text-orange-500 mt-1 uppercase tracking-wide">
+              {current.company}
+            </div>
+          </div>
+        </div>
+
+        {/* Dot Indicators */}
+        {/* <div className="flex gap-2 mb-4">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                index === currentIndex ? "bg-orange-500" : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </div> */}
+
+        {/* Navigation Buttons */}
+        <div className="flex gap-3 justify-end">
+          <button
+            onClick={prevTestimonial}
+            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
+          >
+            <ArrowLeft size={16} />
+          </button>
+          <button
+            onClick={nextTestimonial}
+            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
+          >
+            <ArrowRight size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );

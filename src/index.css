@@ -3,6 +3,21 @@
 @theme {
   --font-Achivo: "Archivo Black", sans-serif;
   --font-Inter: "Inter", sans-serif;
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
 /* Prevent white flash on page load */
