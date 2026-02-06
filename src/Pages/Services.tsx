@@ -9,10 +9,6 @@ import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
 import AI from "../assets/AI.png";
 
-interface ServicesProps {
-  onOpenAudit: () => void;
-}
-
 const servicesData = [
   {
     title: "Strategy and Brand Positioning",
