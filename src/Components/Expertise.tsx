@@ -6,7 +6,6 @@ import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
-// import SEO from "../assets/SEO.png";
 import AI from "../assets/AI.png";
 
 const Expertise = () => {
@@ -185,7 +184,7 @@ const Expertise = () => {
               OUR EXPERTISE
             </span>
           </div>
-          <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo">
+          <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Archivo font-bold">
             Comprehensive marketing solutions for growth
           </h1>
         </div>

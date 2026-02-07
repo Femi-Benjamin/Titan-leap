@@ -1,9 +1,10 @@
 "use client";
 import type React from "react";
 import { useState } from "react";
+import { Check, Gift } from "lucide-react";
 import StripeCheckout from "./StripeCheckout";
 import { motion, AnimatePresence } from "framer-motion";
-import gift from "../assets/gift.png";
+// import gift from "../assets/gift.png";
 import AuditModal from "./AuditModal";
 interface Plan {
   title: string;
@@ -177,26 +178,108 @@ const PricingPage: React.FC = () => {
   };
 
   const activePlan = activePlanDetails();
-  type TableValue = boolean | "optional";
 
-  type TableRow = {
-    feature: string;
-    isHeader?: boolean;
-    f1: TableValue;
-    f2: TableValue;
-    f3: TableValue;
+  // Feature data for the comparison table
+  // 0: Growth Foundation, 1: Scale System, 2: Authority Domination
+  // Values: true (check), false (dash), or string (e.g. "Optional")
+  type FeatureValue = boolean | string;
+
+  interface FeatureRow {
+    label: string;
+    values: [FeatureValue, FeatureValue, FeatureValue];
+  }
+
+  const keyFeatures: FeatureRow[] = [
+    { label: "Strategy & Positioning", values: [true, true, true] },
+    { label: "Funnel Setup", values: [true, true, true] },
+    { label: "Monthly Content", values: [true, true, true] },
+    { label: "Paid Ads Management", values: ["Optional", true, true] },
+    { label: "Social Media Management", values: [true, true, true] },
+    { label: "AI Content Optimization", values: [true, true, true] },
+    { label: "AI Lead Automation", values: [false, true, true] },
+    { label: "Re-targeting", values: [false, true, true] },
+    { label: "Thought Leadership Strategy", values: [false, true, true] },
+  ];
+
+  const aiFeatures: FeatureRow[] = [
+    { label: "AI creative performance analysis", values: [true, true, true] },
+    { label: "AI hook & CTA optimization", values: [false, true, true] },
+    {
+      label: "AI lead qualification & follow-ups",
+      values: [false, true, true],
+    },
+    {
+      label: "AI content repurposing (1 video → multiple assets)",
+      values: [false, true, true],
+    },
+    {
+      label: "AI performance dashboards (ads, content, leads, sales)",
+      values: [false, false, true],
+    },
+  ];
+
+  const teamFeatures: FeatureRow[] = [
+    { label: "Content strategist", values: [true, true, true] },
+    { label: "Ad specialist", values: [false, true, true] },
+    { label: "Creative lead", values: [false, true, true] },
+    { label: "Account manager", values: [false, false, true] },
+    { label: "Video Editor", values: [false, false, true] },
+    { label: "AI Content manager", values: [false, false, true] },
+  ];
+
+  const ComparisonSection: React.FC<{ title: string; rows: FeatureRow[] }> = ({
+    title,
+    rows,
+  }) => (
+    <div className="mb-16">
+      <h3 className="text-xl md:text-2xl font-bold mb-8 pl-4 border-l-4 border-[#FFD646]">
+        {title}
+      </h3>
+      <div className="space-y-4">
+        {rows.map((row, idx) => (
+          <div
+            key={idx}
+            className="grid grid-cols-4 items-center py-4 border-b border-white/5 hover:bg-white/5 transition-colors px-4 rounded-lg"
+          >
+            <div className="col-span-1 text-sm md:text-base font-medium text-gray-200">
+              {row.label}
+            </div>
+            <div className="col-span-3 grid grid-cols-3">
+              <FeatureCell value={row.values[0]} />
+              <FeatureCell value={row.values[1]} />
+              <FeatureCell value={row.values[2]} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+  const FeatureCell: React.FC<{ value: FeatureValue }> = ({ value }) => {
+    if (value === true) {
+      return (
+        <div className="flex justify-center">
+          <div className="w-6 h-6 rounded-full bg-[#4c1d95] flex items-center justify-center text-white">
+            <Check size={14} strokeWidth={4} />
+          </div>
+        </div>
+      );
+    }
+    if (value === false) {
+      return (
+        <div className="flex justify-center">
+          <div className="w-4 h-0.5 bg-gray-600"></div>
+        </div>
+      );
+    }
+    return (
+      <div className="text-[#8b5cf6] font-medium text-sm text-center">
+        {value}
+      </div>
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#4B11BF] via-[#4C12BF] to-[#170044] font-sans pb-0 overflow-x-hidden">
-      {/* Header Section */}
-      {/* <div className="lg:min-h-screen py-12 md:py-0 flex flex-col justify-end bg-[#1a0b3c]">
-        <div className="max-w-7xl px-6 md:px-16 md:py-0 py-24">
-          <h1 className="text-7xl md:text-[200px] xl:text-[300px] md:text-left text-center tracking-loose align-text-bottom text-white leading-loose font-medium">
-            Pricing
-          </h1>
-        </div>
-      </div> */}
+    <div className="min-h-screen bg-[#1a0b3c] font-sans pb-0 overflow-x-hidden">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -206,12 +289,12 @@ const PricingPage: React.FC = () => {
       >
         <div className="flex items-center gap-4 mb-20 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
-          <span className="text-yellow-400 font-bold text-xl tracking-wider">
+          <span className="font-bold text-xl tracking-wider">
             Pricing or Offers
           </span>
         </div>
 
-        <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Achivo px-4 md:px-0">
+        <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-bold font-Achivo px-4 md:px-0">
           Best things are premium
         </h2>
 
@@ -549,9 +632,8 @@ const PricingPage: React.FC = () => {
       </motion.div>
 
       {/* Gift Section */}
-      <div className="bg-[#170044] pt-20 px-4 relative overflow-hidden">
+      {/* <div className="bg-[#170044] pt-20 px-4 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative">
-          {/* Gift Image - positioned with bottom hidden, top visible */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             whileInView={{ scale: 1, opacity: 1, y: 0 }}
@@ -561,15 +643,12 @@ const PricingPage: React.FC = () => {
           >
             <div className="w-32 h-32 md:w-40 md:h-40">
               <div className="w-full h-full bg-contain bg-no-repeat bg-center">
-                {/* Gift Box SVG */}
                 <img src={gift} alt="giftbox" />
               </div>
             </div>
           </motion.div>
 
-          {/* Purple rounded container */}
           <div className="bg-gradient-to-b from-[#4B11BF] to-[#170044] rounded-tr-4xl rounded-tl-4xl px-8 md:px-16 pt-7 md:pb-16 pb-10 relative overflow-hidden z-10 font-Achivo">
-            {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -597,202 +676,64 @@ const PricingPage: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </div>
+      </div> */}
+      {/* Audit Banner */}
+      <div className="max-w-7xl mx-auto">
+        <div
+          className="relative flex justify-center w-full rounded-[30px] overflow-hidden mb-20 cursor-pointer group mt-20"
+          onClick={() => setShowAuditModal(true)}
+        >
+          {/* Background Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2e1065] via-[#4c1d95] to-[#2e1065] opacity-90"></div>
 
-      <div className="bg-gradient-to-t from-[#4B11BF] to-[#170044]">
+          {/* Content */}
+          <div className="relative z-10 px-8 py-16 flex flex-col items-center text-center">
+            {/* Floating Gift Icon */}
+            <div className="mb-6 relative">
+              <div className="absolute inset-0 bg-[#FFD646] blur-xl opacity-40 rounded-full animate-pulse-slow"></div>
+              <Gift
+                size={64}
+                className="text-white drop-shadow-[0_0_15px_rgba(255,214,70,0.5)]"
+                strokeWidth={1}
+              />
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
+              Get a free Growth Readiness Audit
+            </h2>
+            <p className="text-gray-200 text-lg mb-8 max-w-2xl">
+              Get a free Growth Readiness Audit and see exactly what's holding
+              your business back.
+            </p>
+
+            <div className="w-full max-w-3xl h-14 bg-[#FFD646] rounded-xl flex items-center justify-center transform group-hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,214,70,0.3)]">
+              <span className="text-black font-bold text-lg">
+                Claim Your Free Audit Now
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="bg-gradient-to-t from-[#4B11BF] to-[#170044]">
         <h3 className="text-white text-md md:text-xl py-8 md:px-32 px-5 items-center font-Achivo relative">
           Key Features
         </h3>
-      </div>
+      </div> */}
       {/* Key Features Section */}
-      <div className="pb-20 bg-white">
-        <div className="max-w-7xl mx-auto md:px-0 px-5">
-          {/* Features Comparison Table */}
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <tbody>
-                {(
-                  [
-                    {
-                      feature: "Strategy & Positioning",
-                      f1: true,
-                      f2: true,
-                      f3: true,
-                    },
-                    { feature: "Funnel Setup", f1: true, f2: true, f3: true },
-                    {
-                      feature: "Monthly Content",
-                      f1: true,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "Paid Ads Management",
-                      f1: "optional",
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "Social Media Management",
-                      f1: true,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "AI Content Optimization",
-                      f1: true,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "AI Lead Automation",
-                      f1: false,
-                      f2: true,
-                      f3: true,
-                    },
-                    { feature: "Re-targeting", f1: false, f2: true, f3: true },
-                    {
-                      feature: "Thought Leadership Strategy",
-                      f1: false,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "AI Built In",
-                      isHeader: true,
-                      f1: false,
-                      f2: false,
-                      f3: false,
-                    },
-                    {
-                      feature: "AI creative performance analysis",
-                      f1: true,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "AI hook & CTA optimization",
-                      f1: false,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature: "AI lead qualification & follow-ups",
-                      f1: false,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature:
-                        "AI content repurposing (1 video → multiple assets)",
-                      f1: false,
-                      f2: true,
-                      f3: true,
-                    },
-                    {
-                      feature:
-                        "AI performance dashboards (ads, content, leads, sales)",
-                      f1: false,
-                      f2: false,
-                      f3: true,
-                    },
-                    {
-                      feature: "Dedicated growth team",
-                      isHeader: true,
-                      f1: false,
-                      f2: false,
-                      f3: false,
-                    },
-                  ] as TableRow[]
-                ).map((row, idx) => (
-                  <tr
-                    key={idx}
-                    className={`${row.isHeader ? "border-b-2 border-[#D9D9D9]" : "border-b border-white/10 hover:bg-white/[0.03]"} transition-colors`}
-                  >
-                    <td
-                      className={`text-left py-6 text-sm md:text-base font-medium ${row.isHeader ? "text-black font-bold uppercase text-xs" : "text-gray-600"}`}
-                    >
-                      {row.feature}
-                    </td>
-                    <td className="text-center py-6 px-4">
-                      {!row.isHeader &&
-                        (row.f1 === true ? (
-                          <div className="flex justify-center">
-                            <div className="w-6 h-6 rounded-full bg-[#4C12BF] flex items-center justify-center shadow-md border">
-                              <svg
-                                viewBox="0 0 24 24"
-                                className="w-3.5 h-3.5 text-white"
-                                fill="currentColor"
-                              >
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            </div>
-                          </div>
-                        ) : row.f1 === "optional" ? (
-                          <span className="text-[#4C12BF] text-sm font-semibold">
-                            Optional
-                          </span>
-                        ) : (
-                          <span className="text-black text-3xl leading-none">
-                            −
-                          </span>
-                        ))}
-                    </td>
-                    <td className="text-center py-6 px-4">
-                      {!row.isHeader &&
-                        (row.f2 === true ? (
-                          <div className="flex justify-center">
-                            <div className="w-6 h-6 rounded-full bg-[#4C12BF] flex items-center justify-center shadow-md">
-                              <svg
-                                viewBox="0 0 24 24"
-                                className="w-3.5 h-3.5 text-white"
-                                fill="currentColor"
-                              >
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            </div>
-                          </div>
-                        ) : row.f2 === "optional" ? (
-                          <span className="text-[#FED65E] text-sm font-semibold">
-                            Optional
-                          </span>
-                        ) : (
-                          <span className="text-black text-3xl leading-none">
-                            −
-                          </span>
-                        ))}
-                    </td>
-                    <td className="text-center py-6 px-4">
-                      {!row.isHeader &&
-                        (row.f3 === true ? (
-                          <div className="flex justify-center">
-                            <div className="w-6 h-6 rounded-full bg-[#4C12BF] flex items-center justify-center shadow-md">
-                              <svg
-                                viewBox="0 0 24 24"
-                                className="w-3.5 h-3.5 text-white"
-                                fill="currentColor"
-                              >
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            </div>
-                          </div>
-                        ) : row.f3 === "optional" ? (
-                          <span className="text-[#FED65E] text-sm font-semibold">
-                            Optional
-                          </span>
-                        ) : (
-                          <span className="text-black text-3xl leading-none">
-                            −
-                          </span>
-                        ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* Comparison Tables */}
+      <div className="max-w-7xl mx-auto">
+        <div className="hidden md:grid grid-cols-4 px-4 mb-8">
+          <div className="col-span-1"></div>
+          <div className="col-span-3 grid grid-cols-3 text-center">
+            <div className="font-bold text-gray-400">Growth Foundation</div>
+            <div className="font-bold text-[#FFD646]">Scale System</div>
+            <div className="font-bold text-gray-400">Authority Domination</div>
           </div>
         </div>
+
+        <ComparisonSection title="Key Features" rows={keyFeatures} />
+        <ComparisonSection title="AI Built In" rows={aiFeatures} />
+        <ComparisonSection title="Dedicated growth team" rows={teamFeatures} />
       </div>
 
       {/* MODAL */}

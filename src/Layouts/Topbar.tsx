@@ -114,7 +114,7 @@ export default function Topbar() {
             </div>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-5">
+            <nav className="hidden md:flex items-center space-x-5 ">
               {navItems.map((item) => (
                 <div key={item.path} className="relative">
                   <NavLink
@@ -123,7 +123,7 @@ export default function Topbar() {
                     onMouseLeave={() => setHoveredItem("")}
                     onClick={() => handleNavClick(item.label)}
                     className={({ isActive }) =>
-                      `relative px-3 py-2 text-base leading-10 font-medium transition-colors duration-200 ${
+                      `relative px-3 py-2 text-base leading-10 font-medium transition-colors duration-200  ${
                         isActive
                           ? "text-purple-600"
                           : `${textColor} hover:text-purple-600`

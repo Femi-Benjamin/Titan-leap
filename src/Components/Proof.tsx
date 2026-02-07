@@ -53,7 +53,7 @@ export default function Component() {
               Proof & Portfolio
             </span>
           </div>
-          <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] leading-tight">
+          <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] leading-tight font-bold">
             Real results. Real brands. Real growth
           </h1>
         </div>
@@ -206,41 +206,6 @@ export default function Component() {
               <span className="font-bold text-gray-300 text-lg">Adobe</span>
             </li>
           </ul>
-        </div>
-
-        {/* Select Punters Section */}
-        <div className="mb-16">
-          <h2 className="text-white text-2xl font-bold mb-8">Select Punters</h2>
-
-          <div className="flex md:gap-8 gap-3">
-            <div>
-              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
-                320%
-              </div>
-              <div className="text-white/80 text-lg">Lead Growth</div>
-            </div>
-
-            <div>
-              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
-                58%
-              </div>
-              <div className="text-white/80 text-lg">Cost Reduction</div>
-            </div>
-
-            <div>
-              <div className="text-white md:text-5xl text-2xl font-bold mb-2">
-                320%
-              </div>
-              <div className="text-white/80 text-lg">ROI</div>
-            </div>
-
-            <div>
-              <div className="text-white md:text-5xl text-xl font-bold mb-2">
-                2 Mo
-              </div>
-              <div className="text-white/80 xl:text-lg text-lg">Timeline</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

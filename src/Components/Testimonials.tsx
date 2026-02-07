@@ -80,12 +80,12 @@ export default function TestimonialsSection() {
               TESTIMONIALS
             </span>
           </div>
-          <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#4C12BF] mb-8 text-left">
+          <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#4C12BF] mb-8 text-left font-bold">
             What our clients say
           </h1>
         </div>
 
-        <div className="max-w-4xl mx-auto text-center md:pt-20">
+        <div className="max-w-4xl mx-auto text-center md:pt-20 font-bold">
           <div className="relative h-96 flex flex-col justify-center items-center space-y-8 font-Achivo">
             {/* Previous testimonial (top, faded) */}
             <div

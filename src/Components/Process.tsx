@@ -59,7 +59,7 @@ const SignatureProcess = () => {
               OUR PROCESS
             </span>
           </div>
-          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#FFFFFF] mb-8 font-Achivo">
+          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#FFFFFF] mb-8 font-Achivo font-bold">
             Our Signature Process
           </h1>
         </div>
