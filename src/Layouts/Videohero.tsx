@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center bg-[#2e1065] justify-center pt-32 pb-20 px-6 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center bg[#2e1065]  bg-gradient-to-b from-[#FFFFFF] to-[#4C12BF] justify-center pt-32 pb-20 px-6 overflow-hidden"
     >
       {/* Parallax Background Ambience */}
       <div
@@ -68,17 +68,18 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
 
       <div className="max-w-7xl mx-auto text-center z-10">
         <div className="mb-4 inline-block">
-          <span className="text-[#c4b5fd] font-medium tracking-wide">
+          <span className="text-[#4C12BF] font-medium text-xl tracking-wide">
             Done for you Growth System
           </span>
         </div>
 
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 drop-shadow-2xl">
-          <span className="block text-white">Turn Clicks Into</span>
-          <span className="block text-[#7c3aed]">Customers.</span>
+          <span className="block text-[#4C12BF]">
+            Turn Clicks Into Customers.
+          </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+        <p className="text-lg md:text-xl text-[#4C12BF] max-w-2xl mx-auto mb-10 leading-relaxed">
           Next-level funnels, content, ads, and AI automation We do the work,
           while you recharge and scale.
         </p>
@@ -86,24 +87,24 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
         <div className="flex justify-center mb-16">
           <button
             onClick={onOpenAudit}
-            className="px-10 py-4 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all transform hover:scale-105 border border-white/20"
+            className="px-10 md:px-60 py-3 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-[#FED65E] font-bold rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all transform hover:scale-105 border border-white/20"
           >
             Get a Free Funnel Audit
           </button>
         </div>
 
         {/* Video Placeholder */}
-        <div className="relative w-full aspect-video max-w-4xl mx-auto glass-panel rounded-3xl overflow-hidden group cursor-pointer border border-white/20 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#2e1065] to-[#4c1d95] opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+        <div className="relative w-full aspect-video max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden group cursor-pointer border border-white/20 shadow-2xl">
+          <div className="absolute inset-0 bg-backdrop-blur-3xl opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
 
           {/* Animated Background Mesh in Video */}
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-500 rounded-full blur-[100px] animate-float"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-700 rounded-full blur-[100px] animate-float"></div>
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-accent-yellow flex items-center justify-center shadow-[0_0_40px_rgba(252,211,77,0.6)] transform group-hover:scale-110 transition-transform duration-300">
-              <Play className="fill-black text-black ml-1" size={32} />
+            <div className="w-20 h-20  bg-accent-yellow flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+              <Play className="fill-[#FED65E] text-[#FED65E] ml-1" size={50} />
             </div>
           </div>
         </div>
