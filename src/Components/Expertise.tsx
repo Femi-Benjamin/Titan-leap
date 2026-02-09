@@ -174,7 +174,7 @@ const Expertise = () => {
   );
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-b from-[#160043] via-[#4C12BF] to-[#1a0b3c] py-8">
+    <div className="md:min-h-screen bg-gradient-to-b from-[#160043] via[#4C12BF] to-[#1a0b3c] py-8">
       <div className="xl:px-22 md:px-10 px-5">
         {/* Header Section */}
         <div className="mb-12">
