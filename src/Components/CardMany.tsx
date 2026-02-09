@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function CardMany() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,7 +53,13 @@ export default function CardMany() {
   const current = testimonials[currentIndex];
 
   return (
-    <div className="lg:col-span-2 bg-white text-black rounded-[30px] p-8 md:p-10 flex flex-col max-w-md justify-between relative overflow-hidden min-h-[700px] shadow-2xl">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="lg:col-span-2 bg-white text-black rounded-[30px] p-8 md:p-10 flex flex-col max-w-md justify-between relative overflow-hidden min-h-[700px] shadow-2xl"
+    >
       <div className="relative z-10">
         <p className="text-lg font-medium leading-relaxed mb-8">
           {current.text}
@@ -104,6 +111,6 @@ export default function CardMany() {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Medias from "../assets/Medias.png";
+import { motion } from "framer-motion";
 
 const SignatureProcess = () => {
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
@@ -52,7 +53,13 @@ const SignatureProcess = () => {
 
       <div className="relative z-10 containe xl:px-22 md:px-10 px-5 mx-auto py-16">
         {/* Header Section */}
-        <div className="mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
           <div className="flex items-center mb-4">
             <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
             <span className="text-[#FED65E] font-bold text-lg tracking-wider">
@@ -62,13 +69,25 @@ const SignatureProcess = () => {
           <h1 className="text-xl md:text-5xl xl:text-6xl text-[#FFFFFF] mb-8 font-Achivo font-bold">
             Our Signature Process
           </h1>
-        </div>
+        </motion.div>
 
         {/* Process Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.2 } },
+          }}
+        >
           {processSteps.map((step, index: number) => (
-            <div
+            <motion.div
               key={index}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
               onClick={() => toggleCard(index)}
               className={`group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF]/10 transition-all duration-500 cursor-pointer
                 ${activeCard === index ? "border-[#FFD646]/30" : "md:hover:border-[#FFD646]/30"}
@@ -108,12 +127,18 @@ const SignatureProcess = () => {
               <p className="relative text-white/80 text-sm leading-relaxed">
                 {step.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Accordion Section */}
-        <div className="max-w4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="max-w4xl mx-auto"
+        >
           {accordionItems.map((item, index: number) => (
             <div
               key={index}
@@ -160,7 +185,7 @@ const SignatureProcess = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

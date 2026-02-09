@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import strategy from "../assets/strategy.png";
@@ -7,6 +6,7 @@ import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
 import AI from "../assets/AI.png";
+import { motion } from "framer-motion";
 
 const Expertise = () => {
   const navigate = useNavigate();
@@ -64,6 +64,7 @@ const Expertise = () => {
     //   description:
     //     "Long-term traffic that compounds. For brands ready to dominate organically.",
     //   icon: SEO,
+    //   // icon: <Search className="w-8 h-8 text-white" />,
     // },
   ];
 
@@ -177,7 +178,13 @@ const Expertise = () => {
     <div className="md:min-h-screen bg-gradient-to-b from-[#160043] via[#4C12BF] to-[#1a0b3c] py-8">
       <div className="xl:px-22 md:px-10 px-5">
         {/* Header Section */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
           <div className="flex items-center mb-4">
             <div className="h-1 bg-[#FED65E] w-10 mr-4"></div>
             <span className="text-yellow-400 font-bold text-lg tracking-wider uppercase">
@@ -187,13 +194,25 @@ const Expertise = () => {
           <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Archivo font-bold">
             Comprehensive marketing solutions for growth
           </h1>
-        </div>
+        </motion.div>
 
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+        >
           {cards.map((card) => (
-            <div
+            <motion.div
               key={card.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
               className={`group relative rounded-2xl p-[1px] transition-all duration-300 ${
                 clickedCard === card.id
                   ? "bg-[#FED65E]"
@@ -230,9 +249,9 @@ const Expertise = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Dynamic Accordion Section */}
         <div className="mx-auto">

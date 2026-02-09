@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 export default function ContactForm() {
   const form = useRef<HTMLFormElement>(null);
@@ -52,7 +53,13 @@ export default function ContactForm() {
 
   return (
     <div id="contact">
-      <div className=" bg-[#5b21b6] p-8 rounded-3xl max-w-2xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className=" bg-[#5b21b6] p-8 rounded-3xl max-w-2xl mx-auto"
+      >
         <h1 className="text-4xl font-bold text-white mb-8 font-Inter">
           Let's build something great together.
         </h1>
@@ -187,7 +194,7 @@ export default function ContactForm() {
             </p>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

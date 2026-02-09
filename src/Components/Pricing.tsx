@@ -235,10 +235,22 @@ const PricingPage: React.FC = () => {
       <h3 className="text-xl md:text-2xl font-bold mb-8 pl-4 border-l-4 border-[#FFD646]">
         {title}
       </h3>
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={{
+          visible: { transition: { staggerChildren: 0.1 } },
+        }}
+      >
         {rows.map((row, idx) => (
-          <div
+          <motion.div
             key={idx}
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
             className="grid grid-cols-4 items-center py-4 border-b border-white/5 hover:bg-white/5 transition-colors px-4 rounded-lg"
           >
             <div className="col-span-1 text-sm md:text-base font-medium text-gray-200">
@@ -249,9 +261,9 @@ const PricingPage: React.FC = () => {
               <FeatureCell value={row.values[1]} />
               <FeatureCell value={row.values[2]} />
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
   const FeatureCell: React.FC<{ value: FeatureValue }> = ({ value }) => {
@@ -294,7 +306,7 @@ const PricingPage: React.FC = () => {
           </span>
         </div> */}
 
-        <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-bold font-Achivo px-4 md:px-0">
+        <h2 className="text-white text-2xl md:text-5xl xl:text-6xl leading-tight font-bold font-Achivo px-4 md:px-0 md:text-left text-center">
           Best things are premium
         </h2>
 

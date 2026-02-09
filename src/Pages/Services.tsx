@@ -8,6 +8,7 @@ import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
 import AI from "../assets/AI.png";
+import { motion } from "framer-motion";
 
 const servicesData = [
   {
@@ -89,7 +90,7 @@ interface ServiceBlockProps {
   index: number;
 }
 
-const ServiceBlock: React.FC<ServiceBlockProps> = ({ service }) => {
+const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleItem = (idx: number) => {
@@ -97,82 +98,85 @@ const ServiceBlock: React.FC<ServiceBlockProps> = ({ service }) => {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-24 border-b border-white/5 last:border-0 relative">
-        {/* Left Column: Image */}
-        <div className="lg:col-span-4 flex flex-col justify-start">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-0.5 bg-accent-yellow"></div>
-            <span className="text-gray-300 font-bold tracking-wider uppercase text-sm">
-              Our Services
-            </span>
-          </div>
-
-          {/* Stylized Image Container */}
-          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(76,29,149,0.3)] group hover:scale-105 transition-transform duration-500">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-3/4 h-3/4 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10"
-            />
-
-            {/* Decorative Elements */}
-            <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-accent-yellow/50"></div>
-            <div className="absolute bottom-6 left-6 w-2 h-2 rounded-full bg-white/30"></div>
-          </div>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-24 border-b border-white/5 last:border-0 relative"
+    >
+      {/* Left Column: Image */}
+      <div className="lg:col-span-4 flex flex-col justify-start">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-0.5 bg-accent-yellow"></div>
+          <span className="text-gray-300 font-bold tracking-wider uppercase text-sm">
+            Our Services
+          </span>
         </div>
 
-        {/* Right Column: Content */}
-        <div className="lg:col-span-8 flex flex-col justify-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
-            {service.title}
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-300 font-light mb-12 max-w-3xl leading-relaxed">
-            {service.description}
-          </p>
+        {/* Stylized Image Container */}
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(76,29,149,0.3)] group transition-all duration-500 cursor-pointer"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-[#7c3aed]/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-          <div className="space-y-0">
-            {service.items.map((item, idx) => (
-              <div key={idx} className="border-b border-white/10">
-                <button
-                  onClick={() => toggleItem(idx)}
-                  className="w-full py-6 flex items-center justify-between text-left group hover:bg-white/5 px-4 rounded-lg transition-colors"
-                >
-                  <span className="text-lg font-medium text-white group-hover:text-accent-yellow transition-colors">
-                    {item}
-                  </span>
-                  <div className="text-white/50 group-hover:text-accent-yellow transition-colors">
-                    {openIndex === idx ? (
-                      <Minus size={20} />
-                    ) : (
-                      <Plus size={20} />
-                    )}
-                  </div>
-                </button>
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-3/4 h-3/4 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10"
+          />
 
-                {/* Accordion Content */}
-                <div
-                  className={`grid transition-all duration-300 ease-in-out ${
-                    openIndex === idx
-                      ? "grid-rows-[1fr] opacity-100 pb-6 px-4"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-gray-400 text-sm">
-                      Detailed execution plan and deliverables included in the{" "}
-                      {item} package, tailored to your business goals.
-                    </p>
-                  </div>
+          {/* Decorative Elements */}
+          <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-accent-yellow/50"></div>
+          <div className="absolute bottom-6 left-6 w-2 h-2 rounded-full bg-white/30"></div>
+        </motion.div>
+      </div>
+
+      {/* Right Column: Content */}
+      <div className="lg:col-span-8 flex flex-col justify-center">
+        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+          {service.title}
+        </h2>
+        <p className="text-xl md:text-2xl text-gray-300 font-light mb-12 max-w-3xl leading-relaxed">
+          {service.description}
+        </p>
+
+        <div className="space-y-0">
+          {service.items.map((item, idx) => (
+            <div key={idx} className="border-b border-white/10">
+              <button
+                onClick={() => toggleItem(idx)}
+                className="w-full py-6 flex items-center justify-between text-left group hover:bg-white/5 px-4 rounded-lg transition-colors"
+              >
+                <span className="text-lg font-medium text-white group-hover:text-accent-yellow transition-colors">
+                  {item}
+                </span>
+                <div className="text-white/50 group-hover:text-accent-yellow transition-colors">
+                  {openIndex === idx ? <Minus size={20} /> : <Plus size={20} />}
+                </div>
+              </button>
+
+              {/* Accordion Content */}
+              <div
+                className={`grid transition-all duration-300 ease-in-out ${
+                  openIndex === idx
+                    ? "grid-rows-[1fr] opacity-100 pb-6 px-4"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="text-gray-400 text-sm">
+                    Detailed execution plan and deliverables included in the{" "}
+                    {item} package, tailored to your business goals.
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 

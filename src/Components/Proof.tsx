@@ -1,6 +1,8 @@
 import { useState } from "react";
-import left from "../assets/left.png";
-import right from "../assets/right.png";
+// import left from "../assets/left.png";
+// import right from "../assets/right.png";
+import website1 from "../assets/website1.mp4";
+import { motion } from "framer-motion";
 
 export default function Component() {
   // Dummy video data
@@ -9,44 +11,50 @@ export default function Component() {
       id: 1,
       title: "Brand Campaign Success",
       description: "E-commerce transformation resulting in 320% lead growth",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      // videoUrl:
+      //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
       id: 2,
       title: "Digital Marketing Revolution",
       description: "Social media strategy delivering 58% cost reduction",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      // videoUrl:
+      //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     },
     {
       id: 3,
       title: "ROI Optimization Project",
       description: "Complete brand overhaul achieving 320% ROI in 2 months",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      // videoUrl:
+      //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     },
   ];
 
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [currentVideoIndex] = useState(0);
 
-  const goToPrevious = () => {
-    setCurrentVideoIndex((prevIndex) =>
-      prevIndex === 0 ? videos.length - 1 : prevIndex - 1,
-    );
-  };
+  // const goToPrevious = () => {
+  //   setCurrentVideoIndex((prevIndex) =>
+  //     prevIndex === 0 ? videos.length - 1 : prevIndex - 1,
+  //   );
+  // };
 
-  const goToNext = () => {
-    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-  };
+  // const goToNext = () => {
+  //   setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+  // };
 
   const currentVideo = videos[currentVideoIndex];
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] md:px-0 px-6 py-12">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#160043] to-[#4C12BF] py-12">
       <div className="mx-auto xl:px-22 md:px-10 px-5">
         {/* Header */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-1 bg-[#FED65E]"></div>
             <span className="text-[#FED65E] font-bold text-lg tracking-wider uppercase">
@@ -56,11 +64,17 @@ export default function Component() {
           <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#FFFFFF] leading-tight font-bold">
             Real results. Real brands. Real growth
           </h1>
-        </div>
+        </motion.div>
 
         {/* Main Content Container */}
-        <div className="relative mb-8 flex justify-center xl:px-4">
-          <div className="relative rounded-3xl md:h-[550px] h-[400px] xl:h-[650px] xl:w-[1700px] w-full mb-8 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative mb-8 flex justify-center"
+        >
+          <div className="relative rounded-3xl md:h-[570px] h-[400px] xl:h-[670px] xl:w-[1700px] w-full mb-8 overflow-hidden">
             {/* Gradient Border */}
             <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF]">
               <div className="w-full h-full bg-black rounded-3xl overflow-hidden">
@@ -69,10 +83,15 @@ export default function Component() {
                   <video
                     key={currentVideo.id}
                     className="w-full h-full object-cover rounded-3xl"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     controls
                     poster=""
                   >
-                    <source src={currentVideo.videoUrl} type="video/mp4" />
+                    {/* <source src={currentVideo.videoUrl} type="video/mp4" /> */}
+                    <source src={website1} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
 
@@ -87,18 +106,18 @@ export default function Component() {
                   </div> */}
 
                   {/* Video Counter */}
-                  <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                  {/* <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
                     <span className="text-white text-sm font-medium">
                       {currentVideoIndex + 1} / {videos.length}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Navigation Arrows */}
-          <button
+          {/* <button
             className="absolute xl:-left-16 -left-10 top-1/2 xl:top-80 -translate-y-1/2 text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer"
             onClick={goToPrevious}
           >
@@ -146,8 +165,8 @@ export default function Component() {
             <div className="xl:block hidden">
               <img className="" src={right} alt="" />
             </div>
-          </button>
-        </div>
+          </button> */}
+        </motion.div>
 
         {/* Marquee Logo Strip */}
         <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] py-8 mb-8">

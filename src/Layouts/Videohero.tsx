@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Play } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface HeroProps {
   onOpenAudit: () => void;
@@ -67,34 +68,69 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
       </div>
 
       <div className="max-w-7xl mx-auto text-center z-10">
-        <div className="mb-4 inline-block">
-          <span className="text-[#4C12BF] font-medium text-xl tracking-wide">
-            Done for you Growth System
-          </span>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-4 inline-block"
+        >
+          <motion.span
+            animate={{ y: [0, -10, 0] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="text-[#4C12BF] font-medium text-xl tracking-wide inline-block"
+          >
+            Done for your Growth System
+          </motion.span>
+        </motion.div>
 
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 drop-shadow-2xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 drop-shadow-2xl"
+        >
           <span className="block text-[#4C12BF]">
             Turn Clicks Into Customers.
           </span>
-        </h1>
+        </motion.h1>
 
-        <p className="text-lg md:text-xl text-[#4C12BF] max-w-2xl mx-auto mb-10 leading-relaxed">
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="text-lg md:text-xl text-[#4C12BF] max-w-2xl mx-auto mb-10 leading-relaxed"
+        >
           Next-level funnels, content, ads, and AI automation We do the work,
           while you recharge and scale.
-        </p>
+        </motion.p>
 
-        <div className="flex justify-center mb-16">
-          <button
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="flex justify-center mb-16"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onOpenAudit}
-            className="px-10 md:px-60 py-3 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-[#FED65E] font-bold rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all transform hover:scale-105 border border-white/20"
+            className="px-10 md:px-60 py-3 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-[#FED65E] font-bold rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all transform border border-white/20"
           >
             Get a Free Funnel Audit
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Video Placeholder */}
-        <div className="relative w-full aspect-video max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden group cursor-pointer border border-white/20 shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="relative w-full aspect-video max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden group cursor-pointer border border-white/20 shadow-2xl"
+        >
           <div className="absolute inset-0 bg-backdrop-blur-3xl opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
 
           {/* Animated Background Mesh in Video */}
@@ -103,11 +139,14 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20  bg-accent-yellow flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="w-20 h-20  bg-accent-yellow flex items-center justify-center transform transition-transform duration-300"
+            >
               <Play className="fill-[#FED65E] text-[#FED65E] ml-1" size={50} />
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

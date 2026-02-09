@@ -1,5 +1,5 @@
-"use client";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -54,26 +54,15 @@ export default function TestimonialsSection() {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        .animate-slide {
-          animation: slideUp 0.6s ease-out;
-        }
-      `}</style>
-
       <section className="md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] items-center px-6 md:pt-20 pt-14">
         {/* Header */}
-        <div className="mb-16 xl:px-22 md:px-10 px-5">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 xl:px-22 md:px-10 px-5"
+        >
           <div className="flex items-center mb-4">
             <div className="w-10 h-1 bg-yellow-400 mr-4"></div>
             <span className="text-[#4C12BF] font-bold text-lg tracking-wider">
@@ -83,42 +72,52 @@ export default function TestimonialsSection() {
           <h1 className="text-xl md:text-5xl xl:text-6xl font-Achivo text-[#4C12BF] mb-8 text-left font-bold">
             What our clients say
           </h1>
-        </div>
+        </motion.div>
 
         <div className="max-w-4xl mx-auto text-center md:pt-20 font-bold">
           <div className="relative h-96 flex flex-col justify-center items-center space-y-8 font-Achivo">
             {/* Previous testimonial (top, faded) */}
-            <div
-              className="opacity-20 scale-90 text-purple-500 cursor-pointer transition-all duration-1000 ease-in-out"
+            <motion.div
+              layout
+              className="opacity-20 scale-90 text-purple-500 cursor-pointer"
               onClick={() => handleTestimonialClick(getPreviousIndex())}
             >
               <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
                 {testimonials[getPreviousIndex()].text}
               </blockquote>
-            </div>
+            </motion.div>
 
             {/* Current testimonial (center, fully visible) */}
-            <div
-              key={currentIndex}
-              className="opacity-90 scale-100 text-white transition-all duration-1000 ease-in-out animate-slide"
-            >
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-relaxed mb-6">
-                {testimonials[currentIndex].text}
-              </blockquote>
-              <cite className="text-yellow-400 text-lg md:text-xl font-medium not-italic">
-                - {testimonials[currentIndex].author}
-              </cite>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ duration: 0.5 }}
+                className="text-white z-10"
+              >
+                <div className="opacity-90">
+                  <blockquote className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-relaxed mb-6">
+                    {testimonials[currentIndex].text}
+                  </blockquote>
+                  <cite className="text-yellow-400 text-lg md:text-xl font-medium not-italic">
+                    - {testimonials[currentIndex].author}
+                  </cite>
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Next testimonial (bottom, faded) */}
-            <div
-              className="opacity-20 scale-90 text-purple-300 cursor-pointer transition-all duration-1000 ease-in-out"
+            <motion.div
+              layout
+              className="opacity-20 scale-90 text-purple-300 cursor-pointer"
               onClick={() => handleTestimonialClick(getNextIndex())}
             >
               <blockquote className="text-xl md:text-3xl xl:text-4xl font-medium leading-relaxed">
                 {testimonials[getNextIndex()].text}
               </blockquote>
-            </div>
+            </motion.div>
           </div>
 
           <div className="font-Achivo md:py-36 py-10">
@@ -136,18 +135,6 @@ export default function TestimonialsSection() {
                 />
               ))}
             </div>
-
-            {/* Auto-scroll indicator */}
-            {/* <div className="text-purple-300 text-sm">
-              {isAutoScrolling ? (
-                <span className="flex items-center justify-center gap-2">
-          
-                  Auto-scrolling
-                </span>
-              ) : (
-                <span>Click any testimonial to navigate manually</span>
-              )}
-            </div> */}
           </div>
         </div>
       </section>
