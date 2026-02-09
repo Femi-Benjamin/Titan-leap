@@ -15,7 +15,7 @@ const Main = () => {
       {/* <Pricing /> */}
       <div
         className="min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] flex flex-col 
-        md:flex-row justify-center items-center xl:px-22 md:px-10 px-5 py-10 gap-10"
+        md:flex-row justify-center items-center xl:px-22 md:px-10 px-2 py-10 gap-10"
       >
         <div>
           <ContactForm />
