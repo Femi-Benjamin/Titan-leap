@@ -147,7 +147,7 @@ export default function Topbar() {
             <button
               className={`hidden md:inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${
                 textColor === "text-gray-300"
-                  ? "border-gray-300 text-gray-300 hover:bg-gray-50/10"
+                  ? "border-gray-500 text-gray-500 hover:bg-gray-50/10"
                   : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
               }`}
             >
@@ -157,7 +157,7 @@ export default function Topbar() {
             {/* Mobile menu button */}
             <button
               onClick={toggleMobileMenu}
-              className={`md:hidden inline-flex items-center justify-center p-2 rounded-md ${textColor} hover:bg-gray-200/40 transition-colors duration-200`}
+              className={`md:hidden inline-flex items-center justify-center p-1 rounded-md ${textColor} hover:bg-purple-900 transition-colors duration-200`}
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle mobile menu"
             >
@@ -205,7 +205,7 @@ export default function Topbar() {
                   `block px-4 py-3 text-base font-medium w-full text-left rounded-lg transition-all duration-200 transform ${
                     isActive
                       ? "text-[#411697] bg-purple-50/80 border-l-4 border-[#411697]"
-                      : "text-gray-700 hover:text-[#411697] hover:bg-gray-50/80"
+                      : "text-gray-700 hover:text-[#411697] hover:bg-gray-50/90"
                   }`
                 }
                 style={{
@@ -225,7 +225,7 @@ export default function Topbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`w-full inline-flex justify-center items-center px-6 py-3 border text-sm font-medium rounded-lg transition-colors duration-200 ${
                   textColor === "text-gray-300"
-                    ? "border-gray-300 text-gray-300 hover:bg-gray-50/10"
+                    ? "border-gray-700 text-gray-700 hover:bg-gray-50/10"
                     : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
                 }`}
               >

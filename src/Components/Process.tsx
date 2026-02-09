@@ -46,7 +46,7 @@ const SignatureProcess = () => {
   };
 
   return (
-    <div className="relative md:min-h-screen bg-gradient-to-b from-[#1a0b3c] to-[#2e1065] overflow-hidden">
+    <div className="relative md:min-h-screen bg-gradient-to-b from-[#1a0b3c] via-[#2e1065] to-[#4C12BF] overflow-hidden">
       {/* Background glow specific to this section */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 

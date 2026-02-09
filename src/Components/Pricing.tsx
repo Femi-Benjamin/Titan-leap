@@ -279,7 +279,7 @@ const PricingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a0b3c] font-sans pb-0 overflow-x-hidden">
+    <div className="min-h-screen bg-[#1a0b3c] font-sans pb-0 overflow-x-hidden pt-28">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -287,12 +287,12 @@ const PricingPage: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:px-12 lg:px-20"
       >
-        <div className="flex items-center gap-4 mb-20 px-4 md:px-0">
+        {/* <div className="flex items-center gap-4 mb-20 px-4 md:px-0">
           <div className="w-8 h-1 bg-[#D3CEE8]"></div>
           <span className="font-bold text-xl tracking-wider">
             Pricing or Offers
           </span>
-        </div>
+        </div> */}
 
         <h2 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-bold font-Achivo px-4 md:px-0">
           Best things are premium
