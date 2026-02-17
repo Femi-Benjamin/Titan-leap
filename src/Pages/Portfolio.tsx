@@ -324,7 +324,7 @@ const Portfolio: React.FC = () => {
         <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-[#7c3aed]/30 via-[#1a0b3c]/50 to-[#1a0b3c] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="text-6xl md:text-8xl font-bold mb-12 tracking-tight">
+          <h2 className="text-6xl md:text-8xl font-bold mb-12 tracking-loose">
             Portfolio
           </h2>
 

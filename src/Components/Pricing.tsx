@@ -305,10 +305,11 @@ const PricingPage: React.FC = () => {
             Pricing or Offers
           </span>
         </div> */}
-
-        <h2 className="text-white text-2xl md:text-5xl xl:text-6xl leading-tight font-bold font-Achivo px-4 md:px-0 md:text-left text-center">
-          Best things are premium
-        </h2>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <h2 className="text-white text-6xl md:text-8xl font-bold tracking-loose font-Achivo px-4 md:px-0 md:text-left text-center">
+            Best things are premium
+          </h2>
+        </div>
 
         {/* Toggle */}
         <div className="flex justify-center my-16 md:my-20">

@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
 const navItems: { label: string; path: string }[] = [
@@ -16,6 +16,8 @@ export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [textColor, setTextColor] = useState("text-black"); // default
+  const navigate = useNavigate();
+  const rafRef = useRef<number | null>(null);
 
   const location = useLocation();
 
@@ -43,38 +45,56 @@ export default function Topbar() {
   };
 
   // 🔹 Detect the background color behind the header on scroll
+  const updateTextColor = useCallback(() => {
+    if (window.scrollY < 50) {
+      setTextColor("text-gray-300");
+      return;
+    }
+    const x = window.innerWidth / 2;
+    const y = 32;
+    const bgColor = getBackgroundColorAtPoint(x, y);
+    const rgb = bgColor.match(/\d+/g)?.map(Number);
+    if (rgb && rgb.length >= 3) {
+      const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+      setTextColor(brightness > 128 ? "text-black" : "text-white");
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      // If at the very top (or close to it), use default gray
-      if (window.scrollY < 50) {
-        setTextColor("text-gray-300");
-        return;
-      }
-
-      // Check multiple points to be safer, or just center
-      const x = window.innerWidth / 2;
-      const y = 32; // Middle of header
-
-      const bgColor = getBackgroundColorAtPoint(x, y);
-
-      const rgb = bgColor.match(/\d+/g)?.map(Number);
-
-      if (rgb && rgb.length >= 3) {
-        const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-        setTextColor(brightness > 128 ? "text-black" : "text-white");
-      }
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        updateTextColor();
+        rafRef.current = null;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    // Trigger once immediately
-    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateTextColor();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [updateTextColor]);
 
   const handleNavClick = (item: string) => {
     setActiveItem(item);
     setIsMobileMenuOpen(false);
+  };
+
+  const handleLetsTalk = () => {
+    setIsMobileMenuOpen(false);
+    if (location.pathname === "/") {
+      const el = document.getElementById("contact");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    }
   };
 
   useEffect(() => {
@@ -145,7 +165,8 @@ export default function Topbar() {
 
             {/* CTA Button */}
             <button
-              className={`hidden md:inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${
+              onClick={handleLetsTalk}
+              className={`hidden md:inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer ${
                 textColor === "text-gray-300"
                   ? "border-gray-500 text-gray-500 hover:bg-gray-50/10"
                   : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
@@ -215,19 +236,15 @@ export default function Topbar() {
                 <div className="flex items-center justify-between">
                   {item.label}
                   {activeItem === item.label && (
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full" />
+                    <div className="w-2 h-2 bg-purple-800 rounded-full" />
                   )}
                 </div>
               </NavLink>
             ))}
             <div className="pt-4 border-t border-gray-200">
               <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`w-full inline-flex justify-center items-center px-6 py-3 border text-sm font-medium rounded-lg transition-colors duration-200 ${
-                  textColor === "text-gray-300"
-                    ? "border-gray-700 text-gray-700 hover:bg-gray-50/10"
-                    : "border-yellow-400 text-yellow-600 hover:bg-yellow-50/80"
-                }`}
+                onClick={handleLetsTalk}
+                className="w-full inline-flex justify-center items-center px-6 py-3 text-sm font-bold rounded-lg shadow-sm border border-[#4C12BF] text-[#4C12BF] bg-[#FED65E] hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-colors duration-200 cursor-pointer"
               >
                 {"Let's talk"}
               </button>

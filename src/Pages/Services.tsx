@@ -192,8 +192,8 @@ const Services: React.FC = () => {
         {/* Top Gradient Background */}
         <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-[#4c1d95]/40 via-[#1a0b3c]/80 to-[#1a0b3c] pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h1 className="text-6xl md:text-8xl font-bold mb-20 tracking-tight">
+        <div className="max-w-7xl mx-auto md:px-0 px-6 relative z-10">
+          <h1 className="text-6xl md:text-8xl font-bold tracking-loose mb-20">
             Services
           </h1>
 

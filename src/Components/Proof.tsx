@@ -10,21 +10,21 @@ export default function Component() {
     {
       id: 1,
       title: "Brand Campaign Success",
-      description: "E-commerce transformation resulting in 320% lead growth",
+      description: "E-commerce transformation resulting in 450% lead growth",
       // videoUrl:
       //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
       id: 2,
       title: "Digital Marketing Revolution",
-      description: "Social media strategy delivering 58% cost reduction",
+      description: "Social media strategy delivering 60% cost reduction",
       // videoUrl:
       //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     },
     {
       id: 3,
       title: "ROI Optimization Project",
-      description: "Complete brand overhaul achieving 320% ROI in 2 months",
+      description: "Complete brand overhaul achieving 400% ROI in 2 months",
       // videoUrl:
       //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     },

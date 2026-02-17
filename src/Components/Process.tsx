@@ -118,6 +118,7 @@ const SignatureProcess = () => {
                   `}
                   src={Medias}
                   alt="Medias"
+                  loading="lazy"
                 />
               </div>
 
