@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 import { Check, X, ChevronLeft } from "lucide-react";
 
+const scrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+`;
+
 interface AuditModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -75,7 +92,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
               Basic Business Info
             </h2>
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-5 sm:space-y-6">
               <div className="group relative">
                 <label className="block text-sm font-bold text-white mb-3">
                   Business name
@@ -278,8 +295,11 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  if (!isOpen) return null;
+
   return (
     <>
+      <style>{scrollbarStyles}</style>
       <div className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center overflow-y-auto">
         {/* Backdrop */}
         <div
@@ -316,7 +336,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
 
           <div className="flex flex-col sm:flex-row gap-0 sm:gap-4 md:gap-6 flex-1">
             {/* Sidebar - Desktop Only */}
-            <div className="hidden sm:block w-full sm:w-64 md:w-80 bg-white rounded-none sm:rounded-3xl p-6 md:p-8 shadow-2xl shrink-0">
+            <div className="hidden sm:block w-full sm:w-64 md:w-80 sm:h-[700px] bg-white rounded-none sm:rounded-3xl p-6 md:p-8 shadow-2xl shrink-0 overflow-hidden">
               <h3 className="text-[#4c1d95] font-bold text-lg md:text-xl mb-6 md:mb-8">
                 Intake Checklist
               </h3>
@@ -326,7 +346,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Main Form Area */}
-            <div className="flex-1 w-full bg-[#4c1d95] rounded-none sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl border-0 sm:border sm:border-white/10 relative min-h-[calc(100vh-80px)] sm:min-h-[500px] flex flex-col">
+            <div className="flex-1 w-full sm:h-[700px] bg-[#4c1d95] rounded-none sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl border-0 sm:border sm:border-white/10 relative min-h-[calc(100vh-80px)] sm:min-h-0 flex flex-col overflow-hidden">
               {/* Close button - Desktop Only */}
               <button
                 onClick={onClose}
@@ -340,7 +360,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
                 onSubmit={(e) => e.preventDefault()}
               >
                 {/* Scrollable content area */}
-                <div className="flex-1 overflow-y-auto -mx-6 px-6 sm:mx-0 sm:px-0 pb-6">
+                <div className="flex-1 overflow-y-auto -mx-6 px-6 sm:mx-0 sm:px-0 pb-6 custom-scrollbar">
                   {renderFormContent()}
                 </div>
 
@@ -357,7 +377,7 @@ const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
                         <span>Back</span>
                       </button>
                     ) : (
-                      <div></div>
+                      <div className="min-h-[48px] invisible"></div>
                     )}
 
                     <button
