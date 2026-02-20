@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Play } from "lucide-react";
 import { motion } from "framer-motion";
+import clientcall from "../assets/clientcall.mp4";
 
 interface HeroProps {
   onOpenAudit: () => void;
@@ -129,23 +129,19 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="relative w-full aspect-video max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden group cursor-pointer border border-white/20 shadow-2xl"
+          className="relative w-full aspect-video max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden group border border-white/20 shadow-2xl"
         >
-          <div className="absolute inset-0 bg-backdrop-blur-3xl opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
-
-          {/* Animated Background Mesh in Video */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-700 rounded-full blur-[100px] animate-float"></div>
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="w-20 h-20  bg-accent-yellow flex items-center justify-center transform transition-transform duration-300"
-            >
-              <Play className="fill-[#FED65E] text-[#FED65E] ml-1" size={50} />
-            </motion.div>
-          </div>
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop
+            controls
+            className="w-full h-full object-cover"
+          >
+            <source src={clientcall} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </motion.div>
       </div>
     </section>
