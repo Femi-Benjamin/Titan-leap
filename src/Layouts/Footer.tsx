@@ -1,5 +1,18 @@
 import React from "react";
-import { Linkedin, Twitter, Dribbble } from "lucide-react";
+import { Linkedin, Instagram, Facebook, Mail } from "lucide-react";
+
+// X (Twitter) SVG icon since lucide-react's Twitter icon is the old bird logo
+const XIcon = ({ size = 18 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.632L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+  </svg>
+);
 
 const Footer: React.FC = () => {
   return (
@@ -201,20 +214,51 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-gray-500">
           <div className="flex items-center gap-4 order-2 md:order-1">
-            <span>+1 (415) 655-1002</span>
-            <span className="hidden md:inline">|</span>
-            <span>830 Stewart Drive, #212, Sunnyvale, CA, USA, 94085</span>
+            <a
+              href="mailto:Triumph@titanleap.co"
+              className="hover:text-accent-yellow transition-colors flex items-center gap-1.5"
+            >
+              <Mail size={14} />
+              <span>Triumph@titanleap.co</span>
+            </a>
           </div>
 
           <div className="flex items-center gap-6 order-1 md:order-2">
-            <a href="#" className="hover:text-white transition-colors">
+            <a
+              href="https://www.linkedin.com/company/100059033/admin/dashboard/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
               <Linkedin size={18} />
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              <Twitter size={18} />
+            <a
+              href="https://x.com/Titanleapagency"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="X (Twitter)"
+            >
+              <XIcon size={18} />
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              <Dribbble size={18} />
+            <a
+              href="https://www.instagram.com/titanleapagency/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram size={18} />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61586492704181"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook size={18} />
             </a>
           </div>
 

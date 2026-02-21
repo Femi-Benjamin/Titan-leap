@@ -79,7 +79,8 @@ const StatItem = ({
 const cases = [
   {
     client: "Kloudaa",
-    videoId: "zDrMw4qObng",
+    videoType: "drive" as const,
+    videoId: "1-O6PwdH8Sf8sEwjhRe2FdIQBHfuOQTb5",
     stats: [
       {
         value: 320,
@@ -113,6 +114,7 @@ const cases = [
   },
   {
     client: "Ship bubble",
+    videoType: "youtube" as const,
     videoId: "3IHXNbRLZRo",
     stats: [
       {
@@ -145,7 +147,8 @@ const cases = [
   },
   {
     client: "Ibom Air",
-    videoId: "yIQd2Ya0ZKI",
+    videoType: "drive" as const,
+    videoId: "1N0o5-OcsTPIIpTL8PmR6WB51vwERTQX-",
     stats: [
       {
         value: 12,
@@ -178,7 +181,8 @@ const cases = [
   },
   {
     client: "Xebit",
-    videoId: "ibJtpgC4oRM",
+    videoType: "drive" as const,
+    videoId: "1Dkolf65A7UVZx2y8b1gEemKee7P6Inye",
     stats: [
       {
         value: 320,
@@ -209,7 +213,8 @@ const cases = [
   },
   {
     client: "Idea sprint",
-    videoId: "AkhGAeLBSkg",
+    videoType: "drive" as const,
+    videoId: "11kIFv59Ky-ztM9QDw83pM3-kDWJxf-6T",
     stats: [
       {
         value: 320,
@@ -351,13 +356,22 @@ const Portfolio: React.FC = () => {
                   <iframe
                     width="100%"
                     height="100%"
-                    src={`https://www.youtube.com/embed/${item.videoId}?rel=0&modestbranding=1`}
+                    src={
+                      item.videoType === "drive"
+                        ? `https://drive.google.com/file/d/${item.videoId}/preview?autoplay=1&mute=1`
+                        : `https://www.youtube.com/embed/${item.videoId}?rel=0&modestbranding=1&autoplay=1&mute=1`
+                    }
                     title={item.client}
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="absolute inset-0 z-0"
                   ></iframe>
+
+                  {/* Overlay to hide the Google Drive pop-out icon (top-right corner) */}
+                  {/* {item.videoType === "drive" && (
+                    <div className="absolute top-0 right-0 w-16 h-10 z-20 bg-[#1a0b3c]" />
+                  )} */}
                 </div>
 
                 {/* Stats */}
