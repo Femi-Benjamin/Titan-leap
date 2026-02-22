@@ -88,6 +88,7 @@ export default function Component() {
                     muted
                     playsInline
                     controls
+                    preload="none"
                     poster=""
                   >
                     {/* <source src={currentVideo.videoUrl} type="video/mp4" /> */}

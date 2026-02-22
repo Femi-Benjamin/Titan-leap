@@ -44,12 +44,18 @@ export default function Topbar() {
     return "rgb(255, 255, 255)"; // Default to white
   };
 
-  // 🔹 Detect the background color behind the header on scroll
+  // 🔹 Detect the background color behind the header on scroll (throttled for iOS perf)
+  const lastColorCheckRef = useRef(0);
   const updateTextColor = useCallback(() => {
     if (window.scrollY < 50) {
       setTextColor("text-gray-300");
       return;
     }
+    // Throttle elementsFromPoint to max once per 150ms (expensive on iOS)
+    const now = Date.now();
+    if (now - lastColorCheckRef.current < 150) return;
+    lastColorCheckRef.current = now;
+
     const x = window.innerWidth / 2;
     const y = 32;
     const bgColor = getBackgroundColorAtPoint(x, y);

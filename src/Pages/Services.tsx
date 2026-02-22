@@ -124,6 +124,7 @@ const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index }) => {
           <img
             src={service.image}
             alt={service.title}
+            loading="lazy"
             className="w-3/4 h-3/4 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10"
           />
 

@@ -215,11 +215,11 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-gray-500">
           <div className="flex items-center gap-4 order-2 md:order-1">
             <a
-              href="mailto:Triumph@titanleap.co"
+              href="mailto:Info@titanleap.co"
               className="hover:text-accent-yellow transition-colors flex items-center gap-1.5"
             >
               <Mail size={14} />
-              <span>Triumph@titanleap.co</span>
+              <span>Info@titanleap.co</span>
             </a>
           </div>
 

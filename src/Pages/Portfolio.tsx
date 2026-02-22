@@ -2,6 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import Footer from "../Layouts/Footer";
 import Topbar from "../Layouts/Topbar";
 
+// Detect mobile devices for Google Drive video fallback
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+};
+
 // Helper hook for animating numeric values smoothly
 const useAnimatedValue = (target: number) => {
   const [displayValue, setDisplayValue] = useState(target);
@@ -73,6 +85,69 @@ const StatItem = ({
         <p className="leading-relaxed">{item.description}</p>
       </div>
     </div>
+  );
+};
+
+// Video embed component: iframe on desktop, click-to-open on mobile
+const VideoEmbed = ({
+  videoType,
+  videoId,
+  client,
+}: {
+  videoType: "drive" | "youtube";
+  videoId: string;
+  client: string;
+}) => {
+  const isMobile = useIsMobile();
+
+  // Mobile: Google Drive videos don't play inline in iframes on mobile browsers.
+  // Show a play button that opens the video in a new tab instead.
+  if (isMobile && videoType === "drive") {
+    const driveViewUrl = `https://drive.google.com/file/d/${videoId}/view`;
+    return (
+      <a
+        href={driveViewUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-[#2e1065] to-[#1a0b3c]"
+      >
+        <div className="flex flex-col items-center gap-4">
+          {/* Play button */}
+          <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 hover:bg-white/30 transition-all duration-300">
+            <svg
+              className="w-8 h-8 text-white ml-1"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <span className="text-white/80 text-sm font-medium">
+            Tap to watch {client} case study
+          </span>
+        </div>
+      </a>
+    );
+  }
+
+  // Desktop (and YouTube on all devices): use iframe
+  const src =
+    videoType === "drive"
+      ? `https://drive.google.com/file/d/${videoId}/preview`
+      : `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+
+  return (
+    <iframe
+      width="100%"
+      height="100%"
+      src={src}
+      title={client}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      loading="lazy"
+      className="absolute inset-0 z-0"
+    ></iframe>
   );
 };
 
@@ -353,25 +428,11 @@ const Portfolio: React.FC = () => {
                   {/* Inner glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#2e1065]/50 to-transparent pointer-events-none z-10"></div>
 
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={
-                      item.videoType === "drive"
-                        ? `https://drive.google.com/file/d/${item.videoId}/preview?autoplay=1&mute=1`
-                        : `https://www.youtube.com/embed/${item.videoId}?rel=0&modestbranding=1&autoplay=1&mute=1`
-                    }
-                    title={item.client}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 z-0"
-                  ></iframe>
-
-                  {/* Overlay to hide the Google Drive pop-out icon (top-right corner) */}
-                  {/* {item.videoType === "drive" && (
-                    <div className="absolute top-0 right-0 w-16 h-10 z-20 bg-[#1a0b3c]" />
-                  )} */}
+                  <VideoEmbed
+                    videoType={item.videoType}
+                    videoId={item.videoId}
+                    client={item.client}
+                  />
                 </div>
 
                 {/* Stats */}

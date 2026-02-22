@@ -1,13 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap");
+/* Font loaded via <link> in index.html — no @import needed (avoids render-blocking duplicate) */
 @import "tailwindcss";
 
 @theme {
   /* Make Archivo the default (and only) font */
-  --font-sans: "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-sans:
+    "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  --font-Achivo: "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-Achivo:
+    "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  --font-Inter: "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --font-Inter:
+    "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   --animate-marquee: marquee 30s linear infinite;
 }
@@ -45,10 +48,52 @@ html,
 body {
   overflow-x: hidden;
   max-width: 100vw;
-  font-family: "Archivo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family:
+    "Archivo",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* ============================================
+   iOS/Safari Performance Optimizations
+   ============================================ */
+
+/* Safari-specific: reduce heavy backdrop-blur for better GPU performance.
+   @supports (-webkit-touch-callout: none) targets Safari/iOS only.
+   Chrome/Android keeps full blur effects unchanged. */
+@supports (-webkit-touch-callout: none) {
+  .backdrop-blur-2xl {
+    -webkit-backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(6px) !important;
+    backdrop-filter: blur(6px) !important;
+  }
+}
+
+/* Respect user preference for reduced motion (benefits all platforms) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth touch scrolling for custom scrollable containers on iOS */
+.overflow-y-auto,
+.overflow-y-scroll,
+.overflow-auto,
+.overflow-scroll {
+  -webkit-overflow-scrolling: touch;
 }

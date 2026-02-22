@@ -1,13 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import "./App.css";
 import Intro from "./Pages/Intro";
 import Main from "./Pages/Main";
 import LoadingScreen from "./LoadingScreen/loadingscreen";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Portfolio from "./Pages/Portfolio";
-import Services from "./Pages/Services";
-import Pricing from "./Pages/Pricing";
-import Contacts from "./Pages/Contacts";
+
+// Lazy-load route-level pages for code-splitting (reduces initial JS bundle)
+const Portfolio = lazy(() => import("./Pages/Portfolio"));
+const Services = lazy(() => import("./Pages/Services"));
+const Pricing = lazy(() => import("./Pages/Pricing"));
+const Contacts = lazy(() => import("./Pages/Contacts"));
+
+const RouteFallback = () => (
+  <div className="min-h-screen bg-[#1a0b3c] flex items-center justify-center">
+    <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -144,10 +152,38 @@ function App() {
             </>
           }
         />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/contacts" element={<Contacts />} />
+        <Route
+          path="/portfolio"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <Portfolio />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <Services />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/pricing"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <Pricing />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <Contacts />
+            </Suspense>
+          }
+        />
         <Route
           path="*"
           element={
