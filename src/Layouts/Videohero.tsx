@@ -116,7 +116,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
             }}
             className="text-[#4C12BF] font-medium text-xl tracking-wide inline-block"
           >
-            Done for your Growth System
+            Done for you Growth System
           </motion.span>
         </motion.div>
 
