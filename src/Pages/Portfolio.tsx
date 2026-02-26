@@ -189,8 +189,8 @@ const cases = [
   },
   {
     client: "Ship bubble",
-    videoType: "youtube" as const,
-    videoId: "3IHXNbRLZRo",
+    videoType: "drive" as const,
+    videoId: "1ehtnfaLDXc2w43XqwmMcZmLX0155McCx",
     stats: [
       {
         value: 32,
