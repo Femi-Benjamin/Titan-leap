@@ -1,5 +1,6 @@
 import React from "react";
 import { Linkedin, Instagram, Facebook, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // X (Twitter) SVG icon since lucide-react's Twitter icon is the old bird logo
 const XIcon = ({ size = 18 }: { size?: number }) => (
@@ -221,6 +222,12 @@ const Footer: React.FC = () => {
               <Mail size={14} />
               <span>Info@titanleap.co</span>
             </a>
+            <Link
+              to="/admin/audits"
+              className="hover:text-accent-yellow transition-colors underline"
+            >
+              Audit Admin
+            </Link>
           </div>
 
           <div className="flex items-center gap-6 order-1 md:order-2">

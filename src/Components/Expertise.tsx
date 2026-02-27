@@ -213,14 +213,17 @@ const Expertise = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
               }}
-              className={`group relative rounded-2xl p-[1px] transition-all duration-300 ${
+              className={`group relative rounded-2xl p-[1px] transition-all duration-300 cursor-pointer ${
                 clickedCard === card.id
                   ? "bg-[#FED65E]"
                   : "bg-gradient-to-t from-purple-900 to-white hover:bg-[#FED65E]"
               }`}
               onMouseEnter={() => handleCardHover(card.id)}
               onMouseLeave={handleCardLeave}
-              onClick={() => handleCardClick(card.id)}
+              onClick={() => {
+                handleCardClick(card.id);
+                navigate("/services", { state: { scrollTo: card.title } });
+              }}
             >
               <div className="bg-[#4C12BF] rounded-2xl p-6 h-full flex flex-col relative">
                 <div className="flex flex-row gap-4 mb-6">

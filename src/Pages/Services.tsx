@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Minus } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import Topbar from "../Layouts/Topbar";
 import Footer from "../Layouts/Footer";
 import strategy from "../assets/strategy.png";
@@ -88,9 +89,10 @@ const servicesData = [
 interface ServiceBlockProps {
   service: (typeof servicesData)[0];
   index: number;
+  id: string;
 }
 
-const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index }) => {
+const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index, id }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleItem = (idx: number) => {
@@ -99,6 +101,7 @@ const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index }) => {
 
   return (
     <motion.div
+      id={id}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -181,10 +184,32 @@ const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index }) => {
   );
 };
 
+interface LocationState {
+  scrollTo?: string;
+}
+
 const Services: React.FC = () => {
+  const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    // Scroll to section if coming from Expertise with scrollTo state
+    const scrollTarget = (location.state as LocationState)?.scrollTo;
+    if (scrollTarget) {
+      const element = document.getElementById(
+        scrollTarget
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[&]/g, "and")
+      );
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   return (
     <>
@@ -200,7 +225,15 @@ const Services: React.FC = () => {
 
           <div className="flex flex-col">
             {servicesData.map((service, index) => (
-              <ServiceBlock key={index} service={service} index={index} />
+              <ServiceBlock
+                key={index}
+                service={service}
+                index={index}
+                id={service.title
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")
+                  .replace(/[&]/g, "and")}
+              />
             ))}
           </div>
         </div>

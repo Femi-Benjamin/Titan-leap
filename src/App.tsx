@@ -4,12 +4,12 @@ import Intro from "./Pages/Intro";
 import Main from "./Pages/Main";
 import LoadingScreen from "./LoadingScreen/loadingscreen";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 // Lazy-load route-level pages for code-splitting (reduces initial JS bundle)
 const Portfolio = lazy(() => import("./Pages/Portfolio"));
 const Services = lazy(() => import("./Pages/Services"));
 const Pricing = lazy(() => import("./Pages/Pricing"));
 const Contacts = lazy(() => import("./Pages/Contacts"));
+const AuditAdmin = lazy(() => import("./Pages/AuditAdmin"));
 
 const RouteFallback = () => (
   <div className="min-h-screen bg-[#1a0b3c] flex items-center justify-center">
@@ -181,6 +181,14 @@ function App() {
           element={
             <Suspense fallback={<RouteFallback />}>
               <Contacts />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/admin/audits"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <AuditAdmin />
             </Suspense>
           }
         />
