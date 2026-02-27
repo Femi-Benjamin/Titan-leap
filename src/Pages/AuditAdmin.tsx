@@ -73,7 +73,34 @@ const demoSubmissions: AuditSubmission[] = [
     revenue_goal: "$80,000/month",
     bottleneck: "Inconsistent follow-up after inquiries",
   },
+  {
+    id: "demo-3",
+    created_at: "2026-02-23T16:45:00.000Z",
+    business_name: "Glow Skin Clinic",
+    website: "https://glowskin.example.com",
+    industry: "Beauty",
+    main_product: "Skin treatment packages",
+    target_customer: "Women 24-45",
+    instagram_link: "https://instagram.com/glowskinclinic",
+    facebook_link: "https://facebook.com/glowskinclinic",
+    tiktok_link: "https://tiktok.com/@glowskinclinic",
+    twitter_link: "https://x.com/glowskinclinic",
+    funnel_page_link: "https://glowskin.example.com/book-now",
+    booking_link: "https://glowskin.example.com/consultation",
+    lead_destination: "CRM + WhatsApp",
+    contact_method: "Instagram DM + Phone",
+    response_time: "Within 1 hour",
+    closing_method: "Consultation + invoice link",
+    revenue_goal: "$65,000/month",
+    bottleneck: "Low conversion from DMs to bookings",
+  },
 ];
+
+const AUTH_SESSION_KEY = "audit_admin_logged_in";
+const defaultAdminUsername =
+  import.meta.env.VITE_AUDIT_ADMIN_USERNAME ?? "admin";
+const defaultAdminPassword =
+  import.meta.env.VITE_AUDIT_ADMIN_PASSWORD ?? "titan123";
 
 const formatValue = (value: string | null | undefined) => {
   const trimmedValue = value?.trim();
@@ -91,6 +118,37 @@ const AuditAdmin = () => {
   const [submissions, setSubmissions] = useState<AuditSubmission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem(AUTH_SESSION_KEY) === "true";
+  });
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (
+      username.trim() === defaultAdminUsername &&
+      password === defaultAdminPassword
+    ) {
+      sessionStorage.setItem(AUTH_SESSION_KEY, "true");
+      setIsAuthenticated(true);
+      setLoginError(null);
+      return;
+    }
+    setLoginError("Invalid login details.");
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem(AUTH_SESSION_KEY);
+    setIsAuthenticated(false);
+    setUsername("");
+    setPassword("");
+    setLoginError(null);
+    setSubmissions([]);
+    setErrorMessage(null);
+  };
 
   const fetchAudits = async () => {
     setIsLoading(true);
@@ -116,8 +174,68 @@ const AuditAdmin = () => {
   };
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      setIsLoading(false);
+      return;
+    }
     void fetchAudits();
-  }, []);
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Topbar />
+        <section className="min-h-screen bg-[#1a0b3c] text-white pt-32 pb-16">
+          <div className="max-w-md mx-auto px-4 md:px-0">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+              <h1 className="text-3xl font-bold mb-2">Admin Login</h1>
+              <p className="text-white/70 mb-6">
+                Sign in to access Audit Admin.
+              </p>
+              <form className="space-y-4" onSubmit={handleLogin}>
+                <div>
+                  <label className="block text-sm text-white/80 mb-2">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white outline-none focus:border-[#FFD646]"
+                    placeholder="Enter username"
+                    autoComplete="username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-white/80 mb-2">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white outline-none focus:border-[#FFD646]"
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                  />
+                </div>
+                {loginError && (
+                  <p className="text-sm text-red-200">{loginError}</p>
+                )}
+                <button
+                  type="submit"
+                  className="w-full bg-[#FFD646] text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition-colors"
+                >
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -131,13 +249,22 @@ const AuditAdmin = () => {
                 Total submissions: {submissions.length}
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => void fetchAudits()}
-              className="bg-[#FFD646] text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition-colors w-full md:w-auto"
-            >
-              Refresh Data
-            </button>
+            <div className="flex gap-3 w-full md:w-auto">
+              <button
+                type="button"
+                onClick={() => void fetchAudits()}
+                className="bg-[#FFD646] text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition-colors w-full md:w-auto"
+              >
+                Refresh Data
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="bg-white/10 border border-white/20 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/20 transition-colors w-full md:w-auto"
+              >
+                Logout
+              </button>
+            </div>
           </div>
 
           {isLoading && (
