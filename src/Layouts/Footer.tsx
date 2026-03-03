@@ -276,6 +276,12 @@ const Footer: React.FC = () => {
             >
               Privacy Policy
             </Link>
+            <Link
+              to="/terms-and-conditions"
+              className="hover:text-white transition-colors"
+            >
+              Terms & Conditions
+            </Link>
             <span>(c) {new Date().getFullYear()}, Titan Leap</span>
           </div>
         </div>

@@ -4,6 +4,8 @@ import Intro from "./Pages/Intro";
 import Main from "./Pages/Main";
 import LoadingScreen from "./LoadingScreen/loadingscreen";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTopOnRouteChange from "./Components/ScrollToTopOnRouteChange";
+import BackToTopButton from "./Components/BackToTopButton";
 // Lazy-load route-level pages for code-splitting (reduces initial JS bundle)
 const Portfolio = lazy(() => import("./Pages/Portfolio"));
 const Services = lazy(() => import("./Pages/Services"));
@@ -11,6 +13,7 @@ const Pricing = lazy(() => import("./Pages/Pricing"));
 const Contacts = lazy(() => import("./Pages/Contacts"));
 const AuditAdmin = lazy(() => import("./Pages/AuditAdmin"));
 const PrivacyPolicy = lazy(() => import("./Pages/PrivacyPolicy"));
+const TermsAndConditions = lazy(() => import("./Pages/TermsAndConditions"));
 
 const RouteFallback = () => (
   <div className="min-h-screen bg-[#1a0b3c] flex items-center justify-center">
@@ -143,6 +146,7 @@ function App() {
   // Show main content after loading is complete
   return (
     <BrowserRouter>
+      <ScrollToTopOnRouteChange />
       <Routes>
         <Route
           path="/"
@@ -202,6 +206,14 @@ function App() {
           }
         />
         <Route
+          path="/terms-and-conditions"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <TermsAndConditions />
+            </Suspense>
+          }
+        />
+        <Route
           path="*"
           element={
             <>
@@ -211,6 +223,7 @@ function App() {
           }
         />
       </Routes>
+      <BackToTopButton />
     </BrowserRouter>
   );
 }

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Footer from "../Layouts/Footer";
 import Topbar from "../Layouts/Topbar";
 import { supabase } from "../lib/supabase";
+import MovingOrbs from "../Components/MovingOrbs";
 
 const fieldColumns = [
   { key: "business_name", label: "Business" },
@@ -114,6 +116,11 @@ const formatDate = (value: string | undefined) => {
   return parsedDate.toLocaleString();
 };
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const AuditAdmin = () => {
   const [submissions, setSubmissions] = useState<AuditSubmission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -185,10 +192,23 @@ const AuditAdmin = () => {
     return (
       <>
         <Topbar />
-        <section className="min-h-screen bg-[#1a0b3c] text-white pt-32 pb-16">
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="min-h-screen bg-[#1a0b3c] text-white pt-32 pb-16 relative overflow-hidden"
+        >
+          <MovingOrbs count={12} />
+
           <div className="max-w-md mx-auto px-4 md:px-0">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-              <h1 className="text-3xl font-bold mb-2">Admin Login</h1>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1 }}
+              className="bg-white/5 border border-white/10 rounded-2xl p-8 relative z-10"
+            >
+              <h1 className="text-3xl font-bold mb-2">Audit Admin Login</h1>
               <p className="text-white/70 mb-6">
                 Sign in to access Audit Admin.
               </p>
@@ -229,9 +249,9 @@ const AuditAdmin = () => {
                   Login
                 </button>
               </form>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
         <Footer />
       </>
     );
@@ -240,9 +260,22 @@ const AuditAdmin = () => {
   return (
     <>
       <Topbar />
-      <section className="min-h-screen bg-[#1a0b3c] text-white pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="min-h-screen bg-[#1a0b3c] text-white pt-32 pb-16 relative overflow-hidden"
+      >
+        <MovingOrbs count={12} />
+
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.08 }}
+            className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8"
+          >
             <div>
               <h1 className="text-3xl md:text-5xl font-bold">Audit Admin</h1>
               <p className="text-white/70 mt-2">
@@ -253,40 +286,60 @@ const AuditAdmin = () => {
               <button
                 type="button"
                 onClick={() => void fetchAudits()}
-                className="bg-[#FFD646] text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition-colors w-full md:w-auto"
+                className="bg-[#FFD646] text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition-colors w-full md:w-auto hover:scale-[1.02] active:scale-[0.99]"
               >
                 Refresh Data
               </button>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="bg-white/10 border border-white/20 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/20 transition-colors w-full md:w-auto"
+                className="bg-white/10 border border-white/20 text-white font-bold px-6 py-3 rounded-lg hover:bg-white/20 transition-colors w-full md:w-auto hover:scale-[1.02] active:scale-[0.99]"
               >
                 Logout
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {isLoading && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-8 text-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className="bg-white/5 border border-white/10 rounded-xl p-8 text-center"
+            >
               Loading submissions...
-            </div>
+            </motion.div>
           )}
 
           {!isLoading && errorMessage && (
-            <div className="bg-red-500/10 border border-red-400/40 text-red-100 rounded-xl p-6">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="bg-red-500/10 border border-red-400/40 text-red-100 rounded-xl p-6"
+            >
               {errorMessage}
-            </div>
+            </motion.div>
           )}
 
           {!isLoading && submissions.length === 0 && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-8 text-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className="bg-white/5 border border-white/10 rounded-xl p-8 text-center"
+            >
               No audit submissions found.
-            </div>
+            </motion.div>
           )}
 
           {!isLoading && submissions.length > 0 && (
-            <div className="overflow-x-auto bg-white/5 border border-white/10 rounded-xl mt-5">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.12 }}
+              className="overflow-x-auto bg-white/5 border border-white/10 rounded-xl mt-5"
+            >
               <table className="min-w-[1500px] w-full text-sm">
                 <thead>
                   <tr className="bg-white/10">
@@ -326,10 +379,10 @@ const AuditAdmin = () => {
                   })}
                 </tbody>
               </table>
-            </div>
+            </motion.div>
           )}
         </div>
-      </section>
+      </motion.section>
       <Footer />
     </>
   );

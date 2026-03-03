@@ -1,17 +1,60 @@
+import { motion, type Variants } from "framer-motion";
 import Topbar from "../Layouts/Topbar";
 import Footer from "../Layouts/Footer";
+import MovingOrbs from "../Components/MovingOrbs";
+
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.08 * index,
+      duration: 0.45,
+      ease: "easeOut" as const,
+    },
+  }),
+};
 
 const PrivacyPolicy = () => {
-  return (
-    <div className="min-h-screen bg-[#160043] text-white">
-      <Topbar />
-      <main className="max-w-4xl mx-auto px-6 pt-32 pb-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-3">Privacy Policy</h1>
-        <p className="text-white/80 mb-1">TitanLeap Marketing Agency</p>
-        <p className="text-white/70 mb-8">Effective Date: March 2, 2026</p>
+  const effectiveDate = new Date().toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
-        <article className="space-y-8 text-white/85 leading-7">
-          <section>
+  return (
+    <div className="min-h-screen bg-[#160043] text-white relative overflow-hidden">
+      <MovingOrbs count={10} />
+
+      <Topbar />
+
+      <motion.main
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-16"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 mb-8"
+        >
+          <p className="uppercase tracking-[0.2em] text-xs text-[#FED65E] mb-3">
+            Legal
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">Privacy Policy</h1>
+          <p className="text-white/85">TitanLeap Marketing Agency</p>
+          <p className="text-white/70 mt-1">Effective Date: {effectiveDate}</p>
+        </motion.div>
+
+        <motion.article initial="hidden" animate="visible" className="space-y-5 text-white/85 leading-7">
+          <motion.section
+            custom={1}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <p>
               Welcome to TitanLeap Marketing Agency ("TitanLeap", "we", "our",
               or "us"). This Privacy Policy explains how we collect, use,
@@ -31,13 +74,19 @@ const PrivacyPolicy = () => {
               By accessing or using our website or services, you agree to the
               practices described in this Privacy Policy.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={2}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               1. Information We Collect
             </h2>
-            <p className="mb-2">We may collect personal and non-personal information, including:</p>
+            <p className="mb-2">
+              We may collect personal and non-personal information, including:
+            </p>
             <p className="font-semibold text-white mb-2">Personal Information</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Full name</li>
@@ -62,9 +111,13 @@ const PrivacyPolicy = () => {
               This information helps us improve website performance and user
               experience.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={3}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               2. How We Use Your Information
             </h2>
@@ -79,9 +132,13 @@ const PrivacyPolicy = () => {
               <li>Analyze performance and usage trends</li>
               <li>Comply with legal obligations</li>
             </ul>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={4}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               3. Cookies and Tracking Technologies
             </h2>
@@ -104,9 +161,13 @@ const PrivacyPolicy = () => {
               You may disable cookies through your browser settings, but some
               website features may not function properly.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={5}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               4. Third-Party Services
             </h2>
@@ -126,9 +187,13 @@ const PrivacyPolicy = () => {
               These providers only access data necessary to perform their
               services and are expected to maintain confidentiality and security.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={6}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               5. Data Protection and Security
             </h2>
@@ -146,9 +211,13 @@ const PrivacyPolicy = () => {
               While we strive to protect your information, no online
               transmission or storage method is 100% secure.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={7}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               6. Client Data Confidentiality
             </h2>
@@ -164,9 +233,13 @@ const PrivacyPolicy = () => {
               <li>When legally required</li>
               <li>With explicit client authorization</li>
             </ul>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={8}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               7. Marketing Communications
             </h2>
@@ -183,9 +256,13 @@ const PrivacyPolicy = () => {
               You may unsubscribe at any time using the opt-out link in our
               communications or by contacting us directly.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={9}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               8. User Rights
             </h2>
@@ -204,9 +281,13 @@ const PrivacyPolicy = () => {
               To exercise these rights, contact us using the details at the end
               of this policy.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={10}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               9. GDPR and International Compliance
             </h2>
@@ -217,9 +298,13 @@ const PrivacyPolicy = () => {
               European Economic Area, the United Kingdom, and other regions
               with similar legal requirements.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={11}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               10. Data Retention
             </h2>
@@ -236,9 +321,13 @@ const PrivacyPolicy = () => {
               Information that is no longer needed is securely deleted or
               anonymized where appropriate.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={12}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               11. Children&apos;s Information
             </h2>
@@ -247,9 +336,13 @@ const PrivacyPolicy = () => {
               not knowingly collect personal information from children. If such
               data is identified, we will delete it promptly.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={13}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               12. Changes to This Privacy Policy
             </h2>
@@ -259,9 +352,13 @@ const PrivacyPolicy = () => {
               use of our website after updates indicates acceptance of the
               revised policy.
             </p>
-          </section>
+          </motion.section>
 
-          <section>
+          <motion.section
+            custom={14}
+            variants={sectionVariants}
+            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-semibold text-white mb-3">
               13. Contact Information
             </h2>
@@ -286,9 +383,10 @@ const PrivacyPolicy = () => {
                 info@titanleap.co
               </a>
             </p>
-          </section>
-        </article>
-      </main>
+          </motion.section>
+        </motion.article>
+      </motion.main>
+
       <Footer />
     </div>
   );

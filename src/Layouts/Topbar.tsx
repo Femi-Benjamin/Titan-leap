@@ -131,13 +131,21 @@ export default function Topbar() {
             className={`flex items-center justify-between h-[65px] ${textColor}`}
           >
             {/* Logo */}
-            <div className="flex-shrink-0 items-center">
+            <NavLink
+              to="/"
+              onClick={() => {
+                setActiveItem("Home");
+                setIsMobileMenuOpen(false);
+              }}
+              className="flex-shrink-0 items-center"
+              aria-label="Go to home page"
+            >
               <img
                 className="w-40 transition-all duration-300"
                 src={Logo}
                 alt="titanleap logo"
               />
-            </div>
+            </NavLink>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-5 ">
