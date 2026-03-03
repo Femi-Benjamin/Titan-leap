@@ -270,10 +270,13 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-6 order-3">
-            <a href="#" className="hover:text-white transition-colors">
+            <Link
+              to="/privacy-policy"
+              className="hover:text-white transition-colors"
+            >
               Privacy Policy
-            </a>
-            <span>© {new Date().getFullYear()}, Titan Leap</span>
+            </Link>
+            <span>(c) {new Date().getFullYear()}, Titan Leap</span>
           </div>
         </div>
       </div>
@@ -282,3 +285,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+

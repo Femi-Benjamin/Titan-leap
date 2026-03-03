@@ -10,6 +10,7 @@ const Services = lazy(() => import("./Pages/Services"));
 const Pricing = lazy(() => import("./Pages/Pricing"));
 const Contacts = lazy(() => import("./Pages/Contacts"));
 const AuditAdmin = lazy(() => import("./Pages/AuditAdmin"));
+const PrivacyPolicy = lazy(() => import("./Pages/PrivacyPolicy"));
 
 const RouteFallback = () => (
   <div className="min-h-screen bg-[#1a0b3c] flex items-center justify-center">
@@ -189,6 +190,14 @@ function App() {
           element={
             <Suspense fallback={<RouteFallback />}>
               <AuditAdmin />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/privacy-policy"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <PrivacyPolicy />
             </Suspense>
           }
         />
