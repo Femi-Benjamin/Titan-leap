@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import type React from "react";
 import { useState } from "react";
 import { Check, Gift } from "lucide-react";
@@ -21,8 +21,7 @@ const PricingPage: React.FC = () => {
   const [billingType, setBillingType] = useState<"Annual" | "Monthly">(
     "Monthly",
   );
-  const [selectedPlan, setSelectedPlan] =
-    useState<string>("The Scaling System");
+  const [selectedPlan, setSelectedPlan] = useState<string>("Scaling System");
   const [showModal, setShowModal] = useState(false);
   const [showStripeCheckout, setShowStripeCheckout] = useState(false);
   const [showAuditModal, setShowAuditModal] = useState(false);
@@ -40,7 +39,22 @@ const PricingPage: React.FC = () => {
 
   const plans: Plan[] = [
     {
-      title: "Growth Foundation",
+      title: "Funnel Audit",
+      subtitle: "For businesses that need visibility, leads, and clarity",
+      monthlyPrice: 0,
+      currencySymbol: "$",
+      unit: "Starting | USD",
+      buttonText: "Select Plan",
+      features: [
+        "Features",
+        "Discover why visitors aren't becoming customers",
+        "Find the biggest leaks in your sales funnel",
+        "See how your funnel compares to competitors",
+        "Get a clear roadmap to increase conversions",
+      ],
+    },
+    {
+      title: "Launch Accelerator",
       subtitle: "For businesses that need visibility, leads, and clarity",
       monthlyPrice: 2999,
       currencySymbol: "$",
@@ -48,40 +62,73 @@ const PricingPage: React.FC = () => {
       buttonText: "Select Plan",
       features: [
         "Features",
-        "Market & competitor analysis",
-        "Offer & messaging framework",
-        "1 high-converting landing page",
-        "Lead form or booking setup",
-        "Email or WhatsApp automation",
-        "13-17 short-form videos / month",
-        "12 branded posts or carousels",
-        "AI-powered content ideation & editing",
+        "Strategic Brand & Offer Alignment",
+        "Ad Creative Performance Review",
+        "Offer Stack Definition",
+        "Client Outputs",
+        "High-Converting Creative Production",
+        "20-30 Hook Variations",
+        "5 - 7 UGC Style Ads",
+        "5 - 7 short-form videos / month",
+        "15 -20 branded posts or carousels",
+        "Paid Campaign Setup & Testing",
+        "Meta (Facebook & Instagram) / Google Ads",
+        "Budget Allocation Sheet",
+        "Pixel installation & verification",
+        "Ad set recommendations for creative rotation",
+        "Testing matrix: 3-5 creatives per audience",
+        "Daily monitoring plan (strategist handles weekly review)",
+        "AI-Powered Content system",
+        "Hook & script generator",
+        "Weekly dashboard for tracking engagement metrics",
+        "Batch creative variation system",
+        "Performance tagging for creatives",
+        "Performance Reporting",
+        "Metrics review (CTR, CPC, CPM, engagement, conversions)",
+        "Creative performance analysis",
+        "Landing page conversion report",
+        "Retargeting ROI estimate",
       ],
     },
     {
-      title: "The Scaling System",
+      title: "Scaling System",
       subtitle: "For brands that want predictable leads and sales",
-      monthlyPrice: 5999,
+      monthlyPrice: 6999,
       currencySymbol: "$",
       unit: "Starting | USD",
       buttonText: "Select Plan",
       isPopular: true,
       features: [
         "Features",
-        "Everything in Growth Foundation Plus:",
-        "Advanced funnel system (landing + booking/sales page)",
-        "Retargeting setup",
-        "Email + WhatsApp automation sequences",
-        "CRM integration to track leads",
-        "25-35 short-form videos / month",
-        "15-17 branded posts or carousels",
-        "Motion graphics & UGC-style creatives",
-        "Meta + TikTok or Google Ads management",
-        "Weekly optimization & performance reports",
-        "AI creative performance analysis",
-        "AI hook & CTA optimization",
-        "AI lead qualification & follow-ups",
-        "AI content re-purposing (1 video → multiple assets)",
+        "Strategic Brand & Offer Alignment",
+        "90-Day Scaling Roadmap",
+        "Continuous Offer & Angle Optimization",
+        "Competitor Creative Intelligence",
+        "Revenue Projection Planning",
+        "Structured Testing Framework",
+        "High-Converting Creative Production",
+        "60-80 High-Converting Creatives Monthly",
+        "3-5 New Angles Tested Every Month",
+        "Hook-Driven Video Ads",
+        "UGC & Testimonial Campaigns",
+        "Weekly Creative Optimization",
+        "Paid Campaign Setup & Testing",
+        "Multi-Platform Ad Management",
+        "Advanced Retargeting Ecosystem",
+        "Pixel installation & verification",
+        "Ad set recommendations for creative rotation",
+        "Testing matrix: 3-5 creatives per audience",
+        "Daily monitoring plan (strategist handles weekly review)",
+        "AI-Powered Content system",
+        "Hook & script generator",
+        "Weekly dashboard for tracking engagement metrics",
+        "Batch creative variation system",
+        "Performance tagging for creatives",
+        "Performance Reporting",
+        "Metrics review (CTR, CPC, CPM, engagement, conversions)",
+        "Creative performance analysis",
+        "Landing page conversion report",
+        "Retargeting ROI estimate",
       ],
     },
     {
@@ -93,24 +140,40 @@ const PricingPage: React.FC = () => {
       buttonText: "Get Started",
       features: [
         "Features",
-        "Everything in Scale system Plus:",
-        "Thought-leadership positioning strategy",
-        "Market dominance content plan",
-        "60-80 short-form videos / month",
-        "Long-form YouTube or podcast content",
-        "Premium motion graphics & visuals",
-        "Paid ads + organic growth synergy",
-        "SEO or YouTube authority strategy",
-        "Dedicated growth team:",
-        "Content strategist",
-        "Ad specialist",
-        "Creative lead",
-        "Account manager",
-        "Advanced AI Systems",
-        "AI trend & market analysis",
-        "AI personalization (emails, offers, landing pages)",
-        "AI performance dashboards (ads, content, leads, sales)",
-        "AI internal automation for faster execution",
+        "Strategic Brand & Offer Alignment",
+        "Market Domination Strategy",
+        "Competitive Positioning Analysis",
+        "12-Month Growth Roadmap",
+        "Fractional Growth Leadership",
+        "High-Converting Creative Production",
+        "80-100 videos per month",
+        "60-80 Graphics Content",
+        "High-engagement storytelling videos",
+        "Large-scale creative testing",
+        "Multiple audience angles",
+        "Advanced Funnel & Conversion Systems",
+        "Landing page systems",
+        "Sales funnel strategy",
+        "Lead nurturing systems",
+        "Upsell structures",
+        "Revenue Expansion Strategies",
+        "Paid Campaign Setup & Testing",
+        "Multi-platform campaign strategy",
+        "Budget scaling strategy",
+        "Re-targeting systems",
+        "Lookalike audience expansion",
+        "Conversion optimization",
+        "Aggressive scaling strategies",
+        "AI-Powered Content system",
+        "AI Marketing Automation",
+        "Lead Qualification Systems",
+        "CRM & Follow-Up Automation",
+        "Real-Time Performance Dashboards",
+        "Performance Reporting",
+        "Metrics review (CTR, CPC, CPM, engagement, conversions)",
+        "Creative performance analysis",
+        "Landing page conversion report",
+        "Retargeting ROI estimate",
       ],
     },
   ];
@@ -154,11 +217,11 @@ const PricingPage: React.FC = () => {
 
     if (!plan)
       return {
-        title: "The Scaling System",
-        price: "$ 5,999",
+        title: "Scaling System",
+        price: "$ 6,999",
         unit: "/Month",
         billing: "Billed Monthly",
-        rawPrice: 5999,
+        rawPrice: 6999,
       };
 
     const price =
@@ -179,8 +242,8 @@ const PricingPage: React.FC = () => {
 
   const activePlan = activePlanDetails();
 
-  // Feature data for the comparison table
-  // 0: Growth Foundation, 1: Scale System, 2: Authority Domination
+  // Feature data for the comparison table (paid plans only)
+  // 0: Launch Accelerator, 1: Scaling System, 2: Authority Domination
   // Values: true (check), false (dash), or string (e.g. "Optional")
   type FeatureValue = boolean | string;
 
@@ -189,42 +252,69 @@ const PricingPage: React.FC = () => {
     values: [FeatureValue, FeatureValue, FeatureValue];
   }
 
-  const keyFeatures: FeatureRow[] = [
-    { label: "Strategy & Positioning", values: [true, true, true] },
-    { label: "Funnel Setup", values: [true, true, true] },
-    { label: "Monthly Content", values: [true, true, true] },
-    { label: "Paid Ads Management", values: ["Optional", true, true] },
-    { label: "Social Media Management", values: [true, true, true] },
-    { label: "AI Content Optimization", values: [true, true, true] },
-    { label: "AI Lead Automation", values: [false, true, true] },
-    { label: "Re-targeting", values: [false, true, true] },
-    { label: "Thought Leadership Strategy", values: [false, true, true] },
+  const foundationFeatures: FeatureRow[] = [
+    { label: "Marketing Strategy & Positioning", values: [true, true, true] },
+    { label: "Offer Optimization", values: [true, true, true] },
+    { label: "Competitor Analysis", values: [true, true, true] },
+    { label: "Audience Avatar Mapping", values: [false, true, true] },
+    { label: "Growth Roadmap", values: [false, true, true] },
+    { label: "Quarterly Strategy Planning", values: [false, false, true] },
   ];
 
-  const aiFeatures: FeatureRow[] = [
-    { label: "AI creative performance analysis", values: [true, true, true] },
-    { label: "AI hook & CTA optimization", values: [false, true, true] },
+  const contentProductionFeatures: FeatureRow[] = [
     {
-      label: "AI lead qualification & follow-ups",
-      values: [false, true, true],
+      label: "Short Form Videos",
+      values: ["20-35/month", "40-60/month", "80-120/month"],
     },
     {
-      label: "AI content repurposing (1 video → multiple assets)",
-      values: [false, true, true],
+      label: "Graphic Posts",
+      values: ["20-35/month", "40-60/month", "80-100/month"],
     },
     {
-      label: "AI performance dashboards (ads, content, leads, sales)",
-      values: [false, false, true],
+      label: "Ad Creative Production",
+      values: ["20-30/month", "20-30/month", "30-50/month"],
     },
+    { label: "Carousel Content", values: [true, true, true] },
+    { label: "Funnel / Brand Content", values: [false, true, true] },
+    { label: "Authority Content", values: [false, true, true] },
+  ];
+
+  const paidAdvertisingFeatures: FeatureRow[] = [
+    { label: "Meta Ads Management", values: [true, true, true] },
+    { label: "Google Ads", values: ["Optional", true, true] },
+    { label: "TikTok Ads", values: [false, true, true] },
+    { label: "YouTube Ads", values: [false, "Optional", true] },
+    { label: "LinkedIn Ads", values: [false, false, true] },
+    { label: "A/B Creative Testing", values: [false, true, true] },
+    { label: "Budget Scaling Strategy", values: [false, true, true] },
+  ];
+
+  const marketingAutomationFeatures: FeatureRow[] = [
+    { label: "Lead Capture Automation", values: [false, true, true] },
+    { label: "Email Follow-Up Automation", values: [false, true, true] },
+    { label: "CRM Pipeline Automation", values: [false, "Optional", true] },
+    { label: "Lead Qualification Systems", values: [false, true, true] },
+    { label: "Marketing Performance Dashboard", values: [false, true, true] },
+    { label: "Upsell / Downsell Strategy", values: [false, true, true] },
   ];
 
   const teamFeatures: FeatureRow[] = [
     { label: "Content strategist", values: [true, true, true] },
-    { label: "Ad specialist", values: [false, true, true] },
-    { label: "Creative lead", values: [false, true, true] },
+    { label: "Ad specialist", values: [true, true, true] },
+    { label: "Creative designer", values: [true, true, true] },
+    { label: "Video editor", values: [false, true, true] },
+    { label: "Automation specialist", values: [false, true, true] },
     { label: "Account manager", values: [false, false, true] },
-    { label: "Video Editor", values: [false, false, true] },
-    { label: "AI Content manager", values: [false, false, true] },
+    { label: "Social manager", values: [false, false, true] },
+  ];
+
+  const reportingSupportFeatures: FeatureRow[] = [
+    { label: "Monthly Performance Reports", values: [true, true, true] },
+    { label: "Content Performance Analysis", values: [true, true, true] },
+    { label: "Ad Campaign Analysis", values: [true, true, true] },
+    { label: "Bi-Weekly Strategy Calls", values: [false, true, true] },
+    { label: "Weekly Optimization", values: [false, true, true] },
+    { label: "Executive Growth Planning", values: [false, false, true] },
   ];
 
   const ComparisonSection: React.FC<{ title: string; rows: FeatureRow[] }> = ({
@@ -290,6 +380,15 @@ const PricingPage: React.FC = () => {
     );
   };
 
+  const featureSectionHeadings = new Set([
+    "Strategic Brand & Offer Alignment",
+    "High-Converting Creative Production",
+    "Advanced Funnel & Conversion Systems",
+    "Paid Campaign Setup & Testing",
+    "AI-Powered Content system",
+    "Performance Reporting",
+  ]);
+
   return (
     <div className="min-h-screen bg-[#1a0b3c] font-sans pb-0 overflow-x-hidden pt-28">
       <motion.div
@@ -338,7 +437,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start pb-10 md:pb-0 px-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto items-start pb-10 md:pb-0 px-4">
           {plans.map((plan, index) => (
             <div key={plan.title} className="flex flex-col gap-4 group">
               {/* TOP CARD: Pricing Info */}
@@ -400,11 +499,11 @@ const PricingPage: React.FC = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="text-5xl font-bold text-yellow-400 font-sans block"
+                      className="text-3xl font-bold text-yellow-400 font-sans block"
                     >
                       {getPriceDisplay(plan)}
                       {billingType === "Annual" && (
-                        <span className="text-sm font-bold text-white/70 ml-3 bg-white/10 px-2 py-1 rounded-lg align-middle">
+                        <span className="text-sm font-bold text-white/70 ml-1 bg-white/10 px-2 py-1 rounded-lg align-middle">
                           Save 15%
                         </span>
                       )}
@@ -424,7 +523,7 @@ const PricingPage: React.FC = () => {
                   className={`w-full py-4 rounded-full font-bold transition-all duration-300 active:scale-95 mt-auto border ${
                     plan.isPopular
                       ? "bg-[#FED65E] text-[#4C12BF] border-[#FED65E] hover:bg-[#ffe187] shadow-lg hover:shadow-xl cursor-pointer"
-                      : index === 2
+                      : plan.title === "Authority Domination"
                         ? "bg-gradient-to-b from-[#4C12BF] to-[#FED65E] text-white border-white/20 hover:opacity-90 shadow-lg hover:shadow-xl cursor-pointer"
                         : "bg-white/10 text-white border-white hover:bg-white/20 backdrop-blur-md cursor-pointer"
                   }`}
@@ -468,7 +567,8 @@ const PricingPage: React.FC = () => {
                         <span className="text-white text-base font-bold uppercase mb-2 block">
                           Features
                         </span>
-                      ) : feature.includes("Everything in") ||
+                      ) : featureSectionHeadings.has(feature) ||
+                        feature.includes("Everything in") ||
                         feature.includes("Advanced AI Systems") ||
                         feature.includes("Dedicated growth team") ? (
                         <span className="text-white/90 text-sm font-bold mt-2 block w-full">
@@ -683,7 +783,7 @@ const PricingPage: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-[#FED65E] text-[#4C12BF] py-4 rounded-2xl text-lg transition-all transform hover:scale-[1.01] shadow-lg active:scale-95"
               >
-                <span className="">👉 </span>
+                <span className="">ðŸ‘‰ </span>
                 <span>Get My Free Audit</span>
               </motion.button>
             </motion.div>
@@ -737,16 +837,37 @@ const PricingPage: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="hidden md:grid grid-cols-4 px-4 mb-8">
           <div className="col-span-1"></div>
-          <div className="col-span-3 grid grid-cols-3 text-center">
-            <div className="font-bold text-gray-400">Growth Foundation</div>
-            <div className="font-bold text-[#FFD646]">Scale System</div>
+          {/* <div className="col-span-3 grid grid-cols-3 text-center">
+            <div className="font-bold text-gray-400">Launch Accelerator</div>
+            <div className="font-bold text-[#FFD646]">Scaling System</div>
             <div className="font-bold text-gray-400">Authority Domination</div>
-          </div>
+          </div> */}
         </div>
 
-        <ComparisonSection title="Key Features" rows={keyFeatures} />
-        <ComparisonSection title="AI Built In" rows={aiFeatures} />
-        <ComparisonSection title="Dedicated growth team" rows={teamFeatures} />
+        <ComparisonSection
+          title="Strategy & Marketing Foundation"
+          rows={foundationFeatures}
+        />
+        <ComparisonSection
+          title="Content Production"
+          rows={contentProductionFeatures}
+        />
+        <ComparisonSection
+          title="Paid Advertising"
+          rows={paidAdvertisingFeatures}
+        />
+        <ComparisonSection
+          title="Marketing Automation"
+          rows={marketingAutomationFeatures}
+        />
+        <ComparisonSection
+          title="Dedicated TitanLeap Team"
+          rows={teamFeatures}
+        />
+        <ComparisonSection
+          title="Reporting & Support"
+          rows={reportingSupportFeatures}
+        />
       </div>
 
       {/* MODAL */}
