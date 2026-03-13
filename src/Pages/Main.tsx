@@ -1,8 +1,10 @@
 import { lazy, Suspense } from "react";
 
+const Expect = lazy(() => import("../Components/Expect"));
 const Process = lazy(() => import("../Components/Process"));
 const Proof = lazy(() => import("../Components/Proof"));
 const Testimonials = lazy(() => import("../Components/Testimonials"));
+const Expertise = lazy(() => import("../Components/Expertise"));
 const ContactForm = lazy(() => import("../Components/ContactForm"));
 const CardMany = lazy(() => import("../Components/CardMany"));
 const Footer = lazy(() => import("../Layouts/Footer"));
@@ -16,6 +18,12 @@ const LazyFallback = () => (
 const Main = () => {
   return (
     <div>
+      <Suspense fallback={<LazyFallback />}>
+        <Expect />
+      </Suspense>
+      <Suspense fallback={<LazyFallback />}>
+        <Expertise />
+      </Suspense>
       <Suspense fallback={<LazyFallback />}>
         <Process />
       </Suspense>

@@ -2,7 +2,7 @@ import { useState, lazy, Suspense } from "react";
 import Topbar from "../Layouts/Topbar";
 import Videohero from "../Layouts/Videohero";
 
-const Expertise = lazy(() => import("../Components/Expertise"));
+// const Expertise = lazy(() => import("../Components/Expertise"));
 const AuditModal = lazy(() => import("../Components/AuditModal"));
 
 const Intro = () => {
@@ -19,7 +19,7 @@ const Intro = () => {
           </div>
         }
       >
-        <Expertise />
+        {/* <Expertise /> */}
       </Suspense>
 
       <Suspense fallback={null}>

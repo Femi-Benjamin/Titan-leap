@@ -175,7 +175,7 @@ const Expertise = () => {
   );
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-b from-[#160043] via[#4C12BF] to-[#1a0b3c] py-8">
+    <div className="md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] py-8">
       <div className="xl:px-22 md:px-10 px-5">
         {/* Header Section */}
         <motion.div
@@ -191,7 +191,7 @@ const Expertise = () => {
               OUR EXPERTISE
             </span>
           </div>
-          <h1 className="text-white text-xl md:text-5xl xl:text-6xl leading-tight font-Archivo font-bold">
+          <h1 className="text-[#4C12BF] text-xl md:text-5xl xl:text-6xl leading-tight font-Archivo font-bold">
             Comprehensive marketing solutions for growth
           </h1>
         </motion.div>
@@ -213,10 +213,10 @@ const Expertise = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
               }}
-              className={`group relative rounded-2xl p-[1px] transition-all duration-300 cursor-pointer ${
+              className={`group relative rounded-2xl p-[1px] transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02] hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)] active:scale-[1.02] active:shadow-[0_18px_45px_rgba(0,0,0,0.35)] ${
                 clickedCard === card.id
                   ? "bg-[#FED65E]"
-                  : "bg-gradient-to-t from-purple-900 to-white hover:bg-[#FED65E]"
+                  : "bg-purple/20 hover:bg-[#FED65E] active:bg-[#FED65E]"
               }`}
               onMouseEnter={() => handleCardHover(card.id)}
               onMouseLeave={handleCardLeave}
@@ -225,18 +225,24 @@ const Expertise = () => {
                 navigate("/services", { state: { scrollTo: card.title } });
               }}
             >
-              <div className="bg-[#4C12BF] rounded-2xl p-6 h-full flex flex-col relative">
+              <div
+                className={`rounded-2xl p-6 h-full flex flex-col relative backdrop-blur-xl border transition-all duration-300 ${
+                  clickedCard === card.id
+                    ? "bg-[#4C12BF] border-[#FED65E]"
+                    : "bg-[#4C12BF]/30 border-[#ffcd35] group-hover:bg-[#4C12BF] group-hover:border-[#FED65E] group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)] group-active:bg-[#4C12BF] group-active:border-[#FED65E] group-active:shadow-[0_18px_45px_rgba(0,0,0,0.25)]"
+                } group-hover:bg-[#4C12BF] group-hover:border-[#FED65E] group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)] group-active:bg-[#4C12BF] group-active:border-[#FED65E] group-active:shadow-[0_18px_45px_rgba(0,0,0,0.25)]`}
+              >
                 <div className="flex flex-row gap-4 mb-6">
                   <div className="flex-shrink-0 flex items-center pt-5">
                     <img
                       src={card.icon || "/placeholder.svg"}
                       alt={card.title}
-                      className="w-20 h-20 object-contain"
+                      className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105"
                       loading="lazy"
                     />
                   </div>
                   <div className="flex flex-col">
-                    <h3 className="text-white text-lg font-bold leading-tight mb-2">
+                    <h3 className="text-white text-lg md:text-2xl font-bold leading-tight mb-2">
                       {card.title}
                     </h3>
                     <p className="text-purple-100 text-sm leading-relaxed">

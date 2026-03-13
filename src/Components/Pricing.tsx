@@ -47,6 +47,7 @@ const PricingPage: React.FC = () => {
       buttonText: "Select Plan",
       features: [
         "Features",
+        "Strategic Brand & Offer Alignment",
         "Discover why visitors aren't becoming customers",
         "Find the biggest leaks in your sales funnel",
         "See how your funnel compares to competitors",

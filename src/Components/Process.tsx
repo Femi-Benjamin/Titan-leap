@@ -47,7 +47,7 @@ const SignatureProcess = () => {
   };
 
   return (
-    <div className="relative md:min-h-screen bg-gradient-to-b from-[#1a0b3c] via-[#2e1065] to-[#4C12BF] overflow-hidden">
+    <div className="relative md:min-h-screen bg-gradient-to-t from-[#4C13C0] to-[#FFFFFF] overflow-hidden">
       {/* Background glow specific to this section */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
@@ -66,7 +66,7 @@ const SignatureProcess = () => {
               OUR PROCESS
             </span>
           </div>
-          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#FFFFFF] mb-8 font-Achivo font-bold">
+          <h1 className="text-xl md:text-5xl xl:text-6xl text-[#4C13C0] mb-8 font-Achivo font-bold">
             Our Signature Process
           </h1>
         </motion.div>
@@ -89,8 +89,8 @@ const SignatureProcess = () => {
                 visible: { opacity: 1, y: 0 },
               }}
               onClick={() => toggleCard(index)}
-              className={`group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF]/10 transition-all duration-500 cursor-pointer
-                ${activeCard === index ? "border-[#FFD646]/30" : "md:hover:border-[#FFD646]/30"}
+              className={`group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF] transition-all duration-500 cursor-pointer
+                ${activeCard === index ? "border-[#FFD646]/30" : ""}
               `}
             >
               {/* Hover Gradient Border Effect - more obvious yellow */}
@@ -100,12 +100,12 @@ const SignatureProcess = () => {
               `}
               ></div>
               <div
-                className={`absolute -inset-1 bg-gradient-to-r from-[#FFD646]/0 via-[#FFD646]/10 to-[#FFD646]/0 blur-xl transition-opacity duration-500
+                className={`absolute -inset-1 bg-gradient-to-r from-[#4C13C0]/0 via-[#4C13C0]/10 to-[#4C13C0]/10 blur-xl transition-opacity duration-500
                 ${activeCard === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
               `}
               ></div>
               <div
-                className={`absolute inset-0 bg-[#FFD646]/5 rounded-2xl transition-opacity duration-500
+                className={`absolute inset-0 bg-[#4C13C0]/10 rounded-2xl transition-opacity duration-500
                 ${activeCard === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
               `}
               ></div>
