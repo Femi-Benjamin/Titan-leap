@@ -292,8 +292,8 @@ const Expertise = () => {
               className={`group relative rounded-2xl p-[1px] transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02] hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)] active:scale-[1.02] active:shadow-[0_18px_45px_rgba(0,0,0,0.35)] ${
                 clickedCard === card.id
                   ? "bg-[#FED65E]"
-                  : "bg-purple/20 hover:bg-[#FED65E] active:bg-[#FED65E]"
-              } ${touchedCard === card.id ? "scale-[1.02] shadow-[0_18px_45px_rgba(0,0,0,0.35)] bg-[#FED65E]" : ""}`}
+                  : "bg-purple/20 hover:bg-[#4C12BF] active:bg-[#4C12BF]"
+              } ${touchedCard === card.id ? "scale-[1.02] shadow-[0_18px_45px_rgba(0,0,0,0.35)] bg-[#4C12BF]" : ""}`}
               onMouseEnter={() => handleCardHover(card.id)}
               onMouseLeave={handleCardLeave}
               onTouchStart={() => handleCardTouch(card.id)}
