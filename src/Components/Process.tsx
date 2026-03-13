@@ -9,24 +9,24 @@ const SignatureProcess = () => {
 
   const processSteps = [
     {
-      title: "Concept",
+      title: "Diagnose",
       description:
-        "We dive deep into your brand's goals, audience, and market to generate bold, strategic ideas that spark attention and align with your vision.",
+        "Before anything else, we audit your brand, funnel, and marketing channels to uncover what's slowing growth.",
     },
     {
-      title: "Create",
+      title: "Design",
       description:
-        "Our team of expert designers, editors, and strategists brings those ideas to life with high-quality visuals, videos, and messaging that engages and inspires.",
+        "Once we know what's missing, we build the infrastructure your brand needs to scale.",
     },
     {
-      title: "Connect",
+      title: "Deploy",
       description:
-        "We deploy your content across the right channels — ads, socials, email, and more — to reach the right audience at the right time.",
+        "Launch content, ads, and distribution. Now we activate the engine.",
     },
     {
-      title: "Convert",
+      title: "Scale",
       description:
-        "We track performance, optimize continuously, and use real-time data to scale what works — so you see more signups, sales, and success.",
+        "Optimize and multiply what works. Growth comes from iteration.",
     },
   ];
 
@@ -89,8 +89,8 @@ const SignatureProcess = () => {
                 visible: { opacity: 1, y: 0 },
               }}
               onClick={() => toggleCard(index)}
-              className={`group relative bg-gradient-to-t from-[#4C13C0] to-[#FFFFFF] rounded-2xl p-8 border border-[#FFFFFF] transition-all duration-500 cursor-pointer
-                ${activeCard === index ? "border-[#FFD646]/30" : ""}
+              className={`group relative bg-gradient-to-t from-[#4C13C0] to-[#FFFFFF] rounded-2xl p-8 border border-[#FFFFFF] transition-all duration-500 cursor-pointer transform-gpu md:hover:scale-[1.02] md:hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)]
+                ${activeCard === index ? "border-[#FFD646]/30 scale-[1.02] shadow-[0_18px_45px_rgba(0,0,0,0.25)]" : ""}
               `}
             >
               {/* Hover Gradient Border Effect - more obvious yellow */}
