@@ -89,7 +89,7 @@ const SignatureProcess = () => {
                 visible: { opacity: 1, y: 0 },
               }}
               onClick={() => toggleCard(index)}
-              className={`group relative bg-transparent rounded-2xl p-8 border border-[#FFFFFF] transition-all duration-500 cursor-pointer
+              className={`group relative bg-gradient-to-t from-[#4C13C0] to-[#FFFFFF] rounded-2xl p-8 border border-[#FFFFFF] transition-all duration-500 cursor-pointer
                 ${activeCard === index ? "border-[#FFD646]/30" : ""}
               `}
             >
@@ -100,7 +100,7 @@ const SignatureProcess = () => {
               `}
               ></div>
               <div
-                className={`absolute -inset-1 bg-gradient-to-r from-[#4C13C0]/0 via-[#4C13C0]/10 to-[#4C13C0]/10 blur-xl transition-opacity duration-500
+                className={`absolute -inset-1 bg-gradient-to-r from-[#4C13C0]/10 via-[#4C13C0]/10 to-[#4C13C0]/10 blur-xl transition-opacity duration-500
                 ${activeCard === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
               `}
               ></div>
@@ -114,7 +114,7 @@ const SignatureProcess = () => {
               <div className="relative flex items-center justify-center mb-6">
                 <img
                   className={`transition-all duration-500
-                    ${activeCard === index ? "scale-110 drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]" : "md:group-hover:scale-110 md:group-hover:drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]"}
+                    ${activeCard === index ? "scale-110 drop-shadow-[0_0_15px_rgba(254,214,94,0.5)]" : "md:group-hover:scale-110 md:group-hover:drop-shadow-[#4C12BF/50]"}
                   `}
                   src={Medias}
                   alt="Medias"

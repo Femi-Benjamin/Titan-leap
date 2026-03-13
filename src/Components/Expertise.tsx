@@ -1,12 +1,164 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import strategy from "../assets/strategy.png";
 import funnel from "../assets/funnel.png";
 import ads from "../assets/ads.png";
 import content from "../assets/content.png";
 import ChatGPT from "../assets/ChatGPT.png";
 import AI from "../assets/AI.png";
-import { motion } from "framer-motion";
+import SEO from "../assets/SEO.png";
+import sales from "../assets/sales.png";
+import email from "../assets/email.png";
+
+const pageSize = 6;
+
+const cards = [
+  {
+    id: "Strategy and Brand Positioning",
+    title: "Strategy and Brand Positioning",
+    description:
+      "We define how you win in your market before spending a dollar on ads.",
+    icon: strategy,
+  },
+  {
+    id: "Funnel Design & Conversion Systems",
+    title: "Funnel Design & Conversion Systems",
+    description:
+      "We design high-converting funnels that turn attention into revenue.",
+    icon: funnel,
+  },
+  {
+    id: "Paid Advertising (Performance Marketing)",
+    title: "Paid Advertising (Performance Marketing)",
+    description: "We run ads only after strategy and funnels are locked in.",
+    icon: ads,
+  },
+  {
+    id: "Content Creation",
+    title: "Content Creation",
+    description: "Content is the new currency. We mint it daily.",
+    icon: content,
+  },
+  {
+    id: "Social Media Management",
+    title: "Social Media Management",
+    description:
+      "We design high-converting funnels that turn attention into revenue.",
+    icon: ChatGPT,
+  },
+  {
+    id: "AI Automation & Growth Agents",
+    title: "AI Automation & Growth Agents",
+    description: "We run ads only after strategy and funnels are locked in.",
+    icon: AI,
+  },
+  {
+    id: "SEO & Authority Building",
+    title: "SEO & Authority Building",
+    description:
+      "Long-term traffic that compounds. For brands ready to dominate organically.",
+    icon: SEO,
+  },
+  {
+    id: "Sales System",
+    title: "Sales System",
+    description: "Ensure leads actually turn into revenue.",
+    icon: sales,
+  },
+  {
+    id: "Email Marketing Engine",
+    title: "Email Marketing Engine",
+    description: "Turn leads into customers and customers into repeat buyers.",
+    icon: email,
+  },
+];
+
+const totalPages = Math.ceil(cards.length / pageSize);
+
+const getAccordionItems = (cardType: string) => {
+  switch (cardType) {
+    case "Content Creation":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "A brand that looks premium, modern, and impossible to ignore.",
+        },
+      ];
+
+    case "Social Media Management":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "Comprehensive social media strategies tailored to your brand, including content calendars, posting schedules, and audience engagement tactics.",
+        },
+      ];
+
+    case "Paid Advertising (Performance Marketing)":
+      return [
+        {
+          title: "Outcome",
+          content: "Consistent, scalable ad performance â€” not random spikes.",
+        },
+      ];
+
+    case "AI Automation & Growth Agents":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "Intelligent chatbots for customer service, lead generation, and sales support that provide 24/7 automated assistance to your customers.",
+        },
+      ];
+
+    case "Strategy and Brand Positioning":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "A brand that knows what to say, who to say it to, and how to dominate attention.",
+        },
+      ];
+
+    case "Funnel Design & Conversion Systems":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "A predictable system that converts visitors into leads, bookings, and sales.",
+        },
+      ];
+    case "SEO & Authority Building":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "Long-term traffic that compounds. For brands ready to dominate organically.",
+        },
+      ];
+    case "Sales System":
+      return [
+        {
+          title: "Outcome",
+          content: "A sales process that reliably turns leads into revenue.",
+        },
+      ];
+    case "Email Marketing Engine":
+      return [
+        {
+          title: "Outcome",
+          content:
+            "Automated email journeys that convert and retain customers.",
+        },
+      ];
+
+    default:
+      return [];
+  }
+};
 
 const Expertise = () => {
   const navigate = useNavigate();
@@ -17,56 +169,8 @@ const Expertise = () => {
     "Content Creation",
   );
   const [clickedCard, setClickedCard] = useState<string | null>(null);
-
-  const cards = [
-    {
-      id: "Strategy and Brand Positioning",
-      title: "Strategy and Brand Positioning",
-      description:
-        "We define how you win in your market before spending a dollar on ads.",
-      icon: strategy,
-    },
-    {
-      id: "Funnel Design & Conversion Systems",
-      title: "Funnel Design & Conversion Systems",
-      description:
-        "We design high-converting funnels that turn attention into revenue.",
-      icon: funnel,
-    },
-    {
-      id: "Paid Advertising (Performance Marketing)",
-      title: "Paid Advertising (Performance Marketing)",
-      description: "We run ads only after strategy and funnels are locked in.",
-      icon: ads,
-    },
-    {
-      id: "Content Creation",
-      title: "Content Creation",
-      description: "Content is the new currency. We mint it daily.",
-      icon: content,
-    },
-    {
-      id: "Social Media Management",
-      title: "Social Media Management",
-      description:
-        "We design high-converting funnels that turn attention into revenue.",
-      icon: ChatGPT,
-    },
-    {
-      id: "AI Automation & Growth Agents",
-      title: "AI Automation & Growth Agents",
-      description: "We run ads only after strategy and funnels are locked in.",
-      icon: AI,
-    },
-    // {
-    //   id: "SEO & Authority Building",
-    //   title: "SEO & Authority Building",
-    //   description:
-    //     "Long-term traffic that compounds. For brands ready to dominate organically.",
-    //   icon: SEO,
-    //   // icon: <Search className="w-8 h-8 text-white" />,
-    // },
-  ];
+  const [touchedCard, setTouchedCard] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
 
   const toggleAccordion = (item: string) => {
     setActiveAccordion(activeAccordion === item ? null : item);
@@ -102,77 +206,27 @@ const Expertise = () => {
     navigate("/services", { state: { scrollTo: cardTitle } });
   };
 
-  const getAccordionItems = (cardType: string) => {
-    switch (cardType) {
-      case "Content Creation":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "A brand that looks premium, modern, and impossible to ignore.",
-          },
-        ];
-
-      case "Social Media Management":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "Comprehensive social media strategies tailored to your brand, including content calendars, posting schedules, and audience engagement tactics.",
-          },
-        ];
-
-      case "Paid Advertising (Performance Marketing)":
-        return [
-          {
-            title: "Outcome",
-            content: "Consistent, scalable ad performance — not random spikes.",
-          },
-        ];
-
-      case "AI Automation & Growth Agents":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "Intelligent chatbots for customer service, lead generation, and sales support that provide 24/7 automated assistance to your customers.",
-          },
-        ];
-
-      case "Strategy and Brand Positioning":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "A brand that knows what to say, who to say it to, and how to dominate attention.",
-          },
-        ];
-
-      case "Funnel Design & Conversion Systems":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "A predictable system that converts visitors into leads, bookings, and sales.",
-          },
-        ];
-      case "SEO & Authority Building":
-        return [
-          {
-            title: "Outcome",
-            content:
-              "Long-term traffic that compounds. For brands ready to dominate organically.",
-          },
-        ];
-
-      default:
-        return [];
-    }
+  const handleCardTouch = (cardName: string) => {
+    setTouchedCard(touchedCard === cardName ? null : cardName);
   };
 
   const currentAccordionItems = getAccordionItems(
     hoveredCard || "Content Creation",
   );
+
+  const visibleCards = cards.slice(page * pageSize, page * pageSize + pageSize);
+
+  useEffect(() => {
+    const nextCard = cards[page * pageSize]?.id ?? null;
+    setHoveredCard(nextCard);
+    setTouchedCard(null);
+    if (nextCard) {
+      const accordionSets = getAccordionItems(nextCard);
+      if (accordionSets.length > 0) {
+        setActiveAccordion(accordionSets[0].title);
+      }
+    }
+  }, [page]);
 
   return (
     <div className="md:min-h-screen bg-gradient-to-t from-[#4C12BF] to-[#FFFFFF] py-8">
@@ -198,15 +252,37 @@ const Expertise = () => {
 
         {/* Service Cards Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
+          key={page}
+          className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          animate="visible"
           variants={{
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {cards.map((card) => (
+          {page > 0 && (
+            <button
+              type="button"
+              aria-label="Previous services"
+              onClick={() => setPage((prev) => Math.max(0, prev - 1))}
+              className="hidden lg:flex items-center justify-center absolute -left-10 top-1/2 -translate-y-1/2"
+            >
+              <ArrowLeft className="w-7 h-7 text-[#4C12BF]" />
+            </button>
+          )}
+          {page < totalPages - 1 && (
+            <button
+              type="button"
+              aria-label="Next services"
+              onClick={() =>
+                setPage((prev) => Math.min(totalPages - 1, prev + 1))
+              }
+              className="hidden lg:flex items-center justify-center absolute -right-10 top-1/2 -translate-y-1/2"
+            >
+              <ArrowRight className="w-7 h-7 text-[#4C12BF]" />
+            </button>
+          )}
+          {visibleCards.map((card) => (
             <motion.div
               key={card.id}
               variants={{
@@ -217,9 +293,10 @@ const Expertise = () => {
                 clickedCard === card.id
                   ? "bg-[#FED65E]"
                   : "bg-purple/20 hover:bg-[#FED65E] active:bg-[#FED65E]"
-              }`}
+              } ${touchedCard === card.id ? "scale-[1.02] shadow-[0_18px_45px_rgba(0,0,0,0.35)] bg-[#FED65E]" : ""}`}
               onMouseEnter={() => handleCardHover(card.id)}
               onMouseLeave={handleCardLeave}
+              onTouchStart={() => handleCardTouch(card.id)}
               onClick={() => {
                 handleCardClick(card.id);
                 navigate("/services", { state: { scrollTo: card.title } });
@@ -230,14 +307,20 @@ const Expertise = () => {
                   clickedCard === card.id
                     ? "bg-[#4C12BF] border-[#FED65E]"
                     : "bg-[#4C12BF]/30 border-[#ffcd35] group-hover:bg-[#4C12BF] group-hover:border-[#FED65E] group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)] group-active:bg-[#4C12BF] group-active:border-[#FED65E] group-active:shadow-[0_18px_45px_rgba(0,0,0,0.25)]"
-                } group-hover:bg-[#4C12BF] group-hover:border-[#FED65E] group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)] group-active:bg-[#4C12BF] group-active:border-[#FED65E] group-active:shadow-[0_18px_45px_rgba(0,0,0,0.25)]`}
+                } group-hover:bg-[#4C12BF] group-hover:border-[#FED65E] group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)] group-active:bg-[#4C12BF] group-active:border-[#FED65E] group-active:shadow-[0_18px_45px_rgba(0,0,0,0.25)] ${
+                  touchedCard === card.id
+                    ? "bg-[#4C12BF] border-[#FED65E] shadow-[0_18px_45px_rgba(0,0,0,0.25)]"
+                    : ""
+                }`}
               >
                 <div className="flex flex-row gap-4 mb-6">
                   <div className="flex-shrink-0 flex items-center pt-5">
                     <img
                       src={card.icon || "/placeholder.svg"}
                       alt={card.title}
-                      className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105"
+                      className={`w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105 ${
+                        touchedCard === card.id ? "scale-105" : ""
+                      }`}
                       loading="lazy"
                     />
                   </div>
@@ -262,6 +345,29 @@ const Expertise = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        <div className="flex lg:hidden justify-center mb-16 gap-3">
+          {page < totalPages - 1 && (
+            <button
+              type="button"
+              onClick={() =>
+                setPage((prev) => Math.min(totalPages - 1, prev + 1))
+              }
+              className="bg-[#FED65E] text-[#4C12BF] px-6 py-3 rounded-full text-sm font-semibold shadow-[0_10px_25px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform"
+            >
+              View More Services
+            </button>
+          )}
+          {page > 0 && (
+            <button
+              type="button"
+              onClick={() => setPage((prev) => Math.max(0, prev - 1))}
+              className="bg-[#4C12BF] text-[#FED65E] px-6 py-3 rounded-full text-sm font-semibold border border-[#4C12BF]/20 shadow-[0_10px_25px_rgba(0,0,0,0.15)] active:scale-[0.98] transition-transform"
+            >
+              View Less
+            </button>
+          )}
+        </div>
 
         {/* Dynamic Accordion Section */}
         <div className="mx-auto">

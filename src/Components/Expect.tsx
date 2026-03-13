@@ -56,9 +56,14 @@ const guarantees = [
 
 const Expect = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [touchedCard, setTouchedCard] = useState<string | null>(null);
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const toggleCardTouch = (title: string) => {
+    setTouchedCard(touchedCard === title ? null : title);
   };
 
   return (
@@ -79,9 +84,18 @@ const Expect = () => {
           {expectCards.map((card) => (
             <div
               key={card.title}
-              className="group border border-[#FED65E] rounded-2xl bg-[#4C12BF] p-6 flex flex-col items-center text-center min-h-[300px] shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-all duration-300 transform-gpu hover:scale-[1.03] hover:bg-[#3A0F90] hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)] hover:border-[#FFE28A] active:scale-[1.03] active:bg-[#3A0F90] active:shadow-[0_18px_45px_rgba(0,0,0,0.35)] active:border-[#FFE28A]"
+              onClick={() => toggleCardTouch(card.title)}
+              className={`group border border-[#FED65E] rounded-2xl bg-[#4C12BF] p-6 flex flex-col items-center text-center min-h-[300px] shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-all duration-300 transform-gpu hover:scale-[1.03] hover:bg-[#3A0F90] hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)] hover:border-[#FFE28A] active:scale-[1.03] active:bg-[#3A0F90] active:shadow-[0_18px_45px_rgba(0,0,0,0.35)] active:border-[#FFE28A] ${
+                touchedCard === card.title
+                  ? "scale-[1.03] bg-[#3A0F90] shadow-[0_18px_45px_rgba(0,0,0,0.35)] border-[#FFE28A]"
+                  : ""
+              }`}
             >
-              <div className="w-24 h-24 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105 group-active:scale-105">
+              <div
+                className={`w-24 h-24 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105 group-active:scale-105 ${
+                  touchedCard === card.title ? "scale-105" : ""
+                }`}
+              >
                 <img
                   src={card.icon}
                   alt={card.title}
@@ -93,7 +107,11 @@ const Expect = () => {
               <p className="text-sm text-purple-100 mt-2 mb-6">
                 {card.description}
               </p>
-              <button className="mt-auto bg-[#FED65E] text-[#4C12BF] w-full py-2 rounded-md text-sm font-semibold transition-colors group-hover:bg-yellow-300 group-active:bg-yellow-300">
+              <button
+                className={`mt-auto bg-[#FED65E] text-[#4C12BF] w-full py-2 rounded-md text-sm font-semibold transition-colors group-hover:bg-yellow-300 group-active:bg-yellow-300 ${
+                  touchedCard === card.title ? "bg-yellow-300" : ""
+                }`}
+              >
                 See more
               </button>
             </div>

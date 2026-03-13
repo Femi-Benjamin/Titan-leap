@@ -123,6 +123,63 @@ const servicesData = [
   },
 ];
 
+const itemDetails: Record<string, string[]> = {
+  "Strategy and Brand Positioning": [
+    "We map the market, your competitors, and where you can win immediately.",
+    "Define audience psychology so messaging hits the right pain points.",
+    "Craft a clear value proposition with positioning you can defend.",
+    "Align voice, content themes, and creative angles to your brand.",
+  ],
+  "Funnel Design & Conversion Systems": [
+    "We design landing and sales pages that guide visitors to a single action.",
+    "Create opt-in offers that capture leads with a strong value exchange.",
+    "Build VSL and booking funnels that qualify and convert.",
+    "Set up follow-up sequences that nurture and close.",
+  ],
+  "Paid Advertising (Performance Marketing)": [
+    "Testing frameworks identify winners fast.",
+    "Copy and hooks are built to stop the scroll and drive clicks.",
+    "UGC, motion, and static creatives are tailored to each channel.",
+    "Daily optimization keeps efficiency and scaling on track.",
+  ],
+  "Content Creation": [
+    "Short-form videos are scripted and produced for reach and retention.",
+    "Motion ads are designed to communicate fast and clearly.",
+    "Brand stories build authority and trust.",
+    "Long-form content is created when it supports conversion.",
+  ],
+  "Social Media Management": [
+    "Content calendars are planned around your goals and launch cycles.",
+    "Captions and CTAs drive engagement and clicks.",
+    "Platform-specific growth tactics are applied for each channel.",
+    "Engagement improves through community and comment strategy.",
+  ],
+  "AI Automation & Growth Agents": [
+    "Posting and repurposing are automated across channels.",
+    "Lead qualification flows save sales time.",
+    "CRM automations reduce manual follow-up.",
+    "Tracking is centralized so performance is always visible.",
+  ],
+  "SEO & Authority Building": [
+    "Content clusters build topical authority.",
+    "Keywords, structure, and on-page signals are optimized.",
+    "Authority assets earn trust and links.",
+    "Speed, UX, and technical performance are improved.",
+  ],
+  "Sales System": [
+    "A funnel moves leads to calls efficiently.",
+    "Landing pages stay focused on conversion and clarity.",
+    "Booking flows reduce no-shows.",
+    "Sales enablement is supported with scripts and playbooks.",
+  ],
+  "Email Marketing Engine": [
+    "Lists grow with opt-ins that attract the right buyers.",
+    "Welcome flows set expectations and convert.",
+    "Nurture campaigns build trust over time.",
+    "Sequences are automated for retention and repeat purchases.",
+  ],
+};
+
 interface ServiceBlockProps {
   service: (typeof servicesData)[0];
   index: number;
@@ -208,8 +265,8 @@ const ServiceBlock: React.FC<ServiceBlockProps> = ({ service, index, id }) => {
               >
                 <div className="overflow-hidden">
                   <p className="text-gray-400 text-sm">
-                    Detailed execution plan and deliverables included in the{" "}
-                    {item} package, tailored to your business goals.
+                    {(itemDetails[service.title] || [])[idx] ||
+                      "Detailed execution plan and deliverables tailored to your business goals."}
                   </p>
                 </div>
               </div>
