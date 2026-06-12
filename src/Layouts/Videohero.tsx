@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import clientcall from "../assets/clientcall.mp4";
-
-interface HeroProps {
-  onOpenAudit: () => void;
-}
 
 // Detect Safari/iOS to disable heavy parallax (causes jank on iOS WebKit)
 const isSafari = () => {
@@ -15,7 +12,8 @@ const isSafari = () => {
   );
 };
 
-const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
+const Hero: React.FC = () => {
+  const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const isSafariBrowser = useRef(false);
 
@@ -150,7 +148,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenAudit }) => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={onOpenAudit}
+            onClick={() => navigate("/audit")}
             className="px-10 md:px-60 py-3 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-[#FED65E] font-bold rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all transform border border-white/20"
           >
             Get a Free Funnel Audit

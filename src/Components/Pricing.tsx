@@ -1,11 +1,11 @@
 ﻿"use client";
 import type React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Check, Gift } from "lucide-react";
 import StripeCheckout from "./StripeCheckout";
 import { motion, AnimatePresence } from "framer-motion";
 // import gift from "../assets/gift.png";
-import AuditModal from "./AuditModal";
 interface Plan {
   title: string;
   subtitle: string;
@@ -18,13 +18,13 @@ interface Plan {
 }
 
 const PricingPage: React.FC = () => {
+  const navigate = useNavigate();
   const [billingType, setBillingType] = useState<"Annual" | "Monthly">(
     "Monthly",
   );
   const [selectedPlan, setSelectedPlan] = useState<string>("Scaling System");
   const [showModal, setShowModal] = useState(false);
   const [showStripeCheckout, setShowStripeCheckout] = useState(false);
-  const [showAuditModal, setShowAuditModal] = useState(false);
   const [expandedFeatures, setExpandedFeatures] = useState(false);
   const [expandedCards, setExpandedCards] = useState<{
     [key: string]: boolean;
@@ -795,7 +795,7 @@ const PricingPage: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div
           className="relative flex justify-center w-full rounded-[30px] overflow-hidden mb-20 cursor-pointer group mt-20"
-          onClick={() => setShowAuditModal(true)}
+          onClick={() => navigate("/audit")}
         >
           {/* Background Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#2e1065] via-[#4c1d95] to-[#2e1065] opacity-90"></div>
@@ -1044,12 +1044,6 @@ const PricingPage: React.FC = () => {
           </motion.div>
         </div>
       )}
-
-      {/* Audit Modal */}
-      <AuditModal
-        isOpen={showAuditModal}
-        onClose={() => setShowAuditModal(false)}
-      />
     </div>
   );
 };

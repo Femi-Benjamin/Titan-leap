@@ -11,6 +11,7 @@ const Portfolio = lazy(() => import("./Pages/Portfolio"));
 const Services = lazy(() => import("./Pages/Services"));
 const Pricing = lazy(() => import("./Pages/Pricing"));
 const Contacts = lazy(() => import("./Pages/Contacts"));
+const AuditModal = lazy(() => import("./Components/AuditModal"));
 const AuditAdmin = lazy(() => import("./Pages/AuditAdmin"));
 const PrivacyPolicy = lazy(() => import("./Pages/PrivacyPolicy"));
 const TermsAndConditions = lazy(() => import("./Pages/TermsAndConditions"));
@@ -186,6 +187,14 @@ function App() {
           element={
             <Suspense fallback={<RouteFallback />}>
               <Contacts />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/audit"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <AuditModal />
             </Suspense>
           }
         />

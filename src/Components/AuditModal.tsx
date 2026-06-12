@@ -1,670 +1,600 @@
 import React, { useState } from "react";
-import { Check, X, ChevronLeft } from "lucide-react";
-import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+import Logo from "../assets/Logo.png";
 
-const scrollbarStyles = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-`;
+const AuditModal: React.FC = () => {
+  const navigate = useNavigate();
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [answers, setAnswers] = useState<Record<string, string>>({
+    a1: "",
+    a2: "",
+    a3: "",
+    a4: "",
+    a5: "",
+    a6: "",
+  });
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
 
-interface AuditModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const initialFormData = {
-  business_name: "",
-  website: "",
-  industry: "",
-  main_product: "",
-  target_customer: "",
-  instagram_link: "",
-  facebook_link: "",
-  tiktok_link: "",
-  twitter_link: "",
-  funnel_page_link: "",
-  booking_link: "",
-  lead_destination: "",
-  contact_method: "",
-  response_time: "",
-  closing_method: "",
-  revenue_goal: "",
-  bottleneck: "",
-};
-
-type FormData = typeof initialFormData;
-type FormField = keyof FormData;
-
-const steps = [
-  { id: 1, label: "Basic Business Info" },
-  { id: 2, label: "Social Media links" },
-  { id: 3, label: "Funnel & Lead Flow (Website links)" },
-  { id: 4, label: "Sales Process" },
-  { id: 5, label: "Goals (Short Answers)" },
-];
-
-const requiredFieldsByStep: Record<number, FormField[]> = {
-  1: [
-    "business_name",
-    "website",
-    "industry",
-    "main_product",
-    "target_customer",
-  ],
-  2: ["instagram_link", "facebook_link", "tiktok_link", "twitter_link"],
-  3: ["funnel_page_link", "booking_link", "lead_destination"],
-  4: ["contact_method", "response_time", "closing_method"],
-  5: ["revenue_goal", "bottleneck"],
-};
-
-const fieldLabels: Record<FormField, string> = {
-  business_name: "Business name",
-  website: "Website",
-  industry: "Industry / niche",
-  main_product: "Main product or service",
-  target_customer: "Target customer",
-  instagram_link: "Instagram link",
-  facebook_link: "Facebook link",
-  tiktok_link: "TikTok link",
-  twitter_link: "X (Twitter) link",
-  funnel_page_link: "Landing page / Website link",
-  booking_link: "Lead form / Booking link",
-  lead_destination: "Lead destination",
-  contact_method: "Contact method",
-  response_time: "Average response time",
-  closing_method: "Closing method",
-  revenue_goal: "Revenue goal",
-  bottleneck: "Biggest bottleneck",
-};
-
-const AuditModal: React.FC<AuditModalProps> = ({ isOpen, onClose }) => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [fieldErrors, setFieldErrors] = useState<
-    Partial<Record<FormField, string>>
-  >({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    const fieldName = name as FormField;
-
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    setFieldErrors((prev) => {
-      if (!prev[fieldName]) return prev;
-      const updatedErrors = { ...prev };
-      delete updatedErrors[fieldName];
-      return updatedErrors;
-    });
-
-    if (submitError) {
-      setSubmitError(null);
+  const handleInputChange = (fieldId: string, value: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [fieldId]: value,
+    }));
+    if (errors[fieldId]) {
+      setErrors((prev) => ({
+        ...prev,
+        [fieldId]: false,
+      }));
     }
   };
 
-  const validateCurrentStep = () => {
-    const fieldsForStep = requiredFieldsByStep[currentStep] ?? [];
-    const nextErrors: Partial<Record<FormField, string>> = {};
-
-    for (const field of fieldsForStep) {
-      if (!formData[field].trim()) {
-        nextErrors[field] = `${fieldLabels[field]} is required`;
-      }
+  const selectRev = (value: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      a2: value,
+    }));
+    if (errors.a2) {
+      setErrors((prev) => ({
+        ...prev,
+        a2: false,
+      }));
     }
-
-    setFieldErrors((prev) => {
-      const updatedErrors = { ...prev };
-      for (const field of fieldsForStep) {
-        delete updatedErrors[field];
-      }
-      return { ...updatedErrors, ...nextErrors };
-    });
-
-    return Object.keys(nextErrors).length === 0;
   };
 
-  const handleNext = async () => {
-    if (!validateCurrentStep()) return;
+  const validateQuestion = (qNum: number) => {
+    const fieldId = `a${qNum}`;
+    if (!answers[fieldId] || answers[fieldId].trim() === "") {
+      setErrors((prev) => ({
+        ...prev,
+        [fieldId]: true,
+      }));
+      return false;
+    }
+    return true;
+  };
 
-    if (currentStep < steps.length) {
-      setCurrentStep((prev) => prev + 1);
-      setSubmitError(null);
-    } else {
-      setIsSubmitting(true);
-      setSubmitError(null);
-      const { error } = await supabase
-        .from("audit_submissions")
-        .insert([formData]);
-      setIsSubmitting(false);
+  const next = (qNum: number) => {
+    if (validateQuestion(qNum)) {
+      setCurrentQuestion(Math.min(qNum + 1, 7));
+      setErrors({});
+    }
+  };
 
-      if (!error) {
-        setShowSuccessModal(true);
-        setFieldErrors({});
-        setFormData(initialFormData);
+  const back = (qNum: number) => {
+    setCurrentQuestion(Math.max(qNum - 1, 1));
+    setErrors({});
+  };
+
+  const handleSubmit = async () => {
+    const allValid = [1, 2, 3, 4, 5, 6].every((q) => {
+      const fieldId = `a${q}`;
+      return answers[fieldId] && answers[fieldId].trim() !== "";
+    });
+
+    if (!allValid) {
+      alert("Please fill in all fields before submitting.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/audit-submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(answers),
+      });
+
+      if (response.ok) {
+        setCurrentQuestion(8);
       } else {
-        console.error("Error submitting audit:", error);
-        // Keep success UX available during testing even if persistence fails.
-        setShowSuccessModal(true);
-        setFieldErrors({});
-        setFormData(initialFormData);
-        setSubmitError(null);
+        alert("Failed to submit audit. Please try again.");
       }
+    } catch (error) {
+      console.error("Error submitting audit:", error);
+      alert("Error submitting audit. Please try again.");
     }
   };
 
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+  const handleClose = () => {
+    setCurrentQuestion(1);
+    setAnswers({
+      a1: "",
+      a2: "",
+      a3: "",
+      a4: "",
+      a5: "",
+      a6: "",
+    });
+    setErrors({});
+    navigate("/");
   };
-
-  const handleCloseSuccess = () => {
-    setShowSuccessModal(false);
-    onClose();
-    setCurrentStep(1);
-    setSubmitError(null);
-  };
-
-  const getFieldClassName = (field: FormField, isTextarea = false) =>
-    `w-full bg-transparent border-b-2 pb-3 text-white text-base outline-none transition-colors ${
-      isTextarea ? "resize-none" : ""
-    } ${
-      fieldErrors[field]
-        ? "border-red-300 focus:border-red-200"
-        : "border-white/20 focus:border-[#FFD646]"
-    }`;
-
-  const renderFieldError = (field: FormField) => {
-    const message = fieldErrors[field];
-    if (!message) return null;
-    return <p className="text-red-100 text-sm mt-2">{message}</p>;
-  };
-
-  const renderSidebarItem = (step: { id: number; label: string }) => {
-    const isCompleted = currentStep > step.id;
-    const isActive = currentStep === step.id;
-
-    return (
-      <div key={step.id} className="flex items-center gap-3">
-        {isCompleted ? (
-          <div className="w-6 h-6 rounded-full bg-[#4c1d95] flex items-center justify-center text-white shrink-0">
-            <Check size={14} strokeWidth={4} />
-          </div>
-        ) : isActive ? (
-          <div className="w-6 h-6 rounded-full bg-[#4c1d95] flex items-center justify-center shrink-0 text-white">
-            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-          </div>
-        ) : (
-          <div className="w-6 h-6 rounded-full border-2 border-[#4c1d95] flex items-center justify-center shrink-0"></div>
-        )}
-        <span
-          className={`text-sm ${isActive || isCompleted ? "font-bold text-[#4c1d95]" : "font-medium text-[#4c1d95]/70"} leading-tight`}
-        >
-          {step.label}
-        </span>
-      </div>
-    );
-  };
-
-  const renderFormContent = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
-              Basic Business Info
-            </h2>
-            <div className="space-y-5 sm:space-y-6">
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Business name *
-                </label>
-                <input
-                  name="business_name"
-                  value={formData.business_name}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("business_name")}
-                />
-                {renderFieldError("business_name")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Website (or landing page) *
-                </label>
-                <input
-                  name="website"
-                  value={formData.website}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("website")}
-                />
-                {renderFieldError("website")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Industry / niche *
-                </label>
-                <input
-                  name="industry"
-                  value={formData.industry}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("industry")}
-                />
-                {renderFieldError("industry")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Main product or service *
-                </label>
-                <input
-                  name="main_product"
-                  value={formData.main_product}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("main_product")}
-                />
-                {renderFieldError("main_product")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Target customer *
-                </label>
-                <input
-                  name="target_customer"
-                  value={formData.target_customer}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("target_customer")}
-                />
-                {renderFieldError("target_customer")}
-              </div>
-            </div>
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
-              Social Media Links
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Instagram link *
-                </label>
-                <input
-                  name="instagram_link"
-                  value={formData.instagram_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("instagram_link")}
-                />
-                {renderFieldError("instagram_link")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Facebook link *
-                </label>
-                <input
-                  name="facebook_link"
-                  value={formData.facebook_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("facebook_link")}
-                />
-                {renderFieldError("facebook_link")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  TikTok link *
-                </label>
-                <input
-                  name="tiktok_link"
-                  value={formData.tiktok_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("tiktok_link")}
-                />
-                {renderFieldError("tiktok_link")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  X (Twitter) link *
-                </label>
-                <input
-                  name="twitter_link"
-                  value={formData.twitter_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("twitter_link")}
-                />
-                {renderFieldError("twitter_link")}
-              </div>
-            </div>
-          </>
-        );
-      case 3:
-        return (
-          <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
-              Funnel & Lead Flow
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Landing page / Website link *
-                </label>
-                <input
-                  name="funnel_page_link"
-                  value={formData.funnel_page_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("funnel_page_link")}
-                />
-                {renderFieldError("funnel_page_link")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Lead form / Booking link *
-                </label>
-                <input
-                  name="booking_link"
-                  value={formData.booking_link}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("booking_link")}
-                />
-                {renderFieldError("booking_link")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Where leads go now (email, WhatsApp, nothing) *
-                </label>
-                <input
-                  name="lead_destination"
-                  value={formData.lead_destination}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("lead_destination")}
-                />
-                {renderFieldError("lead_destination")}
-              </div>
-            </div>
-          </>
-        );
-      case 4:
-        return (
-          <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
-              Sales Process
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  How leads are currently contacted *
-                </label>
-                <input
-                  name="contact_method"
-                  value={formData.contact_method}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("contact_method")}
-                />
-                {renderFieldError("contact_method")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  Average response time *
-                </label>
-                <input
-                  name="response_time"
-                  value={formData.response_time}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("response_time")}
-                />
-                {renderFieldError("response_time")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  How sales are closed (DMs, calls, checkout) *
-                </label>
-                <input
-                  name="closing_method"
-                  value={formData.closing_method}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("closing_method")}
-                />
-                {renderFieldError("closing_method")}
-              </div>
-            </div>
-          </>
-        );
-      case 5:
-        return (
-          <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">
-              Goals (Short Answers)
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  What is your primary revenue goal for the next 90 days? *
-                </label>
-                <input
-                  name="revenue_goal"
-                  value={formData.revenue_goal}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className={getFieldClassName("revenue_goal")}
-                />
-                {renderFieldError("revenue_goal")}
-              </div>
-              <div className="group relative">
-                <label className="block text-sm font-bold text-white mb-3">
-                  What is the biggest bottleneck stopping you from growing right
-                  now? *
-                </label>
-                <textarea
-                  name="bottleneck"
-                  value={formData.bottleneck}
-                  onChange={handleChange}
-                  rows={4}
-                  required
-                  className={getFieldClassName("bottleneck", true)}
-                />
-                {renderFieldError("bottleneck")}
-              </div>
-            </div>
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
-  if (!isOpen) return null;
 
   return (
-    <>
-      <style>{scrollbarStyles}</style>
-      <div className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center overflow-y-auto">
-        {/* Backdrop */}
-        <div
-          className="fixed inset-0 bg-[#1a0b3c]/80 backdrop-blur-md transition-opacity"
-          onClick={onClose}
-        />
+    <div className="fixed inset-0 z-50 h-screen w-screen overflow-y-auto bg-[#06030D]">
+      <div className="min-h-screen w-full px-4 py-8 md:px-8">
+        <div className="relative flex min-h-[calc(100vh-4rem)] w-full flex-col bg-[#06030D]">
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 z-10 text-purple-300 hover:text-white transition-colors"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
 
-        <div className="relative z-10 w-full min-h-screen sm:min-h-0 sm:max-w-6xl flex flex-col gap-0 sm:gap-4 md:gap-6 sm:m-4 md:m-6 animate-[fade-in-up_0.3s_ease-out]">
-          {/* Mobile Progress Bar */}
-          <div className="sm:hidden bg-white px-4 py-4 sticky top-0 z-20 shadow-md">
-            <div className="flex items-center justify-between mb-3">
-              <button
-                onClick={onClose}
-                className="text-[#4c1d95] hover:text-[#6d28d9] transition-colors p-2 -ml-2"
-              >
-                <X size={24} />
-              </button>
-              <span className="text-sm font-bold text-[#4c1d95]">
-                Step {currentStep} of {steps.length}
-              </span>
-              <div className="w-8"></div>
-            </div>
-            <div className="flex gap-2">
-              {steps.map((step) => (
-                <div
-                  key={step.id}
-                  className={`h-1.5 flex-1 rounded-full transition-colors ${
-                    currentStep >= step.id ? "bg-[#4c1d95]" : "bg-gray-200"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-0 sm:gap-4 md:gap-6 flex-1">
-            {/* Sidebar - Desktop Only */}
-            <div className="hidden sm:block w-full sm:w-64 md:w-80 sm:h-[700px] bg-white rounded-none sm:rounded-3xl p-6 md:p-8 shadow-2xl shrink-0 overflow-hidden">
-              <h3 className="text-[#4c1d95] font-bold text-lg md:text-xl mb-6 md:mb-8">
-                Intake Checklist
-              </h3>
-              <div className="space-y-5 md:space-y-6">
-                {steps.map((step) => renderSidebarItem(step))}
+          <div className="mx-auto w-full max-w-4xl p-8">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center mb-4">
+                <img src={Logo} alt="TitanLeap Logo" className="w-32" />
               </div>
-            </div>
-
-            {/* Main Form Area */}
-            <div className="flex-1 w-full sm:h-[700px] bg-[#4c1d95] rounded-none sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl border-0 sm:border sm:border-white/10 relative min-h-[calc(100vh-80px)] sm:min-h-0 flex flex-col overflow-hidden">
-              {/* Close button - Desktop Only */}
-              <button
-                onClick={onClose}
-                className="hidden sm:block absolute top-4 md:top-6 right-4 md:right-6 text-white/50 hover:text-white transition-colors p-2"
+              <div className="inline-flex items-center gap-2 bg-purple-900/30 border border-purple-500/20 px-3 py-1.5 rounded text-xs text-yellow-400 mb-4">
+                <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse" />
+                Revenue Leak Audit — Intake Form
+              </div>
+              <h1
+                className="text-3xl font-bold text-white mb-2"
+                style={{ fontFamily: "Archivo" }}
               >
-                <X size={24} />
-              </button>
-
-              <form
-                className="flex-1 flex flex-col"
-                onSubmit={(e) => e.preventDefault()}
+                Tell us about your
+                <br />
+                business. We'll find
+                <br />
+                the <span className="text-yellow-400">leaks.</span>
+              </h1>
+              <p
+                className="text-sm text-purple-300/70 max-w-xs mx-auto"
+                style={{ fontFamily: "Archivo" }}
               >
-                {/* Scrollable content area */}
-                <div className="flex-1 overflow-y-auto -mx-6 px-6 sm:mx-0 sm:px-0 pb-6 custom-scrollbar">
-                  {renderFormContent()}
-                </div>
+                This takes <strong>5 minutes</strong>. The more specific you
+                are, the more specific your diagnosis. We'll have your audit
+                ready within 48 hours.
+              </p>
 
-                {/* Fixed bottom navigation */}
-                <div className="sticky bottom-0 -mx-6 px-6 sm:mx-0 sm:px-0 bg-[#4c1d95] pt-6 pb-2 sm:pb-0 mt-6 border-t border-white/10">
-                  {submitError && (
-                    <p className="text-sm text-red-100 font-medium mb-4">
-                      {submitError}
-                    </p>
-                  )}
-
-                  <div className="flex justify-between items-center gap-3">
-                    {currentStep > 1 ? (
-                      <button
-                        type="button"
-                        onClick={handleBack}
-                        className="flex items-center gap-2 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 rounded-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 active:bg-white/20 transition-colors shadow-lg min-h-[48px]"
-                      >
-                        <ChevronLeft size={20} className="sm:hidden" />
-                        <span>Back</span>
-                      </button>
-                    ) : (
-                      <div className="min-h-[48px] invisible"></div>
-                    )}
-
-                    <button
-                      type="button"
-                      disabled={isSubmitting}
-                      onClick={handleNext}
-                      className="bg-[#FFD646] text-black px-8 sm:px-12 md:px-16 py-3 sm:py-3.5 rounded-lg font-bold hover:bg-yellow-300 active:bg-yellow-400 transition-colors shadow-lg min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {currentStep === steps.length ? (isSubmitting ? "Submitting..." : "Submit") : "Next"}
-                    </button>
+              {currentQuestion < 8 && (
+                <div className="flex items-center justify-between gap-4 mt-6 bg-purple-900/20 border border-purple-500/20 rounded px-4 py-3">
+                  <span
+                    className="text-xs text-purple-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Question {Math.min(currentQuestion, 6)} of 6
+                  </span>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div
+                        key={i}
+                        className={`h-1 w-6 rounded transition-all ${
+                          i < currentQuestion
+                            ? "bg-yellow-400"
+                            : i === currentQuestion
+                              ? "bg-purple-500"
+                              : "bg-purple-900/40"
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
-              </form>
+              )}
             </div>
+
+            {currentQuestion === 1 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 1 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    What does your product do and who is it for?
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Be specific. "B2B SaaS for marketing agencies that automates
+                    client reporting" is better than "a marketing tool."
+                  </p>
+                </div>
+                <textarea
+                  value={answers.a1}
+                  onChange={(e) => handleInputChange("a1", e.target.value)}
+                  placeholder="e.g. We build project management software for remote design teams..."
+                  className="w-full bg-purple-900/20 border border-purple-500/30 rounded px-4 py-3 text-white placeholder-purple-400/50 focus:border-purple-500 focus:outline-none resize-none min-h-32"
+                  style={{ fontFamily: "Archivo" }}
+                />
+                {errors.a1 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please tell us about your product before continuing.
+                  </p>
+                )}
+                <div className="flex justify-end gap-3 mt-6">
+                  <button
+                    onClick={() => next(1)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 2 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 2 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Where are you right now with revenue?
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Be honest — this helps us calibrate the audit to your stage.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    "Pre-revenue",
+                    "Under $1k/mo",
+                    "$1k–$5k/mo",
+                    "$5k–$15k/mo",
+                    "$15k–$50k/mo",
+                    "Over $50k/mo",
+                  ].map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => selectRev(opt)}
+                      className={`py-2 px-3 rounded text-sm font-semibold transition-all ${
+                        answers.a2 === opt
+                          ? "bg-yellow-400/20 border border-yellow-400 text-yellow-400"
+                          : "bg-purple-900/20 border border-purple-500/30 text-purple-300/70 hover:border-purple-500"
+                      }`}
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+                {errors.a2 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please select your current revenue stage.
+                  </p>
+                )}
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    onClick={() => back(2)}
+                    className="text-purple-300 hover:text-white font-semibold py-2 px-6 text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={() => next(2)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 3 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 3 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    How does someone go from stranger to paying customer?
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Walk us through the steps. Where do they find you, what do
+                    they do next, where do they drop off?
+                  </p>
+                </div>
+                <textarea
+                  value={answers.a3}
+                  onChange={(e) => handleInputChange("a3", e.target.value)}
+                  placeholder="e.g. They find us through Google ads → land on our homepage → sign up for a free trial..."
+                  className="w-full bg-purple-900/20 border border-purple-500/30 rounded px-4 py-3 text-white placeholder-purple-400/50 focus:border-purple-500 focus:outline-none resize-none min-h-32"
+                  style={{ fontFamily: "Archivo" }}
+                />
+                {errors.a3 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please describe your funnel before continuing.
+                  </p>
+                )}
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    onClick={() => back(3)}
+                    className="text-purple-300 hover:text-white font-semibold py-2 px-6 text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={() => next(3)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 4 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 4 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Where do you think the biggest leak is?
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Your gut instinct. Even if you're not sure — what feels most
+                    broken right now?
+                  </p>
+                </div>
+                <textarea
+                  value={answers.a4}
+                  onChange={(e) => handleInputChange("a4", e.target.value)}
+                  placeholder="e.g. I think people are dropping off between the free trial and the paid conversion..."
+                  className="w-full bg-purple-900/20 border border-purple-500/30 rounded px-4 py-3 text-white placeholder-purple-400/50 focus:border-purple-500 focus:outline-none resize-none min-h-32"
+                  style={{ fontFamily: "Archivo" }}
+                />
+                {errors.a4 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please share your instinct before continuing.
+                  </p>
+                )}
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    onClick={() => back(4)}
+                    className="text-purple-300 hover:text-white font-semibold py-2 px-6 text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={() => next(4)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 5 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 5 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    What's your biggest priority for the next 90 days?
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Revenue, conversions, traffic, retention? Whatever would
+                    have the biggest impact on your business.
+                  </p>
+                </div>
+                <textarea
+                  value={answers.a5}
+                  onChange={(e) => handleInputChange("a5", e.target.value)}
+                  placeholder="e.g. We need to increase our trial-to-paid conversion rate from 8% to 15%..."
+                  className="w-full bg-purple-900/20 border border-purple-500/30 rounded px-4 py-3 text-white placeholder-purple-400/50 focus:border-purple-500 focus:outline-none resize-none min-h-32"
+                  style={{ fontFamily: "Archivo" }}
+                />
+                {errors.a5 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please share your priority before continuing.
+                  </p>
+                )}
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    onClick={() => back(5)}
+                    className="text-purple-300 hover:text-white font-semibold py-2 px-6 text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={() => next(5)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 6 && (
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-px bg-yellow-400 w-4" />
+                    <span
+                      className="text-xs text-yellow-400 tracking-widest"
+                      style={{ fontFamily: "Archivo" }}
+                    >
+                      QUESTION 6 OF 6
+                    </span>
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-white mb-2"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    What's your email? We'll send your audit there.
+                  </h2>
+                  <p
+                    className="text-sm text-purple-300/70 mb-4"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Check your spam folder just in case. We'll have your full
+                    audit within 48 hours.
+                  </p>
+                </div>
+                <input
+                  type="email"
+                  value={answers.a6}
+                  onChange={(e) => handleInputChange("a6", e.target.value)}
+                  placeholder="your@email.com"
+                  className="w-full bg-purple-900/20 border border-purple-500/30 rounded px-4 py-3 text-white placeholder-purple-400/50 focus:border-purple-500 focus:outline-none"
+                  style={{ fontFamily: "Archivo" }}
+                />
+                {errors.a6 && (
+                  <p
+                    className="text-xs text-red-400"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Please enter your email before submitting.
+                  </p>
+                )}
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    onClick={() => back(6)}
+                    className="text-purple-300 hover:text-white font-semibold py-2 px-6 text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={handleSubmit}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-6 rounded text-sm transition-all"
+                    style={{ fontFamily: "Archivo" }}
+                  >
+                    Submit →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion === 8 && (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-green-500/20 border-2 border-green-500/40 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="text-3xl">✓</span>
+                </div>
+                <h2
+                  className="text-2xl font-bold text-white mb-3"
+                  style={{ fontFamily: "Archivo" }}
+                >
+                  Thank You!
+                </h2>
+                <p
+                  className="text-purple-300/70 mb-6"
+                  style={{ fontFamily: "Archivo" }}
+                >
+                  Your audit intake form has been submitted. We'll have your
+                  full revenue leak audit ready within 48 hours and send it
+                  directly to your email.
+                </p>
+                <p
+                  className="text-sm text-purple-400/70 mb-6"
+                  style={{ fontFamily: "Archivo" }}
+                >
+                  In the meantime, check out our resources or explore our other
+                  services.
+                </p>
+                <button
+                  onClick={handleClose}
+                  className="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-2 px-8 rounded text-sm transition-all"
+                  style={{ fontFamily: "Archivo" }}
+                >
+                  Close
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
-
-      {/* Success Modal */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={handleCloseSuccess}
-          />
-
-          {/* Success Modal Content */}
-          <div className="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl max-w-md w-full text-center animate-[fade-in-up_0.3s_ease-out]">
-            {/* Success Icon */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-              <Check
-                size={32}
-                strokeWidth={3}
-                className="text-white sm:w-10 sm:h-10"
-              />
-            </div>
-
-            {/* Success Message */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4c1d95] mb-3 sm:mb-4">
-              Congratulations!
-            </h2>
-            <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">
-              Your audit has been submitted and will be ready in 24 hours.
-            </p>
-
-            {/* Close Button */}
-            <button
-              onClick={handleCloseSuccess}
-              className="bg-[#FFD646] text-black px-10 sm:px-12 py-3 sm:py-3.5 rounded-lg font-bold hover:bg-yellow-300 active:bg-yellow-400 transition-colors shadow-lg min-h-[48px] w-full sm:w-auto"
-            >
-              Done
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
